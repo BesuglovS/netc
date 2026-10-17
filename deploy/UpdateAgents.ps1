@@ -90,7 +90,7 @@ try { $refCore = (Get-FileHash (Join-Path $src 'NetcServer.Core.dll')).Hash.Subs
 $total = $targetList.Count
 $okCount = 0; $badCount = 0; $offline = 0
 $runStart = Get-Date
-$Write-NetcLog ("▶ Раскатка netc: ПК=$total, эталон agent.dll=$refAgent core.dll=$refCore")
+Write-NetcLog ("▶ Раскатка netc: ПК=$total, эталон agent.dll=$refAgent core.dll=$refCore")
 
 $idx = 0
 foreach ($ip in $targetList) {
