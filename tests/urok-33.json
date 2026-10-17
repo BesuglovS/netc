@@ -1,0 +1,142 @@
+{
+  "id": "46ad8882-e60b-5f29-b3de-64645b96a576",
+  "title": "Урок 33. JSON и CSV",
+  "questions": [
+    {
+      "text": "Что такое JSON?",
+      "kind": 0,
+      "options": [
+        "Язык программирования",
+        "Формат обмена данными (JavaScript Object Notation)",
+        "База данных",
+        "Библиотека Python"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "JSON (JavaScript Object Notation) — это лёгкий формат обмена данными, основанный на синтаксисе JavaScript."
+    },
+    {
+      "text": "Какой модуль Python используется для работы с JSON?",
+      "kind": 0,
+      "options": [
+        "json",
+        "csv",
+        "xml",
+        "pickle"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Модуль json предоставляет функции для кодирования и декодирования данных в формат JSON."
+    },
+    {
+      "text": "Что делает функция json.dumps()?",
+      "kind": 0,
+      "options": [
+        "Загружает JSON из файла",
+        "Преобразует Python-объект в JSON-строку",
+        "Парсит JSON-строку",
+        "Сохраняет JSON в файл"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "json.dumps() (dump string) сериализует Python-объект в строку формата JSON."
+    },
+    {
+      "text": "Что делает функция json.loads()?",
+      "kind": 0,
+      "options": [
+        "Преобразует Python-объект в JSON",
+        "Парсит JSON-строку в Python-объект",
+        "Загружает JSON из файла",
+        "Сохраняет данные в JSON"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "json.loads() (load string) десериализует JSON-строку в Python-объект (словарь, список и т.д.)."
+    },
+    {
+      "text": "Какой тип данных Python соответствует JSON-массиву?",
+      "kind": 0,
+      "options": [
+        "Кортеж",
+        "Множество",
+        "Список",
+        "Словарь"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "JSON-массиву (в квадратных скобках) соответствует список (list) в Python."
+    },
+    {
+      "text": "Какой тип данных Python соответствует JSON-объекту?",
+      "kind": 0,
+      "options": [
+        "Список",
+        "Словарь",
+        "Кортеж",
+        "Строка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "JSON-объекту (в фигурных скобках) соответствует словарь (dict) в Python."
+    },
+    {
+      "text": "Что такое CSV?",
+      "kind": 0,
+      "options": [
+        "Формат с разделителями-запятыми (Comma-Separated Values)",
+        "Язык запросов",
+        "Тип базы данных",
+        "Библиотека Python"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "CSV — это формат представления табличных данных, где значения разделяются запятыми."
+    },
+    {
+      "text": "Какой модуль Python используется для работы с CSV?",
+      "kind": 0,
+      "options": [
+        "csv",
+        "json",
+        "excel",
+        "table"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Модуль csv предоставляет классы для чтения и записи данных в формате CSV."
+    },
+    {
+      "text": "Что делает csv.reader()?",
+      "kind": 0,
+      "options": [
+        "Записывает данные в CSV",
+        "Создаёт объект для чтения CSV-файла построчно",
+        "Преобразует CSV в JSON",
+        "Сортирует CSV-данные"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "csv.reader() возвращает итератор, который построчно читает CSV-файл, возвращая каждую строку как список."
+    },
+    {
+      "text": "Как записать список списков в CSV-файл?",
+      "kind": 0,
+      "options": [
+        "csv.write(data)",
+        "csv.writer().writerows(data)",
+        "csv.save(data)",
+        "csv.dump(data)"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "csv.writer().writerows(data) записывает несколько строк (каждая строка — список) в CSV-файл."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

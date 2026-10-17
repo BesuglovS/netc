@@ -1,0 +1,142 @@
+{
+  "id": "9fe21a7c-b3bc-5999-b541-5e202ff0fa82",
+  "title": "Урок 22. Создание простейших функций",
+  "questions": [
+    {
+      "text": "Что такое параметр функции?",
+      "kind": 0,
+      "options": [
+        "Имя функции",
+        "Возвращаемое значение",
+        "Переменная в определении функции, которой при вызове передаётся значение",
+        "Тип данных"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "Параметры — переменные в определении функции, которым при вызове передаются значения (аргументы)."
+    },
+    {
+      "text": "Что вернёт функция без return?",
+      "kind": 0,
+      "options": [
+        "Ошибка",
+        "None",
+        "0",
+        "False"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Если в функции нет return или он пустой, она неявно возвращает None."
+    },
+    {
+      "text": "Как объявить функцию в Python?",
+      "kind": 0,
+      "options": [
+        "func my_func():",
+        "define my_func():",
+        "function my_func():",
+        "def my_func():"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "Функции объявляются ключевым словом def: def имя_функции():"
+    },
+    {
+      "text": "Что выведет код?def add(a, b): return a + bprint(add(3, 4))",
+      "kind": 0,
+      "options": [
+        "7",
+        "3 + 4",
+        "34",
+        "Ошибка"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Функция add принимает два числа и возвращает их сумму: 3 + 4 = 7."
+    },
+    {
+      "text": "Что такое docstring?",
+      "kind": 0,
+      "options": [
+        "Имя функции",
+        "Строка документации функции в тройных кавычках",
+        "Тип данных",
+        "Список параметров"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Docstring — документационная строка сразу после def, доступна через help() и .__doc__."
+    },
+    {
+      "text": "Что выведет код?def do_nothing(): passprint(do_nothing())",
+      "kind": 0,
+      "options": [
+        "True",
+        "0",
+        "pass",
+        "None"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "Функция без return возвращает None. pass — пустой оператор, не влияет на возврат."
+    },
+    {
+      "text": "Что такое параметр по умолчанию?",
+      "kind": 0,
+      "options": [
+        "Параметр, который обязателен",
+        "Автоматический параметр",
+        "Параметр, который нельзя менять",
+        "Параметр со значением, используемым, если аргумент не передан"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "Параметры по умолчанию: def greet(name, greeting=\"Привет\"). Если greeting не указан, используется \"Привет\"."
+    },
+    {
+      "text": "Сколько аргументов можно передать функции, объявленной как def func(a, b, c):?",
+      "kind": 0,
+      "options": [
+        "1",
+        "Любое количество",
+        "3",
+        "2"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "Функция с тремя параметрами требует ровно 3 аргумента при вызове (если нет значений по умолчанию)."
+    },
+    {
+      "text": "Что выведет код?def square(x): return x ** 2print(square(5))",
+      "kind": 0,
+      "options": [
+        "25",
+        "Ошибка",
+        "5",
+        "10"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Функция возвращает квадрат числа: 5 ** 2 = 25."
+    },
+    {
+      "text": "Что выведет код?def multiply(a, b=2): return a * bprint(multiply(5))",
+      "kind": 0,
+      "options": [
+        "5",
+        "Ошибка",
+        "10",
+        "52"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "b имеет значение по умолчанию 2. multiply(5) = 5 * 2 = 10."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

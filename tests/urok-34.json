@@ -1,0 +1,142 @@
+{
+  "id": "126238a4-9d60-5d0b-900b-6ee0bc563d9d",
+  "title": "Урок 34. Базы данных SQLite",
+  "questions": [
+    {
+      "text": "Что такое SQLite?",
+      "kind": 0,
+      "options": [
+        "Клиент-серверная СУБД",
+        "Лёгкая встраиваемая реляционная база данных",
+        "Язык программирования",
+        "Библиотека для графиков"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "SQLite — это встраиваемая реляционная база данных, не требующая отдельного сервера."
+    },
+    {
+      "text": "Какой модуль Python используется для работы с SQLite?",
+      "kind": 0,
+      "options": [
+        "mysql",
+        "sqlite3",
+        "postgresql",
+        "database"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Модуль sqlite3 входит в стандартную библиотеку Python и позволяет работать с базами данных SQLite."
+    },
+    {
+      "text": "Что делает функция sqlite3.connect()?",
+      "kind": 0,
+      "options": [
+        "Устанавливает соединение с базой данных",
+        "Создаёт таблицу",
+        "Выполняет SQL-запрос",
+        "Закрывает базу данных"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "sqlite3.connect(path) создаёт соединение с файлом базы данных. Если файл не существует — он будет создан."
+    },
+    {
+      "text": "Как выполнить SQL-запрос в SQLite?",
+      "kind": 0,
+      "options": [
+        "db.query(sql)",
+        "cursor.execute(sql)",
+        "db.run(sql)",
+        "cursor.exec(sql)"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "cursor.execute(sql) выполняет SQL-запрос. Предварительно нужно получить курсор через connection.cursor()."
+    },
+    {
+      "text": "Что делает метод cursor.fetchall()?",
+      "kind": 0,
+      "options": [
+        "Возвращает одну строку результата",
+        "Возвращает все строки результата запроса",
+        "Удаляет все строки",
+        "Сохраняет изменения"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "fetchall() возвращает список всех строк, полученных в результате SELECT-запроса."
+    },
+    {
+      "text": "Что делает connection.commit()?",
+      "kind": 0,
+      "options": [
+        "Отменяет изменения",
+        "Закрывает соединение",
+        "Сохраняет (фиксирует) изменения в базе данных",
+        "Выполняет запрос"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "commit() фиксирует транзакцию, сохраняя все изменения, сделанные после последнего commit()."
+    },
+    {
+      "text": "Какой SQL-запрос создаёт таблицу?",
+      "kind": 0,
+      "options": [
+        "INSERT",
+        "CREATE TABLE",
+        "SELECT",
+        "ALTER"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "CREATE TABLE создаёт новую таблицу с указанными столбцами и их типами."
+    },
+    {
+      "text": "Какой SQL-запрос вставляет данные в таблицу?",
+      "kind": 0,
+      "options": [
+        "SELECT",
+        "INSERT INTO",
+        "UPDATE",
+        "DELETE"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "INSERT INTO добавляет новую строку (запись) в таблицу."
+    },
+    {
+      "text": "Что такое SQL-инъекция?",
+      "kind": 0,
+      "options": [
+        "Уязвимость, когда пользовательский ввод встраивается в SQL-запрос без экранирования",
+        "Быстрый SQL-запрос",
+        "Тип базы данных",
+        "Оптимизация запроса"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "SQL-инъекция — это атака, при которой злоумышленник вставляет вредоносный SQL-код через пользовательский ввод."
+    },
+    {
+      "text": "Как правильно подставлять значения в SQL-запросы в Python?",
+      "kind": 0,
+      "options": [
+        "Через форматирование строк f\"...{value}...\"",
+        "Через параметры (знаки ?) в execute()",
+        "Через конкатенацию строк",
+        "Через глобальные переменные"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Использование параметризованных запросов (cursor.execute(\"SELECT * FROM t WHERE id=?\", (val,))) защищает от SQL-инъекций."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

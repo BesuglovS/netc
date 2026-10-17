@@ -1,0 +1,142 @@
+{
+  "id": "76ea5ff0-12dd-597c-95cb-4c01c0ce280b",
+  "title": "Урок 14. Строки: индексация и срезы",
+  "questions": [
+    {
+      "text": "Что вернёт \"Python\"[0]?",
+      "kind": 0,
+      "options": [
+        "P",
+        "y",
+        "n",
+        "Python"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Индексация начинается с 0. Первый символ строки — P."
+    },
+    {
+      "text": "Что вернёт \"Python\"[1:4]?",
+      "kind": 0,
+      "options": [
+        "Pyt",
+        "yth",
+        "ytho",
+        "Py"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Срез [1:4] берёт символы с индексом 1, 2, 3 (не включая 4) — \"yth\"."
+    },
+    {
+      "text": "Какой индекс у последнего символа строки \"Python\"?",
+      "kind": 0,
+      "options": [
+        "5",
+        "6",
+        "-1",
+        "И 5, и -1"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "Длина строки 6, последний индекс: 5 (с начала) или -1 (с конца). Оба варианта корректны."
+    },
+    {
+      "text": "Что вернёт \"Python\"[-1]?",
+      "kind": 0,
+      "options": [
+        "P",
+        "y",
+        "n",
+        "ошибка"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "Отрицательные индексы идут с конца строки. -1 — последний символ \"n\"."
+    },
+    {
+      "text": "Что вернёт \"Python\"[::2]?",
+      "kind": 0,
+      "options": [
+        "Pto",
+        "Pyt",
+        "yhn",
+        "Python"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Шаг 2: символы с индексами 0, 2, 4 — \"P\", \"t\", \"o\". Результат \"Pto\"."
+    },
+    {
+      "text": "Что вернёт \"Python\"[:3]?",
+      "kind": 0,
+      "options": [
+        "Pyt",
+        "yth",
+        "Pyth",
+        "Python"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "s[:3] — от начала до индекса 3 (невключительно): индексы 0, 1, 2 — \"Pyt\"."
+    },
+    {
+      "text": "Что вернёт \"Python\"[3:]?",
+      "kind": 0,
+      "options": [
+        "Pyt",
+        "hon",
+        "ytho",
+        "Python"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "s[3:] — от индекса 3 до конца: символы с индексами 3, 4, 5 — \"hon\"."
+    },
+    {
+      "text": "Что вернёт \"Python\"[-3:]?",
+      "kind": 0,
+      "options": [
+        "hon",
+        "Pyt",
+        "yth",
+        "ton"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "s[-3:] — последние 3 символа: \"hon\"."
+    },
+    {
+      "text": "Что произойдёт при обращении \"Python\"[10]?",
+      "kind": 0,
+      "options": [
+        "Вернётся None",
+        "Вызовется IndexError",
+        "Вернётся пустая строка",
+        "Вернётся пробел"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Индекс 10 выходит за пределы строки (длина 6), Python вызывает IndexError: string index out of range."
+    },
+    {
+      "text": "Что вернёт \"Python\"[::-1]?",
+      "kind": 0,
+      "options": [
+        "Python",
+        "nohtyP",
+        "Pyt",
+        "Ошибка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Шаг -1 разворачивает строку: \"nohtyP\"."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

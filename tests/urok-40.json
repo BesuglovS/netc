@@ -1,0 +1,142 @@
+{
+  "id": "c3f41d46-8898-5e39-877c-b63a7760a5c7",
+  "title": "Урок 40. NumPy и Pandas",
+  "questions": [
+    {
+      "text": "Что такое NumPy?",
+      "kind": 0,
+      "options": [
+        "Библиотека для работы с многомерными массивами и матрицами",
+        "Фреймворк для веб-разработки",
+        "База данных",
+        "Среда разработки"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "NumPy — это библиотека для научных вычислений, предоставляющая многомерные массивы и функции для работы с ними."
+    },
+    {
+      "text": "Как создать массив NumPy из списка?",
+      "kind": 0,
+      "options": [
+        "np.list([1, 2, 3])",
+        "np.array([1, 2, 3])",
+        "np.create([1, 2, 3])",
+        "np.fromlist([1, 2, 3])"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "np.array() создаёт массив NumPy из списка или другого итерируемого объекта."
+    },
+    {
+      "text": "Что такое Pandas?",
+      "kind": 0,
+      "options": [
+        "Библиотека для анализа и обработки данных",
+        "База данных",
+        "Веб-фреймворк",
+        "Графическая библиотека"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Pandas — это библиотека для анализа данных, предоставляющая структуры DataFrame и Series."
+    },
+    {
+      "text": "Как создать DataFrame в Pandas?",
+      "kind": 0,
+      "options": [
+        "pd.data(data)",
+        "pd.Table(data)",
+        "pd.Series(data)",
+        "pd.DataFrame(data)"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "pd.DataFrame(data) создаёт таблицу (DataFrame) из словаря, списка или другого источника."
+    },
+    {
+      "text": "Как прочитать CSV-файл в Pandas?",
+      "kind": 0,
+      "options": [
+        "pd.read_csv(\"file.csv\")",
+        "pd.load_csv(\"file.csv\")",
+        "pd.open_csv(\"file.csv\")",
+        "pd.import_csv(\"file.csv\")"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "pd.read_csv() читает CSV-файл и возвращает DataFrame."
+    },
+    {
+      "text": "Что такое Series в Pandas?",
+      "kind": 0,
+      "options": [
+        "Двумерная таблица",
+        "Одномерный массив с индексами",
+        "Трёхмерный массив",
+        "База данных"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Series — это одномерная структура данных, похожая на список, но с метками-индексами."
+    },
+    {
+      "text": "Как получить первые 5 строк DataFrame?",
+      "kind": 0,
+      "options": [
+        "df.head()",
+        "df.first()",
+        "df.top()",
+        "df.begin()"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "df.head() возвращает первые 5 строк (по умолчанию) DataFrame для быстрого просмотра."
+    },
+    {
+      "text": "Как выбрать столбец \"name\" из DataFrame?",
+      "kind": 0,
+      "options": [
+        "df[\"name\"]",
+        "df.name",
+        "Оба варианта работают",
+        "df.get(\"name\")"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "В Pandas можно обращаться к столбцу как df[\"name\"] или df.name (если имя без пробелов)."
+    },
+    {
+      "text": "Какая команда устанавливает NumPy?",
+      "kind": 0,
+      "options": [
+        "pip install numpy",
+        "pip install np",
+        "python add numpy",
+        "numpy install"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "pip install numpy устанавливает библиотеку NumPy."
+    },
+    {
+      "text": "Какой атрибут массива NumPy показывает его размерность?",
+      "kind": 0,
+      "options": [
+        "array.size",
+        "array.shape",
+        "array.dim",
+        "array.length"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "array.shape возвращает кортеж с размерностями массива, например (3, 4) для матрицы 3×4."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

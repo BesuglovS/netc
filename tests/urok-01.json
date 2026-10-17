@@ -1,0 +1,142 @@
+{
+  "id": "375cc6a6-9406-5961-8062-637440947eee",
+  "title": "Урок 1. История, обзор и области применения",
+  "questions": [
+    {
+      "text": "Кто создал язык Python?",
+      "kind": 0,
+      "options": [
+        "Билл Гейтс",
+        "Гвидо ван Россум",
+        "Линус Торвальдс",
+        "Деннис Ритчи"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Python создал Гвидо ван Россум (Guido van Rossum) в 1991 году. Название языка — отсылка к комик-группе Monty Python, а не к змее."
+    },
+    {
+      "text": "Какая философия лежит в основе дизайна Python?",
+      "kind": 0,
+      "options": [
+        "Читаемость кода и простота",
+        "Максимальная сложность",
+        "Только для веб-разработки",
+        "Компиляция в машинный код"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Python делает упор на читаемость и минимализм. Девиз языка: «Beautiful is better than ugly» («Красивое лучше, чем уродливое»)."
+    },
+    {
+      "text": "В каком году была выпущена первая публичная версия Python 0.9.0?",
+      "kind": 0,
+      "options": [
+        "1985",
+        "1991",
+        "1995",
+        "2000"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Первая публичная версия Python 0.9.0 была выпущена 20 февраля 1991 года."
+    },
+    {
+      "text": "Откуда произошло название языка Python?",
+      "kind": 0,
+      "options": [
+        "От названия змеи питон",
+        "От греческого слова \"огонь\"",
+        "От комедийного шоу Monty Python",
+        "От имени создателя"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "Название происходит от британского комедийного шоу «Летающий цирк Монти Пайтона» (Monty Python's Flying Circus)."
+    },
+    {
+      "text": "Что выведет команда import this в интерпретаторе Python?",
+      "kind": 0,
+      "options": [
+        "Информацию о модуле",
+        "Дзен Python (Zen of Python)",
+        "Текст лицензии",
+        "Список функций"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Команда import this выводит «The Zen of Python» — философские принципы языка."
+    },
+    {
+      "text": "В каком году вышла версия Python 3.0?",
+      "kind": 0,
+      "options": [
+        "2000",
+        "2005",
+        "2008",
+        "2010"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "Python 3.0 вышел в 2008 году. Это было фундаментальное обновление, несовместимое с Python 2.x."
+    },
+    {
+      "text": "Python — это язык с динамической или статической типизацией?",
+      "kind": 0,
+      "options": [
+        "Статической",
+        "Динамической",
+        "Смешанной",
+        "Без типов"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Python использует динамическую типизацию: тип переменной определяется автоматически во время выполнения."
+    },
+    {
+      "text": "Какая из этих сред НЕ является IDE для Python?",
+      "kind": 0,
+      "options": [
+        "IDLE",
+        "PyCharm",
+        "MySQL",
+        "VS Code"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "MySQL — это система управления базами данных, а не среда разработки."
+    },
+    {
+      "text": "Что означает принцип \"batteries included\" применительно к Python?",
+      "kind": 0,
+      "options": [
+        "Python требует много батареек",
+        "Python поставляется с обширной стандартной библиотекой",
+        "Python работает только от батареи",
+        "Python — язык для роботов"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "«Batteries included» означает, что Python поставляется с огромной стандартной библиотекой, покрывающей большинство типовых задач."
+    },
+    {
+      "text": "Какой фреймворк НЕ относится к Python?",
+      "kind": 0,
+      "options": [
+        "Django",
+        "Flask",
+        "Ruby on Rails",
+        "FastAPI"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "Ruby on Rails — это фреймворк для языка Ruby, а не для Python."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

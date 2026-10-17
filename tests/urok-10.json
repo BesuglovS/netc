@@ -1,0 +1,142 @@
+{
+  "id": "2f5414e4-b50d-550d-9f62-3b8cc719ef8c",
+  "title": "Урок 10. Условный оператор + Отступы",
+  "questions": [
+    {
+      "text": "Сколько пробелов рекомендуется для отступа по PEP 8?",
+      "kind": 0,
+      "options": [
+        "2",
+        "3",
+        "4",
+        "Tab"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "PEP 8 рекомендует 4 пробела на каждый уровень отступа."
+    },
+    {
+      "text": "Что выведет код?x = 10if x > 5: print(\"A\")elif x > 8: print(\"B\")",
+      "kind": 0,
+      "options": [
+        "A",
+        "B",
+        "A и B",
+        "Ничего"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Условия проверяются сверху вниз. Первое истинное условие (x > 5) выполняется, остальные пропускаются."
+    },
+    {
+      "text": "Какой оператор проверяет равенство в Python?",
+      "kind": 0,
+      "options": [
+        "=",
+        "==",
+        "!=",
+        "==="
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "== — оператор сравнения на равенство. = — это оператор присваивания."
+    },
+    {
+      "text": "Что выведет код?age = 16if age >= 18: print(\"Взрослый\")else: print(\"Ребёнок\")",
+      "kind": 0,
+      "options": [
+        "Взрослый",
+        "Ребёнок",
+        "Ничего",
+        "Ошибка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Условие age >= 18 ложно (16 >= 18 — False), поэтому выполняется блок else: выводится «Ребёнок»."
+    },
+    {
+      "text": "Что делает тернарный оператор в Python?",
+      "kind": 0,
+      "options": [
+        "Позволяет записать if-else в одну строку",
+        "Создаёт три условия",
+        "Заменяет цикл",
+        "Прерывает программу"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Тернарный оператор: value_if_true if condition else value_if_false. Позволяет компактно записать ветвление."
+    },
+    {
+      "text": "Что выведет код?x = 5if x < 3: print(\"A\")elif x < 7: print(\"B\")elif x < 10: print(\"C\")",
+      "kind": 0,
+      "options": [
+        "A",
+        "B",
+        "C",
+        "Ошибка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "x < 3 — False. x < 7 — True, выполняется print(\"B\"), остальные elif пропускаются."
+    },
+    {
+      "text": "Как Python определяет блоки кода?",
+      "kind": 0,
+      "options": [
+        "Фигурными скобками {}",
+        "Ключевыми словами begin/end",
+        "Отступами (пробелами)",
+        "Квадратными скобками []"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "В отличие от многих языков, Python использует отступы (пробелы) для определения блоков кода. Стандарт — 4 пробела."
+    },
+    {
+      "text": "Что выведет код?print(\"A\") if 5 > 3 else print(\"B\")",
+      "kind": 0,
+      "options": [
+        "A",
+        "B",
+        "A и B",
+        "Ошибка"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Тернарный оператор: 5 > 3 — True, поэтому выполняется print(\"A\")."
+    },
+    {
+      "text": "Какая ошибка возникнет при неправильном отступе?",
+      "kind": 0,
+      "options": [
+        "SyntaxError",
+        "IndentationError",
+        "TypeError",
+        "ValueError"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Неправильные отступы вызывают IndentationError — подтип SyntaxError."
+    },
+    {
+      "text": "Что выведет код?score = 75if score >= 90: print(\"5\")elif score >= 75: print(\"4\")else: print(\"3\")",
+      "kind": 0,
+      "options": [
+        "5",
+        "4",
+        "3",
+        "Ошибка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "75 >= 90 — False. 75 >= 75 — True, выводится \"4\". else не выполняется."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

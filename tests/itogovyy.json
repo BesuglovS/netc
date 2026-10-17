@@ -1,0 +1,662 @@
+{
+  "id": "ae0b1049-94fd-5a52-8465-585854040c5e",
+  "title": "Итоговый тест — Python — основы программирования",
+  "questions": [
+    {
+      "text": "Какая функция используется для вывода данных на экран?",
+      "kind": 0,
+      "options": [
+        "input()",
+        "print()",
+        "echo()",
+        "console.log()"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "print() — встроенная функция Python для вывода данных на экран."
+    },
+    {
+      "text": "Какой тип данных будет у значения 3.14?",
+      "kind": 0,
+      "options": [
+        "int",
+        "float",
+        "str",
+        "bool"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Числа с десятичной точкой — это float (числа с плавающей запятой)."
+    },
+    {
+      "text": "Что выведет код: print(10 % 3)?",
+      "kind": 0,
+      "options": [
+        "3",
+        "3.33",
+        "1",
+        "0"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "Оператор % возвращает остаток от деления. 10 // 3 = 3, остаток = 1."
+    },
+    {
+      "text": "Какое ключевое слово используется для создания функции?",
+      "kind": 0,
+      "options": [
+        "func",
+        "function",
+        "define",
+        "def"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "В Python функции создаются с помощью ключевого слова def."
+    },
+    {
+      "text": "Что выведет код: print(True and False)?",
+      "kind": 0,
+      "options": [
+        "True",
+        "False",
+        "None",
+        "Ошибка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Оператор and возвращает True, только если оба операнда истинны. True and False → False."
+    },
+    {
+      "text": "Какой цикл используется, когда количество итераций известно заранее?",
+      "kind": 0,
+      "options": [
+        "while",
+        "for",
+        "loop",
+        "until"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Цикл for обычно используется, когда количество итераций известно (например, перебор элементов списка)."
+    },
+    {
+      "text": "Что делает метод списков .append(x)?",
+      "kind": 0,
+      "options": [
+        "Удаляет элемент x",
+        "Вставляет x в начало",
+        "Добавляет x в конец списка",
+        "Заменяет x на другой элемент"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "Метод append() добавляет элемент в конец списка."
+    },
+    {
+      "text": "Чем отличается tuple (кортеж) от list (списка)?",
+      "kind": 0,
+      "options": [
+        "Ничем",
+        "Кортеж неизменяем, список изменяем",
+        "Список быстрее",
+        "Кортеж поддерживает только числа"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Кортежи (tuple) — неизменяемые последовательности. После создания их нельзя изменить. Списки — изменяемые."
+    },
+    {
+      "text": "Что выведет код: print(len('Python'))?",
+      "kind": 0,
+      "options": [
+        "5",
+        "6",
+        "7",
+        "Ошибка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Функция len() возвращает длину строки. В слове 'Python' 6 символов."
+    },
+    {
+      "text": "Как получить срез строки от начала до 3-го символа (невключительно)?",
+      "kind": 0,
+      "options": [
+        "s[:3]",
+        "s[0:2]",
+        "s[::3]",
+        "s[:-3]"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "s[:3] означает \"от начала до индекса 3 (невключительно)\", т.е. символы с индексами 0, 1, 2."
+    },
+    {
+      "text": "Что такое словарь (dict) в Python?",
+      "kind": 0,
+      "options": [
+        "Упорядоченный список",
+        "Коллекция пар \"ключ-значение\"",
+        "Алфавитный указатель",
+        "Тип для хранения только строк"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Словарь (dict) — структура данных, хранящая пары \"ключ: значение\"."
+    },
+    {
+      "text": "Что выведет код: for i in range(3): print(i)?",
+      "kind": 0,
+      "options": [
+        "1 2 3",
+        "0 1 2 3",
+        "0 1 2",
+        "1 2"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "range(3) генерирует числа 0, 1, 2 (от 0 до n-1)."
+    },
+    {
+      "text": "Какое ключевое слово используется для перехвата ошибок?",
+      "kind": 0,
+      "options": [
+        "catch",
+        "except",
+        "rescue",
+        "trap"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Python использует except для обработки исключений в блоке try/except."
+    },
+    {
+      "text": "Что делает оператор break в цикле?",
+      "kind": 0,
+      "options": [
+        "Переходит к следующей итерации",
+        "Завершает программу",
+        "Прерывает выполнение цикла",
+        "Удаляет переменную"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "break немедленно завершает выполнение цикла, даже если условие ещё истинно."
+    },
+    {
+      "text": "Какое списочное выражение создаст список квадратов чисел от 0 до 4?",
+      "kind": 0,
+      "options": [
+        "[x*2 for x in range(5)]",
+        "[x**2 for x in range(5)]",
+        "[x*x for x in range(4)]",
+        "[square(x) for x in range(5)]"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "x**2 — возведение в квадрат. range(5) даёт 0,1,2,3,4. Результат: [0,1,4,9,16]."
+    },
+    {
+      "text": "Какой тип у значения None в Python?",
+      "kind": 0,
+      "options": [
+        "int",
+        "str",
+        "NoneType",
+        "bool"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "None имеет тип NoneType и обозначает отсутствие значения."
+    },
+    {
+      "text": "Что выведет код: x = 10; y = x; x = 5; print(y)?",
+      "kind": 0,
+      "options": [
+        "5",
+        "10",
+        "None",
+        "Ошибка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "y = x копирует значение 10. Изменение x на 5 не влияет на y, так как числа — неизменяемый тип."
+    },
+    {
+      "text": "Что выведет: print(\"a\", \"b\", \"c\", sep=\"-\")?",
+      "kind": 0,
+      "options": [
+        "a b c",
+        "a-b-c",
+        "abc",
+        "\"a-b-c\""
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Параметр sep (separator) задаёт разделитель между аргументами. Вместо пробела используется \"-\"."
+    },
+    {
+      "text": "Что такое тернарный оператор?",
+      "kind": 0,
+      "options": [
+        "Позволяет записать if-else в одну строку",
+        "Создаёт три условия",
+        "Заменяет цикл",
+        "Прерывает программу"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Тернарный оператор: value_if_true if condition else value_if_false."
+    },
+    {
+      "text": "Что делает функция input()?",
+      "kind": 0,
+      "options": [
+        "Выводит текст на экран",
+        "Читает ввод пользователя",
+        "Сохраняет файл",
+        "Открывает окно"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "input() приостанавливает программу и ждёт, пока пользователь введёт строку."
+    },
+    {
+      "text": "Как подставить значение переменной name в f-строку?",
+      "kind": 0,
+      "options": [
+        "f\"Привет, name!\"",
+        "f\"Привет, {name}!\"",
+        "\"Привет, {name}\"",
+        "f\"Привет, $name!\""
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "В f-строках переменные указываются в фигурных скобках: f\"Привет, {name}!\"."
+    },
+    {
+      "text": "Что выведет: print(\"Hello\".replace(\"l\", \"7\"))?",
+      "kind": 0,
+      "options": [
+        "Hello",
+        "He77o",
+        "He7lo",
+        "Hello7"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "replace(old, new) заменяет все вхождения подстроки old на new."
+    },
+    {
+      "text": "Что выведет: print(\"Привет, \" + \"мир!\")?",
+      "kind": 0,
+      "options": [
+        "Привет, мир!",
+        "Привет, + мир!",
+        "Привет,мир!",
+        "Ошибка"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Оператор + (конкатенация) объединяет две строки в одну."
+    },
+    {
+      "text": "Что такое бесконечный цикл?",
+      "kind": 0,
+      "options": [
+        "Цикл, который выполняется 100 раз",
+        "Цикл, условие которого всегда True",
+        "Цикл без тела",
+        "Ошибка в коде"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Бесконечный цикл возникает, когда условие while никогда не становится False."
+    },
+    {
+      "text": "Что выведет код?for i in range(1, 4): for j in range(1, 4): print(i * j, end=\" \")",
+      "kind": 0,
+      "options": [
+        "1 2 3 4 5 6 7 8 9",
+        "1 2 3 2 4 6 3 6 9",
+        "1 2 3 2 4 6",
+        "1 2 3"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Таблица умножения 3×3: 1×1=1, 1×2=2, 1×3=3, 2×1=2, 2×2=4, 2×3=6, 3×1=3, 3×2=6, 3×3=9."
+    },
+    {
+      "text": "Что такое *args в Python?",
+      "kind": 0,
+      "options": [
+        "Обязательный параметр",
+        "Кортеж из позиционных аргументов переменной длины",
+        "Список всех аргументов функции",
+        "Строковый аргумент"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "*args собирает все переданные позиционные аргументы в кортеж."
+    },
+    {
+      "text": "Что делает метод .pop() без аргументов в списке?",
+      "kind": 0,
+      "options": [
+        "Удаляет первый элемент",
+        "Удаляет и возвращает последний элемент",
+        "Очищает список",
+        "Возвращает длину"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": ".pop() без аргументов удаляет и возвращает последний элемент списка."
+    },
+    {
+      "text": "Что вернёт {1, 2, 3} | {3, 4, 5}?",
+      "kind": 0,
+      "options": [
+        "{3}",
+        "{1, 2, 3, 4, 5}",
+        "{1, 2, 3, 3, 4, 5}",
+        "Ошибка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "| — объединение множеств. Результат: {1, 2, 3, 4, 5}."
+    },
+    {
+      "text": "Что делает метод .keys() для словаря?",
+      "kind": 0,
+      "options": [
+        "Список значений",
+        "Представление (view) всех ключей",
+        "Список кортежей (ключ, значение)",
+        "Длину словаря"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": ".keys() возвращает dict_keys — представление всех ключей словаря."
+    },
+    {
+      "text": "Что выведет код?words = [\"Hello\", \"World\"]print(\" \".join(words))",
+      "kind": 0,
+      "options": [
+        "[\"Hello\", \"World\"]",
+        "Hello World",
+        "HelloWorld",
+        "Hello, World"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "join() объединяет элементы списка, вставляя пробел между ними."
+    },
+    {
+      "text": "Что такое лямбда-функция?",
+      "kind": 0,
+      "options": [
+        "Именованная функция",
+        "Анонимная функция, определяемая в одной строке",
+        "Функция с множеством параметров",
+        "Встроенная функция"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Лямбда — это анонимная функция, определяемая через lambda."
+    },
+    {
+      "text": "Какой режим нужно указать в open() для чтения файла?",
+      "kind": 0,
+      "options": [
+        "\"w\"",
+        "\"r\"",
+        "\"a\"",
+        "\"rw\""
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Режим \"r\" (read) открывает файл для чтения."
+    },
+    {
+      "text": "Что делает функция json.loads()?",
+      "kind": 0,
+      "options": [
+        "Преобразует Python-объект в JSON",
+        "Парсит JSON-строку в Python-объект",
+        "Загружает JSON из файла",
+        "Сохраняет данные в JSON"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "json.loads() (load string) десериализует JSON-строку в Python-объект."
+    },
+    {
+      "text": "Что такое SQLite?",
+      "kind": 0,
+      "options": [
+        "Клиент-серверная СУБД",
+        "Лёгкая встраиваемая реляционная база данных",
+        "Язык программирования",
+        "Библиотека для графиков"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "SQLite — это встраиваемая реляционная база данных, не требующая отдельного сервера."
+    },
+    {
+      "text": "Какая команда импортирует модуль?",
+      "kind": 0,
+      "options": [
+        "include math",
+        "import math",
+        "using math",
+        "require math"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Для подключения модуля используется import: import math."
+    },
+    {
+      "text": "Чем отличаются combinations() от permutations()?",
+      "kind": 0,
+      "options": [
+        "Ничем",
+        "В combinations() порядок не важен, в permutations() — важен",
+        "В combinations() элементы могут повторяться",
+        "permutations() работает только с числами"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "В combinations() порядок не имеет значения, в permutations() — важен."
+    },
+    {
+      "text": "Что такое pip?",
+      "kind": 0,
+      "options": [
+        "Язык программирования",
+        "Менеджер пакетов Python",
+        "Среда разработки",
+        "База данных"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "pip — стандартный менеджер пакетов Python."
+    },
+    {
+      "text": "Чему равно math.sqrt(16)?",
+      "kind": 0,
+      "options": [
+        "4",
+        "4.0",
+        "8",
+        "256"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "math.sqrt() всегда возвращает float: 4.0."
+    },
+    {
+      "text": "Как превратить дату в строку формата «ДД.ММ.ГГГГ»?",
+      "kind": 0,
+      "options": [
+        "date.toString()",
+        "date.strftime(\"%d.%m.%Y\")",
+        "date.strptime(\"%d.%m.%Y\")",
+        "date.format()"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "strftime форматирует дату. %d — день, %m — месяц, %Y — год."
+    },
+    {
+      "text": "Что такое Pandas?",
+      "kind": 0,
+      "options": [
+        "Библиотека для анализа и обработки данных",
+        "База данных",
+        "Веб-фреймворк",
+        "Графическая библиотека"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Pandas — библиотека для анализа данных с DataFrame и Series."
+    },
+    {
+      "text": "Как объявить класс в Python?",
+      "kind": 0,
+      "options": [
+        "class MyClass:",
+        "new class MyClass:",
+        "define MyClass:",
+        "object MyClass:"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Класс объявляется ключевым словом class: class MyClass:"
+    },
+    {
+      "text": "Что такое наследование классов?",
+      "kind": 0,
+      "options": [
+        "Создание копии класса",
+        "Механизм, позволяющий классу наследовать атрибуты и методы другого",
+        "Удаление класса",
+        "Объединение двух классов"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Наследование позволяет создать дочерний класс на основе родительского."
+    },
+    {
+      "text": "Какой синтаксис используется для применения декоратора?",
+      "kind": 0,
+      "options": [
+        "@decorator_name",
+        "#decorator_name",
+        "$decorator_name",
+        "decorator_name()"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Декоратор применяется через @ перед определением функции."
+    },
+    {
+      "text": "Чем yield отличается от return?",
+      "kind": 0,
+      "options": [
+        "Ничем",
+        "yield приостанавливает функцию, сохраняя состояние, return завершает функцию",
+        "yield быстрее",
+        "return может быть только один"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "yield приостанавливает функцию, сохраняя локальные переменные."
+    },
+    {
+      "text": "Что такое GIL (Global Interpreter Lock)?",
+      "kind": 0,
+      "options": [
+        "Блокировка для защиты памяти",
+        "Механизм, позволяющий только одному потоку выполнять Python-код в каждый момент",
+        "Тип блокировки",
+        "Сетевой протокол"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "GIL позволяет выполнять только один поток за раз в CPython."
+    },
+    {
+      "text": "Что означает Optional[int]?",
+      "kind": 0,
+      "options": [
+        "int или None",
+        "Необязательный int",
+        "int по умолчанию",
+        "Список int"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Optional[int] означает, что значение может быть int или None."
+    },
+    {
+      "text": "Какой командой запускаются тесты pytest?",
+      "kind": 0,
+      "options": [
+        "python test",
+        "pytest",
+        "python run tests",
+        "test pytest"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Команда pytest запускает все тесты в проекте."
+    },
+    {
+      "text": "Какой модуль Python используется для HTTP-запросов?",
+      "kind": 0,
+      "options": [
+        "http",
+        "requests",
+        "urllib",
+        "И requests, и urllib"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "И requests, и urllib подходят для HTTP-запросов."
+    },
+    {
+      "text": "Какой декоратор определяет маршрут в Flask?",
+      "kind": 0,
+      "options": [
+        "@app.route(\"/\")",
+        "@app.url(\"/\")",
+        "@app.path(\"/\")",
+        "@app.endpoint(\"/\")"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "@app.route(\"/\") связывает URL-путь с функцией-обработчиком."
+    },
+    {
+      "text": "Какая команда инициализирует Git-репозиторий?",
+      "kind": 0,
+      "options": [
+        "git start",
+        "git init",
+        "git create",
+        "git new"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "git init создаёт новый Git-репозиторий."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

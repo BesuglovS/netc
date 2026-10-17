@@ -1,0 +1,142 @@
+{
+  "id": "f7fee88e-9f98-5edf-9836-5e66f3487d1d",
+  "title": "Урок 12. Сложные условия",
+  "questions": [
+    {
+      "text": "Когда x > 0 and x < 10 истинно?",
+      "kind": 0,
+      "options": [
+        "x = -5",
+        "x = 0",
+        "x = 5",
+        "x = 15"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "Оба условия должны быть истинны: 5 > 0 и 5 < 10 — верно."
+    },
+    {
+      "text": "Что выведет 3 > 5 or 8 > 6?",
+      "kind": 0,
+      "options": [
+        "True",
+        "False",
+        "3",
+        "8"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "or возвращает True, если хотя бы один операнд истинен. 8 > 6 — True."
+    },
+    {
+      "text": "Что выведет: print(not (10 > 5))?",
+      "kind": 0,
+      "options": [
+        "True",
+        "False",
+        "10",
+        "5"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "10 > 5 = True. not True = False."
+    },
+    {
+      "text": "Что выведет: print(False or False or True)?",
+      "kind": 0,
+      "options": [
+        "True",
+        "False",
+        "Ошибка",
+        "None"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Цепочка or: False or False = False, False or True = True."
+    },
+    {
+      "text": "Что выведет: print(True and True and False)?",
+      "kind": 0,
+      "options": [
+        "True",
+        "False",
+        "None",
+        "Ошибка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Цепочка and: True and True = True, True and False = False."
+    },
+    {
+      "text": "Какое условие проверяет, что число находится в диапазоне от 1 до 100 включительно?",
+      "kind": 0,
+      "options": [
+        "x > 1 and x < 100",
+        "x >= 1 and x <= 100",
+        "x > 0 and x < 101",
+        "x == 1..100"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Для включения границ используются >= и <=: x >= 1 and x <= 100."
+    },
+    {
+      "text": "Что выведет: print(not (True and False))?",
+      "kind": 0,
+      "options": [
+        "True",
+        "False",
+        "None",
+        "Ошибка"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "True and False = False. not False = True."
+    },
+    {
+      "text": "Сколько существует комбинаций для двух булевых значений с оператором and?",
+      "kind": 0,
+      "options": [
+        "2",
+        "3",
+        "4",
+        "1"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "Два операнда, каждый может быть True или False: 2 × 2 = 4 комбинации. Только одна (True and True) даёт True."
+    },
+    {
+      "text": "Что выведет: print(5 > 3 and 2 < 4 or 1 > 10)?",
+      "kind": 0,
+      "options": [
+        "True",
+        "False",
+        "Ошибка",
+        "None"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Сначала and: 5 > 3 = True, 2 < 4 = True, True and True = True. Затем or: True or False = True."
+    },
+    {
+      "text": "Как проверить, что число НЕ находится в диапазоне от 0 до 10?",
+      "kind": 0,
+      "options": [
+        "x 10",
+        "x 10",
+        "not (x >= 0 and x <= 10)",
+        "Оба варианта: x 10 и not (x >= 0 and x <= 10)"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "Оба выражения эквивалентны по законам де Моргана: not (A and B) = not A or not B."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

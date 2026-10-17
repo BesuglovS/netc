@@ -1,0 +1,142 @@
+{
+  "id": "997a16cb-7897-5e3d-b9d2-6a995649b804",
+  "title": "Урок 49. Веб-фреймворки: Flask",
+  "questions": [
+    {
+      "text": "Что такое Flask?",
+      "kind": 0,
+      "options": [
+        "Лёгкий веб-фреймворк для Python",
+        "База данных",
+        "Язык программирования",
+        "Среда разработки"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Flask — это микро-фреймворк для создания веб-приложений на Python."
+    },
+    {
+      "text": "Как создать минимальное Flask-приложение?",
+      "kind": 0,
+      "options": [
+        "app = Flask()",
+        "app = Flask(__name__)",
+        "app = Flask(\"app\")",
+        "app = Flask(__file__)"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Flask(__name__) создаёт экземпляр приложения. __name__ помогает Flask найти ресурсы."
+    },
+    {
+      "text": "Какой декоратор определяет маршрут (route) в Flask?",
+      "kind": 0,
+      "options": [
+        "@app.route(\"/\")",
+        "@app.url(\"/\")",
+        "@app.path(\"/\")",
+        "@app.endpoint(\"/\")"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "@app.route(\"/\") связывает URL-путь с функцией-обработчиком."
+    },
+    {
+      "text": "Как запустить Flask-приложение?",
+      "kind": 0,
+      "options": [
+        "app.start()",
+        "app.run()",
+        "app.execute()",
+        "app.launch()"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "app.run() запускает встроенный сервер Flask для разработки."
+    },
+    {
+      "text": "Как вернуть JSON-ответ из Flask?",
+      "kind": 0,
+      "options": [
+        "return json.dumps(data)",
+        "return data.to_json()",
+        "return JSON(data)",
+        "return jsonify(data)"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "flask.jsonify(data) возвращает JSON-ответ с правильным Content-Type."
+    },
+    {
+      "text": "Как получить параметр из URL (например, /user/<id>)?",
+      "kind": 0,
+      "options": [
+        "request.args.get(\"id\")",
+        "Параметр функции: def show(id):",
+        "request.form[\"id\"]",
+        "request.data[\"id\"]"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Параметры из URL-шаблона передаются как аргументы функции: @app.route(\"/user/\") def show(id):."
+    },
+    {
+      "text": "Как получить GET-параметр из строки запроса?",
+      "kind": 0,
+      "options": [
+        "request.args.get(\"key\")",
+        "request.form[\"key\"]",
+        "request.data[\"key\"]",
+        "request.params[\"key\"]"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "request.args — словарь GET-параметров из строки запроса (URL)."
+    },
+    {
+      "text": "Как получить POST-данные из формы?",
+      "kind": 0,
+      "options": [
+        "request.args.get(\"key\")",
+        "request.form[\"key\"]",
+        "request.data[\"key\"]",
+        "request.json[\"key\"]"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "request.form — словарь данных, отправленных через HTML-форму методом POST."
+    },
+    {
+      "text": "Какой шаблонизатор используется в Flask по умолчанию?",
+      "kind": 0,
+      "options": [
+        "Jinja2",
+        "Mako",
+        "Django Templates",
+        "Mustache"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Flask использует Jinja2 — мощный шаблонизатор с поддержкой наследования шаблонов."
+    },
+    {
+      "text": "Как вернуть HTML-шаблон в Flask?",
+      "kind": 0,
+      "options": [
+        "return html(\"index.html\")",
+        "return render_template(\"index.html\")",
+        "return template(\"index.html\")",
+        "return view(\"index.html\")"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "render_template(\"index.html\") загружает и рендерит HTML-шаблон из папки templates."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

@@ -1,0 +1,142 @@
+{
+  "id": "96d600a2-ec75-5227-8e66-6b1d0bdbb7a1",
+  "title": "Урок 9. Булевы переменные",
+  "questions": [
+    {
+      "text": "Чему равно True and False?",
+      "kind": 0,
+      "options": [
+        "True",
+        "False",
+        "None",
+        "Ошибка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "and возвращает True только если оба операнда истинны."
+    },
+    {
+      "text": "Чему равно not (5 > 3)?",
+      "kind": 0,
+      "options": [
+        "False",
+        "True",
+        "5",
+        "3"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "5 > 3 — True, оператор not инвертирует результат в False."
+    },
+    {
+      "text": "Чему равно True + 1?",
+      "kind": 0,
+      "options": [
+        "1",
+        "2",
+        "True",
+        "Ошибка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "bool — подтип int. True == 1, поэтому True + 1 = 2."
+    },
+    {
+      "text": "Чему равно False * 5?",
+      "kind": 0,
+      "options": [
+        "False",
+        "5",
+        "0",
+        "Ошибка"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "False == 0, поэтому False * 5 = 0."
+    },
+    {
+      "text": "Какое значение bool() вернёт как False?",
+      "kind": 0,
+      "options": [
+        "1",
+        "\"False\"",
+        "0",
+        "100"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "0 (ноль) — falsy значение. Все ненулевые числа и непустые строки — truthy."
+    },
+    {
+      "text": "Какое значение bool() вернёт как True?",
+      "kind": 0,
+      "options": [
+        "0",
+        "\"\"",
+        "None",
+        "\"text\""
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "Непустые строки — truthy. bool(\"text\") = True. Пустая строка, 0 и None — falsy."
+    },
+    {
+      "text": "Чему равно True or False?",
+      "kind": 0,
+      "options": [
+        "True",
+        "False",
+        "None",
+        "Ошибка"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "or возвращает True, если хотя бы один операнд истинен. True or любой = True."
+    },
+    {
+      "text": "Чему равно not not True?",
+      "kind": 0,
+      "options": [
+        "False",
+        "True",
+        "None",
+        "Ошибка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "not True = False; not False = True. Двойное отрицание возвращает исходное значение."
+    },
+    {
+      "text": "Что выведет: print(True and False or True)?",
+      "kind": 0,
+      "options": [
+        "True",
+        "False",
+        "None",
+        "Ошибка"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Приоритет: and выше or. True and False = False. False or True = True."
+    },
+    {
+      "text": "Чему равно bool(0.0)?",
+      "kind": 0,
+      "options": [
+        "True",
+        "False",
+        "None",
+        "0.0"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "0.0 — falsy значение. bool(0.0) = False. Любое ненулевое число с плавающей точкой — truthy."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

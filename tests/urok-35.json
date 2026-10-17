@@ -1,0 +1,142 @@
+{
+  "id": "02fb1595-bc5a-50dc-a347-2f846c05bd6a",
+  "title": "Урок 35. Модули и import",
+  "questions": [
+    {
+      "text": "Что такое модуль в Python?",
+      "kind": 0,
+      "options": [
+        "Файл с расширением .py, содержащий код",
+        "Папка с файлами",
+        "Библиотека на C",
+        "Встроенная функция"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Модуль — это любой файл .py, содержащий определения функций, классов и переменных."
+    },
+    {
+      "text": "Какая команда импортирует модуль?",
+      "kind": 0,
+      "options": [
+        "include math",
+        "import math",
+        "using math",
+        "require math"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Для подключения модуля в Python используется ключевое слово import: import math."
+    },
+    {
+      "text": "Что делает from math import sqrt?",
+      "kind": 0,
+      "options": [
+        "Импортирует весь модуль math",
+        "Импортирует только функцию sqrt, можно вызывать без префикса math.",
+        "Удаляет модуль math",
+        "Переименовывает sqrt"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "from ... import ... импортирует конкретное имя. После этого sqrt() можно использовать напрямую, без math.sqrt()."
+    },
+    {
+      "text": "Что делает import math as m?",
+      "kind": 0,
+      "options": [
+        "Импортирует math под псевдонимом m",
+        "Импортирует модуль m",
+        "Объединяет два модуля",
+        "Вызывает ошибку"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Ключевое слово as создаёт псевдоним. После этого можно писать m.sqrt(25) вместо math.sqrt(25)."
+    },
+    {
+      "text": "Как импортировать только функции sin и cos из модуля math?",
+      "kind": 0,
+      "options": [
+        "import sin, cos",
+        "from math import sin, cos",
+        "import math.sin, math.cos",
+        "include math.sin, math.cos"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "from math import sin, cos импортирует только указанные функции напрямую в текущее пространство имён."
+    },
+    {
+      "text": "Что произойдёт при конфликте имён после from module import *?",
+      "kind": 0,
+      "options": [
+        "Ошибка",
+        "Ничего",
+        "Создастся копия",
+        "Импорт перезапишет существующие имена"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "from module import * может перезаписать уже существующие имена. Рекомендуется избегать такого импорта."
+    },
+    {
+      "text": "Как узнать, какие имена содержит модуль?",
+      "kind": 0,
+      "options": [
+        "module.info()",
+        "module.contents()",
+        "dir(module)",
+        "help(module)"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "dir(module) возвращает список всех имён, определённых в модуле."
+    },
+    {
+      "text": "Как проверить, установлен ли модуль в Python?",
+      "kind": 0,
+      "options": [
+        "import имя_модуля — если нет, будет ModuleNotFoundError",
+        "check модуль",
+        "module.exists()",
+        "python check module"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Попытка импорта: если модуль не установлен, возникнет ModuleNotFoundError."
+    },
+    {
+      "text": "Что такое __name__ в Python?",
+      "kind": 0,
+      "options": [
+        "Имя файла",
+        "Специальная переменная, равная \"__main__\" при запуске файла как главного",
+        "Имя функции",
+        "Название модуля"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "При запуске файла __name__ = \"__main__\". При импорте — имя модуля. Используется для защиты кода: if __name__ == \"__main__\":"
+    },
+    {
+      "text": "Что такое пакет (package) в Python?",
+      "kind": 0,
+      "options": [
+        "Один файл .py",
+        "Папка с файлом __init__.py, содержащая модули",
+        "Архив с кодом",
+        "База данных"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Пакет — это папка, содержащая модули и файл __init__.py (может быть пустым), который делает папку импортируемой."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

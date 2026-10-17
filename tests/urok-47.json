@@ -1,0 +1,142 @@
+{
+  "id": "702d57ff-b1de-55aa-b13d-66b607dbe926",
+  "title": "Урок 47. Unit-тесты с pytest",
+  "questions": [
+    {
+      "text": "Что такое pytest?",
+      "kind": 0,
+      "options": [
+        "Фреймворк для тестирования Python-кода",
+        "Среда разработки",
+        "База данных",
+        "Веб-сервер"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "pytest — это популярный фреймворк для написания и запуска тестов в Python."
+    },
+    {
+      "text": "Какой командой запускаются тесты pytest?",
+      "kind": 0,
+      "options": [
+        "python test",
+        "pytest",
+        "python run tests",
+        "test pytest"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Команда pytest в терминале автоматически находит и запускает все тесты в проекте."
+    },
+    {
+      "text": "Как должна называться тестовая функция в pytest?",
+      "kind": 0,
+      "options": [
+        "Должна начинаться с test_",
+        "Может иметь любое имя",
+        "Должна заканчиваться на _test",
+        "Должна содержать слово test"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "pytest автоматически находит функции, начинающиеся с test_. Например: test_addition()."
+    },
+    {
+      "text": "Что делает assert в тесте?",
+      "kind": 0,
+      "options": [
+        "Завершает тест",
+        "Выводит сообщение",
+        "Проверяет условие и вызывает AssertionError, если оно ложно",
+        "Создаёт отчёт"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "assert условие — встроенная проверка. Если условие ложно, тест падает с AssertionError."
+    },
+    {
+      "text": "Что такое фикстура (fixture) в pytest?",
+      "kind": 0,
+      "options": [
+        "Функция для подготовки данных перед тестом",
+        "Сам тест",
+        "Отчёт о тестировании",
+        "Ошибка в тесте"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Фикстура — это функция с декоратором @pytest.fixture, которая подготавливает данные или окружение для тестов."
+    },
+    {
+      "text": "Как параметризовать тест в pytest?",
+      "kind": 0,
+      "options": [
+        "@pytest.parameterize",
+        "@pytest.parametrize",
+        "@pytest.params",
+        "@pytest.mark.parametrize"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "@pytest.mark.parametrize(\"arg\", values) позволяет запустить один тест с разными наборами данных."
+    },
+    {
+      "text": "Что такое conftest.py?",
+      "kind": 0,
+      "options": [
+        "Файл с общими фикстурами для всех тестов в директории",
+        "Файл с тестами",
+        "Конфигурационный файл",
+        "Файл с настройками pytest"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "conftest.py содержит фикстуры, которые автоматически доступны всем тестам в той же директории."
+    },
+    {
+      "text": "Как проверить, что код вызывает исключение?",
+      "kind": 0,
+      "options": [
+        "pytest.expect(ValueError)",
+        "pytest.raises(ValueError)",
+        "pytest.catch(ValueError)",
+        "pytest.exception(ValueError)"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "with pytest.raises(ValueError): проверяет, что внутри блока возникает исключение ValueError."
+    },
+    {
+      "text": "Что делает флаг -v при запуске pytest?",
+      "kind": 0,
+      "options": [
+        "Тихий режим",
+        "Подробный вывод (verbose)",
+        "Пропуск тестов",
+        "Ускорение тестов"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "pytest -v (verbose) выводит подробную информацию о каждом тесте: пройден/упал."
+    },
+    {
+      "text": "Как пропустить тест в pytest?",
+      "kind": 0,
+      "options": [
+        "@pytest.mark.skip",
+        "@pytest.skip",
+        "@pytest.ignore",
+        "@pytest.pass"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "@pytest.mark.skip пропускает тест. @pytest.mark.skipif(condition) пропускает при выполнении условия."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

@@ -1,0 +1,13 @@
+<Project>
+
+  <!--
+    Единая версия комплекса netc (агент, сторож, служба, клиент, Android-приложение).
+    Менять ТОЛЬКО здесь: значение подхватывают все проекты каталога (AssemblyVersion/FileVersion).
+    Агент отдаёт эту версию в PcInfo.AgentVersion — см. NetcServer.Core\PcInfoProvider.cs.
+  -->
+  <PropertyGroup>
+    <NetcVersion>1.0.0</NetcVersion>
+    <Version>$(NetcVersion)</Version>
+  </PropertyGroup>
+
+</Project>

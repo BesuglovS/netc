@@ -1,0 +1,142 @@
+{
+  "id": "1aaee8a2-60e8-509b-8514-0d5dd62874d5",
+  "title": "Урок 36. Модуль itertools",
+  "questions": [
+    {
+      "text": "Какая функция из itertools возвращает все упорядоченные комбинации (порядок важен)?",
+      "kind": 0,
+      "options": [
+        "product()",
+        "permutations()",
+        "combinations()",
+        "chain()"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "permutations() генерирует все упорядоченные подмножества. Порядок элементов важен: (1,2) и (2,1) — разные комбинации."
+    },
+    {
+      "text": "Что вернёт list(product(\"AB\", repeat=2))?",
+      "kind": 0,
+      "options": [
+        "[(\"A\",\"B\"), (\"B\",\"A\")]",
+        "[(\"A\",\"A\"), (\"A\",\"B\"), (\"B\",\"A\"), (\"B\",\"B\")]",
+        "[(\"A\",\"A\"), (\"B\",\"B\")]",
+        "[\"AB\", \"BA\"]"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "product с repeat=2 даёт декартово произведение множества на себя. Всего 2×2 = 4 комбинации, включая повторения."
+    },
+    {
+      "text": "Чем отличаются combinations() от permutations()?",
+      "kind": 0,
+      "options": [
+        "Ничем",
+        "В combinations() элементы могут повторяться",
+        "В combinations() порядок не важен, в permutations() — важен",
+        "permutations() работает только с числами"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "В combinations() порядок не имеет значения: (A,B) и (B,A) — одно и то же. В permutations() это разные комбинации."
+    },
+    {
+      "text": "Что делает функция chain()?",
+      "kind": 0,
+      "options": [
+        "Группирует одинаковые элементы",
+        "Объединяет несколько итераторов в один",
+        "Бесконечно повторяет элементы",
+        "Создаёт декартово произведение"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "chain() последовательно перебирает элементы из нескольких итераторов, как если бы они были одним."
+    },
+    {
+      "text": "Какое важное условие нужно соблюсти перед использованием groupby()?",
+      "kind": 0,
+      "options": [
+        "Данные должны быть числами",
+        "Данные должны быть отсортированы по ключу группировки",
+        "В данных не должно быть повторений",
+        "Данные должны быть строками"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "groupby() группирует только последовательные одинаковые элементы. Чтобы получить правильные группы, данные нужно предварительно отсортировать по тому же ключу."
+    },
+    {
+      "text": "Сколько комбинаций вернёт combinations(\"ABC\", 2)?",
+      "kind": 0,
+      "options": [
+        "2",
+        "9",
+        "6",
+        "3"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "combinations(\"ABC\", 2) = AB, AC, BC. Порядок не важен: AB и BA считаются одинаковыми. Всего 3 комбинации."
+    },
+    {
+      "text": "Что вернёт list(permutations(\"AB\", 2))?",
+      "kind": 0,
+      "options": [
+        "[(\"A\",\"B\")]",
+        "[(\"A\",\"B\"), (\"B\",\"A\")]",
+        "[(\"A\",\"A\"), (\"A\",\"B\"), (\"B\",\"A\"), (\"B\",\"B\")]",
+        "[\"AB\", \"BA\"]"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "permutations(\"AB\", 2) даёт все упорядоченные пары: (\"A\",\"B\") и (\"B\",\"A\") — 2 комбинации."
+    },
+    {
+      "text": "В каком модуле находятся функции permutations, combinations, product?",
+      "kind": 0,
+      "options": [
+        "math",
+        "random",
+        "itertools",
+        "collections"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "Все функции для комбинаторики (permutations, combinations, product) находятся в модуле itertools."
+    },
+    {
+      "text": "Что делает cycle() из itertools?",
+      "kind": 0,
+      "options": [
+        "Объединяет итераторы",
+        "Бесконечно повторяет элементы последовательности",
+        "Фильтрует элементы",
+        "Сортирует элементы"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "cycle() бесконечно повторяет элементы переданной последовательности по кругу."
+    },
+    {
+      "text": "Что вернёт list(combinations_with_replacement(\"AB\", 2))?",
+      "kind": 0,
+      "options": [
+        "[(\"A\",\"A\"), (\"A\",\"B\"), (\"B\",\"B\")]",
+        "[(\"A\",\"B\")]",
+        "[(\"A\",\"A\"), (\"A\",\"B\"), (\"B\",\"A\"), (\"B\",\"B\")]",
+        "[(\"A\",\"A\"), (\"B\",\"B\")]"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "combinations_with_replacement допускает повторение элементов: (\"A\",\"A\"), (\"A\",\"B\"), (\"B\",\"B\"). Порядок не важен, поэтому (\"B\",\"A\") не включается."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

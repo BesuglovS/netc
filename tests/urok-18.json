@@ -1,0 +1,142 @@
+{
+  "id": "f9a4f185-1f4f-57bd-8f6e-1f104fc85bc1",
+  "title": "Урок 18. Цикл for",
+  "questions": [
+    {
+      "text": "Что перебирает for x in \"abc\"?",
+      "kind": 0,
+      "options": [
+        "Индексы 0, 1, 2",
+        "Символы a, b, c",
+        "Буквы A, B, C",
+        "Числа 97, 98, 99"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Цикл for перебирает элементы последовательности напрямую — отдельные символы строки."
+    },
+    {
+      "text": "Что выведет код?for ch in \"Python\": print(ch, end=\"-\")",
+      "kind": 0,
+      "options": [
+        "P y t h o n",
+        "P-y-t-h-o-n",
+        "Python",
+        "P-y-t-h-o-n-"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "Цикл перебирает строку посимвольно и печатает каждый символ, а end=\"-\" добавляет дефис после каждого символа, включая последний."
+    },
+    {
+      "text": "Когда выполняется блок else в цикле for?",
+      "kind": 0,
+      "options": [
+        "Когда цикл завершился нормально (без break)",
+        "Когда срабатывает break",
+        "Всегда",
+        "Никогда"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Блок else в for выполняется только при нормальном завершении цикла. Если был break — else не выполняется."
+    },
+    {
+      "text": "Что выведет код?s = \"\"for ch in \"abc\": s += ch.upper()print(s)",
+      "kind": 0,
+      "options": [
+        "abc",
+        "aAbBcC",
+        "ABC",
+        "Ошибка"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "На каждой итерации символ в верхнем регистре добавляется к строке s: A, затем B, затем C. Выводится \"ABC\"."
+    },
+    {
+      "text": "Что выведет код?for char in \"Python\": if char == \"t\": break print(char, end=\"\")",
+      "kind": 0,
+      "options": [
+        "Pyt",
+        "Py",
+        "Python",
+        "P"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Цикл выводит \"P\", \"y\". При char = \"t\" срабатывает break и цикл завершается."
+    },
+    {
+      "text": "Что выведет код?for letter in \"ABC\": passprint(letter)",
+      "kind": 0,
+      "options": [
+        "A",
+        "B",
+        "Ошибка",
+        "C"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "Переменная цикла сохраняет последнее значение и после завершения цикла — выводится C."
+    },
+    {
+      "text": "Какая переменная-счётчик чаще всего используется в циклах for?",
+      "kind": 0,
+      "options": [
+        "i",
+        "x",
+        "counter",
+        "n"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "По традиции в циклах for чаще всего используются i, j, k в качестве переменных-счётчиков."
+    },
+    {
+      "text": "Что выведет код?text = \"программирование\"count = 0for char in text: if char == \"р\": count += 1print(count)",
+      "kind": 0,
+      "options": [
+        "2",
+        "4",
+        "3",
+        "Ошибка"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "Счётчик увеличивается при каждой встреченной букве \"р\". В слове \"программирование\" буква \"р\" встречается 3 раза."
+    },
+    {
+      "text": "Что выведет код?for ch in \"ab\": print(ch, end=\" \")else: print(\"конец\")",
+      "kind": 0,
+      "options": [
+        "a b",
+        "конец",
+        "a b a b конец",
+        "a b конец"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "Цикл выводит a, b. Завершается нормально, выполняется else: выводится \"конец\"."
+    },
+    {
+      "text": "Что такое итерируемый объект?",
+      "kind": 0,
+      "options": [
+        "Объект, который можно изменять",
+        "Объект, по элементам которого можно проходить в цикле",
+        "Объект с числовыми индексами",
+        "Только списки"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Итерируемый объект (iterable) — это объект, который можно перебирать в цикле for: строки, списки, кортежи, словари и т.д."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

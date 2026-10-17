@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/netc_android/">
+    <Project Path="netc_android/NetcAndroid.csproj" />
+  </Folder>
+  <Folder Name="/netc_client/">
+    <Project Path="netc_client/NetcClient.csproj" />
+  </Folder>
+  <Folder Name="/netc_server/">
+    <Project Path="netc_server/NetcServer.Agent/NetcServer.Agent.csproj" />
+    <Project Path="netc_server/NetcServer.Core/NetcServer.Core.csproj" />
+    <Project Path="netc_server/NetcServer.Service/NetcServer.Service.csproj" />
+    <Project Path="netc_server/NetcServer.Watchdog/NetcServer.Watchdog.csproj" />
+  </Folder>
+  <Folder Name="/netc_shared/">
+    <Project Path="netc_shared/NetcShared.csproj" />
+  </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/netc_lockwall/NetcLockWall.csproj" />
+  </Folder>
+</Solution>

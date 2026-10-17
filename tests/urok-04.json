@@ -1,0 +1,142 @@
+{
+  "id": "ca405f7d-ff9d-5cd2-894d-30e3e034ada1",
+  "title": "Урок 4. Типы данных",
+  "questions": [
+    {
+      "text": "Какой тип у значения 3.14?",
+      "kind": 0,
+      "options": [
+        "int",
+        "float",
+        "str",
+        "bool"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Числа с десятичной точкой имеют тип float (числа с плавающей точкой)."
+    },
+    {
+      "text": "Что вернёт type(\"42\")?",
+      "kind": 0,
+      "options": [
+        "int",
+        "float",
+        "str",
+        "bool"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "Значение в кавычках — это строка (str), даже если внутри цифры."
+    },
+    {
+      "text": "Что вернёт type(True)?",
+      "kind": 0,
+      "options": [
+        "int",
+        "str",
+        "NoneType",
+        "bool"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "True и False имеют тип bool (булевый тип данных)."
+    },
+    {
+      "text": "Какой тип имеет значение None в Python?",
+      "kind": 0,
+      "options": [
+        "int",
+        "str",
+        "NoneType",
+        "bool"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "None имеет тип NoneType и обозначает отсутствие значения."
+    },
+    {
+      "text": "Что вернёт isinstance(10, int)?",
+      "kind": 0,
+      "options": [
+        "True",
+        "False",
+        "None",
+        "Ошибка"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "isinstance проверяет, принадлежит ли значение указанному типу. 10 — это int, поэтому True."
+    },
+    {
+      "text": "Что вернёт int(3.99)?",
+      "kind": 0,
+      "options": [
+        "4",
+        "3",
+        "3.99",
+        "Ошибка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "int() отсекает дробную часть (не округляет!). int(3.99) = 3, не 4."
+    },
+    {
+      "text": "Что вернёт float(\"3.14\")?",
+      "kind": 0,
+      "options": [
+        "\"3.14\"",
+        "3",
+        "3.14",
+        "Ошибка"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "float() преобразует строку в число с плавающей точкой. float(\"3.14\") = 3.14."
+    },
+    {
+      "text": "Что произойдёт при выполнении int(\"abc\")?",
+      "kind": 0,
+      "options": [
+        "Вернётся 0",
+        "Вызовется ValueError",
+        "Вернётся None",
+        "Создастся переменная"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "int() не может преобразовать строку \"abc\" в число и выбрасывает исключение ValueError."
+    },
+    {
+      "text": "Какие значения преобразуются в False через bool()?",
+      "kind": 0,
+      "options": [
+        "0, \"\", [], None, False",
+        "Только False",
+        "Только 0",
+        "Любые числа"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "bool() возвращает False для пустых и нулевых значений: 0, 0.0, \"\", [], None и т.д."
+    },
+    {
+      "text": "Какая функция используется для определения типа данных в Python?",
+      "kind": 0,
+      "options": [
+        "typeof()",
+        "type()",
+        "gettype()",
+        "isinstance()"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "type() возвращает тип данных значения. isinstance() проверяет принадлежность к типу."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

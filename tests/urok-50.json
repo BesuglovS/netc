@@ -1,0 +1,142 @@
+{
+  "id": "cca02a12-6aec-5f3f-9fd1-00e876e1d2d9",
+  "title": "Урок 50. Введение в Git",
+  "questions": [
+    {
+      "text": "Что такое Git?",
+      "kind": 0,
+      "options": [
+        "Среда разработки",
+        "Система контроля версий",
+        "Язык программирования",
+        "База данных"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Git — это распределённая система контроля версий, отслеживающая изменения в файлах."
+    },
+    {
+      "text": "Какая команда инициализирует Git-репозиторий?",
+      "kind": 0,
+      "options": [
+        "git start",
+        "git init",
+        "git create",
+        "git new"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "git init создаёт новый Git-репозиторий в текущей директории (папку .git)."
+    },
+    {
+      "text": "Какая команда добавляет файлы в индекс (staging)?",
+      "kind": 0,
+      "options": [
+        "git add file.py",
+        "git stage file.py",
+        "git include file.py",
+        "git put file.py"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "git add file.py добавляет файл в staging area (индекс) для следующего коммита."
+    },
+    {
+      "text": "Какая команда создаёт коммит?",
+      "kind": 0,
+      "options": [
+        "git commit -m \"сообщение\"",
+        "git save -m \"сообщение\"",
+        "git push -m \"сообщение\"",
+        "git snapshot -m \"сообщение\""
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "git commit -m \"message\" создаёт коммит с указанным сообщением."
+    },
+    {
+      "text": "Какая команда показывает историю коммитов?",
+      "kind": 0,
+      "options": [
+        "git history",
+        "git log",
+        "git show",
+        "git list"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "git log выводит историю коммитов с хешами, авторами, датами и сообщениями."
+    },
+    {
+      "text": "Какая команда отправляет изменения на удалённый репозиторий?",
+      "kind": 0,
+      "options": [
+        "git send",
+        "git push",
+        "git upload",
+        "git sync"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "git push отправляет локальные коммиты в удалённый репозиторий."
+    },
+    {
+      "text": "Какая команда загружает изменения из удалённого репозитория?",
+      "kind": 0,
+      "options": [
+        "git pull",
+        "git fetch",
+        "git download",
+        "git sync"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "git pull загружает изменения из удалённого репозитория и сливает их с текущей веткой."
+    },
+    {
+      "text": "Что такое ветка (branch) в Git?",
+      "kind": 0,
+      "options": [
+        "Копия репозитория",
+        "Отдельная линия разработки",
+        "Файл с настройками",
+        "Удалённый репозиторий"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Ветка — это независимая линия разработки, позволяющая работать над разными функциями параллельно."
+    },
+    {
+      "text": "Какая команда создаёт новую ветку?",
+      "kind": 0,
+      "options": [
+        "git branch new-feature",
+        "git create-branch new-feature",
+        "git new branch new-feature",
+        "git branch -c new-feature"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "git branch name создаёт новую ветку. git checkout -b name создаёт и переключается на неё."
+    },
+    {
+      "text": "Что такое .gitignore?",
+      "kind": 0,
+      "options": [
+        "Файл со списком игнорируемых Git-ом файлов и папок",
+        "Файл с настройками Git",
+        "Файл с описанием проекта",
+        "Файл с паролями"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": ".gitignore содержит шаблоны файлов и папок, которые Git должен игнорировать (например, __pycache__, .env)."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

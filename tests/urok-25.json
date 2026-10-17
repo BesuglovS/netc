@@ -1,0 +1,142 @@
+{
+  "id": "08f4cf7d-aa4b-5c25-8c91-78e145973073",
+  "title": "Урок 25. Списки",
+  "questions": [
+    {
+      "text": "Как добавить элемент в конец списка?",
+      "kind": 0,
+      "options": [
+        ".push()",
+        ".append()",
+        ".add()",
+        ".insert()"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Метод .append(x) добавляет элемент x в конец списка."
+    },
+    {
+      "text": "Что вернёт len([1, 2, 3])?",
+      "kind": 0,
+      "options": [
+        "3",
+        "2",
+        "4",
+        "[1, 2, 3]"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "len() возвращает количество элементов в списке."
+    },
+    {
+      "text": "Как получить последний элемент списка?",
+      "kind": 0,
+      "options": [
+        "list[-1]",
+        "list.end()",
+        "list[last]",
+        "list[len]"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Отрицательные индексы отсчитываются с конца. list[-1] — последний элемент списка."
+    },
+    {
+      "text": "Что делает метод .insert(i, x)?",
+      "kind": 0,
+      "options": [
+        "Добавляет x в конец",
+        "Заменяет элемент x на i",
+        "Удаляет элемент на позиции i",
+        "Вставляет x на позицию i"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "list.insert(i, x) вставляет элемент x на позицию i, сдвигая остальные элементы вправо."
+    },
+    {
+      "text": "Что делает .pop() без аргументов?",
+      "kind": 0,
+      "options": [
+        "Удаляет и возвращает последний элемент",
+        "Очищает список",
+        "Удаляет первый элемент",
+        "Возвращает длину"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": ".pop() без аргументов удаляет и возвращает последний элемент списка."
+    },
+    {
+      "text": "Что выведет код?a = [1, 2, 3]b = ab.append(4)print(a)",
+      "kind": 0,
+      "options": [
+        "[1, 2, 3]",
+        "[1, 2, 3, 4]",
+        "Ошибка",
+        "[4]"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "b = a не создаёт копию, а создаёт ссылку на тот же список. Изменения через b видны и в a."
+    },
+    {
+      "text": "Как создать копию списка?",
+      "kind": 0,
+      "options": [
+        "list.copy() или list[:]",
+        "list.duplicate()",
+        "copy.list()",
+        "clone(list)"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Копию списка можно создать через list.copy() или срез list[:]."
+    },
+    {
+      "text": "Что выведет код?nums = [3, 1, 4, 1, 5]nums.sort()print(nums)",
+      "kind": 0,
+      "options": [
+        "None",
+        "[5, 4, 3, 1, 1]",
+        "[1, 1, 3, 4, 5]",
+        "[3, 1, 4, 1, 5]"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "sort() сортирует список на месте (по возрастанию). Результат: [1, 1, 3, 4, 5]."
+    },
+    {
+      "text": "Что делает метод .index(x)?",
+      "kind": 0,
+      "options": [
+        "Проверяет наличие x",
+        "Возвращает индекс первого вхождения x",
+        "Вставляет x в список",
+        "Удаляет элемент x"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "list.index(x) возвращает индекс первого элемента со значением x. Вызывает ValueError, если x не найден."
+    },
+    {
+      "text": "Что выведет код?words = [\"яблоко\", \"банан\", \"вишня\"]for i, w in enumerate(words): print(i, w)",
+      "kind": 0,
+      "options": [
+        "яблоко банан вишня",
+        "Ошибка",
+        "0 яблоко 1 банан 2 вишня",
+        "1 яблоко, 2 банан, 3 вишня"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "enumerate() возвращает пары (индекс, значение). enumerate(words) → (0, \"яблоко\"), (1, \"банан\"), (2, \"вишня\")."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

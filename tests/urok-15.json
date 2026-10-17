@@ -1,0 +1,142 @@
+{
+  "id": "36941169-e563-5f42-809e-1b6777dfb73d",
+  "title": "Урок 15. Операции над строками",
+  "questions": [
+    {
+      "text": "Что вернёт \"hello\".upper()?",
+      "kind": 0,
+      "options": [
+        "Hello",
+        "HELLO",
+        "hello",
+        "Ошибка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Метод .upper() преобразует все буквы в верхний регистр."
+    },
+    {
+      "text": "Как объединить строки \"a\" и \"b\"?",
+      "kind": 0,
+      "options": [
+        "\"a\" + \"b\"",
+        "\"a\" & \"b\"",
+        "concat(\"a\", \"b\")",
+        "\"a\" . \"b\""
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "В Python строки объединяются оператором + (конкатенация)."
+    },
+    {
+      "text": "Что выведет: print(\"Ha\" * 3)?",
+      "kind": 0,
+      "options": [
+        "Ha Ha Ha",
+        "HaHaHa",
+        "Ha3",
+        "Ошибка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Оператор * повторяет строку указанное количество раз: \"Ha\" * 3 = \"HaHaHa\"."
+    },
+    {
+      "text": "Какая escape-последовательность обозначает символ новой строки?",
+      "kind": 0,
+      "options": [
+        "\\n",
+        "\\t",
+        "\\r",
+        "\\b"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "\\n — escape-последовательность для перехода на новую строку (newline)."
+    },
+    {
+      "text": "Что выведет: print(\"C:\\\\Users\\\\Name\")?",
+      "kind": 0,
+      "options": [
+        "C:\\Users\\Name",
+        "C:\\\\Users\\\\Name",
+        "C:UsersName",
+        "Ошибка"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "\\\\ — экранирование обратной косой черты. Каждая пара \\\\ даёт один \\ в выводе."
+    },
+    {
+      "text": "Что делает метод .strip() в Python?",
+      "kind": 0,
+      "options": [
+        "Разделяет строку",
+        "Удаляет пробельные символы с начала и конца строки",
+        "Переворачивает строку",
+        "Заменяет пробелы"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "strip() удаляет пробелы, табуляцию и символы новой строки с обоих концов строки."
+    },
+    {
+      "text": "Что выведет: print(\"Hello\".replace(\"l\", \"7\"))?",
+      "kind": 0,
+      "options": [
+        "He77o",
+        "Hello",
+        "He7lo",
+        "Hello7"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "replace(old, new) заменяет все вхождения подстроки old на new: \"l\" → \"7\", результат \"He77o\"."
+    },
+    {
+      "text": "Что вернёт \"Hello World\".find(\"World\")?",
+      "kind": 0,
+      "options": [
+        "5",
+        "6",
+        "0",
+        "-1"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": ".find() возвращает индекс первого вхождения подстроки. \"World\" начинается с индекса 6."
+    },
+    {
+      "text": "Что выведет: print(len(\"Hello, World!\"))?",
+      "kind": 0,
+      "options": [
+        "12",
+        "13",
+        "14",
+        "15"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "len() считает все символы, включая пробел и знаки препинания. \"Hello, World!\" — 13 символов."
+    },
+    {
+      "text": "Что вернёт \"python\".startswith(\"py\")?",
+      "kind": 0,
+      "options": [
+        "True",
+        "False",
+        "python",
+        "Ошибка"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Метод startswith() проверяет, начинается ли строка с указанной подстроки. \"python\" начинается с \"py\", поэтому результат True."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

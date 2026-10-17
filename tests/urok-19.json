@@ -1,0 +1,142 @@
+{
+  "id": "0ce4f635-5ee8-58a1-8047-fd9c9c5c953a",
+  "title": "Урок 19. range()",
+  "questions": [
+    {
+      "text": "Что генерирует range(3)?",
+      "kind": 0,
+      "options": [
+        "1, 2, 3",
+        "0, 1, 2, 3",
+        "0, 1, 2",
+        "3"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "range(n) генерирует числа от 0 до n-1 включительно."
+    },
+    {
+      "text": "Что генерирует range(2, 5)?",
+      "kind": 0,
+      "options": [
+        "2, 3, 4, 5",
+        "2, 3, 4",
+        "0, 1, 2",
+        "5, 4, 3, 2"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "range(start, stop) идёт от start до stop-1."
+    },
+    {
+      "text": "Что генерирует range(0, 10, 2)?",
+      "kind": 0,
+      "options": [
+        "0, 2, 4, 6, 8, 10",
+        "2, 4, 6, 8",
+        "0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10",
+        "0, 2, 4, 6, 8"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "range(start, stop, step) с шагом 2: 0, 2, 4, 6, 8."
+    },
+    {
+      "text": "Что вернёт len(range(10))?",
+      "kind": 0,
+      "options": [
+        "10",
+        "9",
+        "11",
+        "Ошибка"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "len(range(10)) возвращает количество элементов range(10) — числа от 0 до 9, то есть 10."
+    },
+    {
+      "text": "Сколько элементов в последовательности range(2, 11, 2)?",
+      "kind": 0,
+      "options": [
+        "4",
+        "6",
+        "5",
+        "9"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "range(2, 11, 2) даёт 2, 4, 6, 8, 10 — 5 элементов."
+    },
+    {
+      "text": "Что такое ленивые вычисления (lazy evaluation) range?",
+      "kind": 0,
+      "options": [
+        "range генерирует числа по одному при итерации, не храня все сразу",
+        "range хранит все числа в памяти",
+        "range работает медленно",
+        "range нельзя использовать в цикле"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "range — ленивый: он не создаёт список всех чисел, а генерирует их по одному при необходимости. Экономит память."
+    },
+    {
+      "text": "Что выведет код?s = 0for i in range(1, 6): s += iprint(s)",
+      "kind": 0,
+      "options": [
+        "10",
+        "15",
+        "21",
+        "6"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "range(1, 6) даёт 1, 2, 3, 4, 5. Сумма: 1 + 2 + 3 + 4 + 5 = 15."
+    },
+    {
+      "text": "Что выведет код?for i in range(5, 0, -1): print(i, end=\" \")",
+      "kind": 0,
+      "options": [
+        "5 4 3 2 1 0",
+        "0 1 2 3 4 5",
+        "1 2 3 4 5",
+        "5 4 3 2 1"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "range(5, 0, -1) даёт 5, 4, 3, 2, 1 (от 5 до 1, не включая 0)."
+    },
+    {
+      "text": "Что выведет код?word = \"привет\"for i in range(len(word)): print(i, word[i])",
+      "kind": 0,
+      "options": [
+        "п р и в е т",
+        "0 1 2 3 4 5",
+        "0 п 1 р 2 и 3 в 4 е 5 т",
+        "Ошибка"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "range(len(word)) = range(6) = 0, 1, 2, 3, 4, 5. Выводятся индекс и соответствующий символ строки."
+    },
+    {
+      "text": "Что выведет код?for i in range(3): print(i)",
+      "kind": 0,
+      "options": [
+        "1 2 3",
+        "0 1 2",
+        "0 1 2 3",
+        "1 2"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "range(3) генерирует числа 0, 1, 2 (от 0 до n-1). Выводится каждый на новой строке (или с пробелами если end=\" \")."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

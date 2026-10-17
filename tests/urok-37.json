@@ -1,0 +1,142 @@
+{
+  "id": "f3494a2c-f8e7-5378-8bda-bc374fb3052d",
+  "title": "Урок 37. Виртуальные окружения и pip",
+  "questions": [
+    {
+      "text": "Что такое виртуальное окружение (venv)?",
+      "kind": 0,
+      "options": [
+        "Папка с проектом",
+        "Изолированная среда для проекта с собственными пакетами",
+        "Режим отладки",
+        "Облачное хранилище"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Виртуальное окружение изолирует зависимости проекта, чтобы библиотеки разных проектов не конфликтовали."
+    },
+    {
+      "text": "Какая команда создаёт виртуальное окружение?",
+      "kind": 0,
+      "options": [
+        "python venv myenv",
+        "python -m venv myenv",
+        "venv create myenv",
+        "python create venv"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "python -m venv myenv создаёт виртуальное окружение в папке myenv."
+    },
+    {
+      "text": "Как активировать виртуальное окружение на Windows?",
+      "kind": 0,
+      "options": [
+        "myenv/activate",
+        "activate myenv",
+        "myenv\\Scripts\\activate",
+        "venv activate"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "На Windows активация: myenv\\Scripts\\activate. На Linux/Mac: source myenv/bin/activate."
+    },
+    {
+      "text": "Что такое pip?",
+      "kind": 0,
+      "options": [
+        "Язык программирования",
+        "Менеджер пакетов Python",
+        "Среда разработки",
+        "База данных"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "pip (Package Installer for Python) — стандартный менеджер пакетов для установки сторонних библиотек."
+    },
+    {
+      "text": "Какая команда устанавливает пакет?",
+      "kind": 0,
+      "options": [
+        "pip install numpy",
+        "pip add numpy",
+        "pip get numpy",
+        "python install numpy"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "pip install numpy устанавливает библиотеку numpy и её зависимости."
+    },
+    {
+      "text": "Какая команда показывает установленные пакеты?",
+      "kind": 0,
+      "options": [
+        "pip list",
+        "pip show",
+        "pip packages",
+        "pip installed"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "pip list выводит список всех установленных пакетов с их версиями."
+    },
+    {
+      "text": "Что такое requirements.txt?",
+      "kind": 0,
+      "options": [
+        "Файл с описанием ошибок",
+        "Файл со списком зависимостей проекта",
+        "Исходный код",
+        "README-файл"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "requirements.txt — текстовый файл, перечисляющий все необходимые библиотеки. Устанавливаются командой pip install -r requirements.txt."
+    },
+    {
+      "text": "Какая команда создаёт requirements.txt?",
+      "kind": 0,
+      "options": [
+        "pip freeze > requirements.txt",
+        "pip list > requirements.txt",
+        "pip save requirements.txt",
+        "pip export requirements.txt"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "pip freeze выводит список установленных пакетов в формате, подходящем для requirements.txt."
+    },
+    {
+      "text": "Как удалить пакет через pip?",
+      "kind": 0,
+      "options": [
+        "pip remove numpy",
+        "pip uninstall numpy",
+        "pip delete numpy",
+        "pip drop numpy"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "pip uninstall numpy удаляет указанный пакет."
+    },
+    {
+      "text": "Что такое PyPI?",
+      "kind": 0,
+      "options": [
+        "Среда разработки Python",
+        "Python Package Index — репозиторий пакетов Python",
+        "Формат файлов Python",
+        "Инструмент отладки"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "PyPI (Python Package Index) — официальный репозиторий сторонних пакетов Python, откуда pip загружает библиотеки."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

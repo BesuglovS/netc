@@ -1,0 +1,142 @@
+{
+  "id": "90b8dd22-fa41-5e1e-9757-0eb4ab3c7d37",
+  "title": "Урок 48. Requests и API",
+  "questions": [
+    {
+      "text": "Что такое API?",
+      "kind": 0,
+      "options": [
+        "Интерфейс для взаимодействия между программами",
+        "База данных",
+        "Язык программирования",
+        "Среда разработки"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "API (Application Programming Interface) — это набор правил и протоколов для взаимодействия между программами."
+    },
+    {
+      "text": "Какой модуль Python используется для HTTP-запросов?",
+      "kind": 0,
+      "options": [
+        "http",
+        "requests",
+        "urllib",
+        "И requests, и urllib"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "Модуль requests — популярная библиотека для HTTP-запросов. urllib — встроенный модуль."
+    },
+    {
+      "text": "Какой метод HTTP используется для получения данных?",
+      "kind": 0,
+      "options": [
+        "POST",
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "GET-запрос используется для получения данных от сервера."
+    },
+    {
+      "text": "Как отправить GET-запрос с помощью requests?",
+      "kind": 0,
+      "options": [
+        "requests.get(url)",
+        "requests.post(url)",
+        "requests.fetch(url)",
+        "requests.send(url)"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "requests.get(url) отправляет GET-запрос и возвращает объект Response."
+    },
+    {
+      "text": "Как получить содержимое ответа в виде текста?",
+      "kind": 0,
+      "options": [
+        "response.content",
+        "response.text",
+        "response.body",
+        "response.data"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "response.text возвращает содержимое ответа в виде строки (текста)."
+    },
+    {
+      "text": "Как получить содержимое ответа в формате JSON?",
+      "kind": 0,
+      "options": [
+        "response.json()",
+        "response.parse_json()",
+        "response.to_json()",
+        "response.json_data()"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "response.json() парсит JSON-содержимое ответа и возвращает Python-объект (словарь/список)."
+    },
+    {
+      "text": "Какой статус-код означает успешный ответ?",
+      "kind": 0,
+      "options": [
+        "200",
+        "404",
+        "500",
+        "301"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "HTTP 200 OK — стандартный код успешного ответа."
+    },
+    {
+      "text": "Какой статус-код означает «не найдено»?",
+      "kind": 0,
+      "options": [
+        "200",
+        "404",
+        "500",
+        "403"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "HTTP 404 Not Found означает, что запрошенный ресурс не найден."
+    },
+    {
+      "text": "Как передать параметры в GET-запросе через requests?",
+      "kind": 0,
+      "options": [
+        "requests.get(url, params={\"key\": \"value\"})",
+        "requests.get(url + \"?key=value\")",
+        "Оба варианта работают",
+        "requests.get(url, data={\"key\": \"value\"})"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "Можно передать params= или вручную добавить параметры в URL. params= удобнее и безопаснее."
+    },
+    {
+      "text": "Как установить заголовки (headers) в запросе?",
+      "kind": 0,
+      "options": [
+        "requests.get(url, headers={\"Authorization\": \"Bearer ...\"})",
+        "requests.get(url, header={\"Authorization\": \"Bearer ...\"})",
+        "requests.get(url, meta={\"Authorization\": \"Bearer ...\"})",
+        "requests.get(url, auth={\"Authorization\": \"Bearer ...\"})"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Параметр headers принимает словарь с HTTP-заголовками для запроса."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

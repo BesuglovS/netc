@@ -1,0 +1,142 @@
+{
+  "id": "ddd682c7-c7e0-5a51-8e3a-31a1accd3876",
+  "title": "Урок 2. Настройка IDE: IDLE, VS Code и PyCharm",
+  "questions": [
+    {
+      "text": "Что такое IDE?",
+      "kind": 0,
+      "options": [
+        "Язык программирования",
+        "Интегрированная среда разработки",
+        "Интернет-протокол",
+        "База данных"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "IDE (Integrated Development Environment) — программа, объединяющая редактор кода, отладчик, терминал и другие инструменты для разработки."
+    },
+    {
+      "text": "Как запустить Python-скрипт из командной строки?",
+      "kind": 0,
+      "options": [
+        "python script.py",
+        "run script.py",
+        "execute script.py",
+        "compile script.py"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Для запуска Python-скрипта используется команда python (или python3). Например: python myscript.py."
+    },
+    {
+      "text": "Что такое IDLE?",
+      "kind": 0,
+      "options": [
+        "Сложная IDE от Microsoft",
+        "Встроенная среда разработки, входящая в состав Python",
+        "Онлайн-компилятор",
+        "База данных для Python"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "IDLE (Integrated Development and Learning Environment) — это простая среда разработки, которая входит в состав дистрибутива Python."
+    },
+    {
+      "text": "Какое расширение VS Code нужно установить для работы с Python?",
+      "kind": 0,
+      "options": [
+        "Python от Microsoft",
+        "Python Tools",
+        "Python Extension Pack",
+        "PyCharm Plugin"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Расширение «Python» от Microsoft (ID: ms-python.python) добавляет подсветку синтаксиса, автодополнение, отладчик и другие возможности."
+    },
+    {
+      "text": "Какая IDE создана компанией JetBrains?",
+      "kind": 0,
+      "options": [
+        "VS Code",
+        "IDLE",
+        "PyCharm",
+        "Sublime Text"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "PyCharm создан компанией JetBrains. Доступны бесплатная Community Edition и платная Professional Edition."
+    },
+    {
+      "text": "Что такое виртуальное окружение (venv) в Python?",
+      "kind": 0,
+      "options": [
+        "Папка с проектом",
+        "Изолированная среда для проекта с собственными пакетами",
+        "Режим отладки",
+        "Облачное хранилище"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Виртуальное окружение изолирует зависимости проекта, чтобы библиотеки разных проектов не конфликтовали."
+    },
+    {
+      "text": "Что нужно отметить при установке Python на Windows?",
+      "kind": 0,
+      "options": [
+        "Install for all users",
+        "Install launcher",
+        "Create desktop shortcut",
+        "Add Python to PATH"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "Галочка «Add Python to PATH» позволяет запускать Python из командной строки, просто набрав python."
+    },
+    {
+      "text": "Какая горячая клавиша запускает код в PyCharm?",
+      "kind": 0,
+      "options": [
+        "F5",
+        "Shift+F10",
+        "Ctrl+Enter",
+        "F9"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "В PyCharm для запуска кода используется Shift+F10 (или зелёная стрелка в правом верхнем углу)."
+    },
+    {
+      "text": "Какая IDE лучше всего подходит для начинающих по сравнению с таблицей в уроке?",
+      "kind": 0,
+      "options": [
+        "PyCharm Professional",
+        "VS Code",
+        "IDLE — самый простой старт",
+        "Все одинаково сложны"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "IDLE — самый простой вариант для первых шагов: он не требует установки и настроек, встроен в Python."
+    },
+    {
+      "text": "Зачем нужен отладчик (debugger) в IDE?",
+      "kind": 0,
+      "options": [
+        "Чтобы ускорять код",
+        "Чтобы пошагово выполнять код и находить ошибки",
+        "Чтобы форматировать код",
+        "Чтобы компилировать код"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Отладчик позволяет ставить точки останова, выполнять код по шагам и смотреть значения переменных для поиска ошибок."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

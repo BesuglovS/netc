@@ -1,0 +1,142 @@
+{
+  "id": "83b20fb7-831d-5c3d-b803-85f3575645c9",
+  "title": "Урок 46. Type Hints",
+  "questions": [
+    {
+      "text": "Что такое type hint (подсказка типа) в Python?",
+      "kind": 0,
+      "options": [
+        "Обязательное объявление типа",
+        "Аннотация типа для читаемости кода (не проверяется интерпретатором)",
+        "Тип данных функции",
+        "Имя переменной"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Type hints — необязательные аннотации, улучшающие читаемость и помогающие IDE и линтерам."
+    },
+    {
+      "text": "Как указать тип параметра функции?",
+      "kind": 0,
+      "options": [
+        "def func(x: int):",
+        "def func(int x):",
+        "def func(x :: int):",
+        "def func(x as int):"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Аннотация типа параметра: def func(x: int): — x должен быть int (но это не проверяется)."
+    },
+    {
+      "text": "Как указать тип возвращаемого значения функции?",
+      "kind": 0,
+      "options": [
+        "def func() : int",
+        "def func() -> int:",
+        "def func() returns int:",
+        "def func() => int:"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Стрелка -> указывает тип возвращаемого значения: def func() -> int:."
+    },
+    {
+      "text": "Какой модуль содержит типы для аннотаций (List, Dict, Optional)?",
+      "kind": 0,
+      "options": [
+        "typing",
+        "types",
+        "annotations",
+        "hints"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Модуль typing содержит List, Dict, Optional, Union и другие типы для аннотаций."
+    },
+    {
+      "text": "Что означает Optional[int]?",
+      "kind": 0,
+      "options": [
+        "int или None",
+        "Необязательный int",
+        "int по умолчанию",
+        "Список int"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Optional[int] эквивалентно Union[int, None] — переменная может быть int или None."
+    },
+    {
+      "text": "Как аннотировать переменную?",
+      "kind": 0,
+      "options": [
+        "x = int(5)",
+        "int x = 5",
+        "x :: int = 5",
+        "x: int = 5"
+      ],
+      "correctIndex": 3,
+      "points": 1,
+      "explanation": "Аннотация переменной: имя: тип = значение. Например: x: int = 5."
+    },
+    {
+      "text": "Что такое Union[int, str]?",
+      "kind": 0,
+      "options": [
+        "Тип, который может быть int или str",
+        "Объединение int и str",
+        "Список int и str",
+        "Кортеж int и str"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Union[int, str] означает, что значение может быть либо int, либо str."
+    },
+    {
+      "text": "Что такое Any в typing?",
+      "kind": 0,
+      "options": [
+        "Любой тип данных",
+        "Пустой тип",
+        "Тип None",
+        "Тип объекта"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Any — специальный тип, который означает «любой тип». Используется, когда тип не важен."
+    },
+    {
+      "text": "Как аннотировать список целых чисел?",
+      "kind": 0,
+      "options": [
+        "[int]",
+        "List[int]",
+        "list(int)",
+        "int[]"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "List[int] из модуля typing означает список, содержащий целые числа."
+    },
+    {
+      "text": "Проверяет ли Python type hints во время выполнения?",
+      "kind": 0,
+      "options": [
+        "Да",
+        "Нет, type hints игнорируются интерпретатором",
+        "Только в Python 3.10+",
+        "Только для функций"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Type hints — это аннотации для разработчиков и внешних инструментов (mypy). Python не проверяет их во время выполнения."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>26</SupportedOSPlatformVersion>
+    <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>NetcAndroid</RootNamespace>
+    <AssemblyName>NetcAndroid</AssemblyName>
+    <ApplicationId>ru.netc.android</ApplicationId>
+    <!-- Версия единая для всего комплекса — см. Directory.Build.props в корне. -->
+    <ApplicationDisplayVersion>$(NetcVersion)</ApplicationDisplayVersion>
+    <ApplicationVersion>1</ApplicationVersion>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+    <NoWarn>$(NoWarn);CA1416;CA1422</NoWarn>
+  </PropertyGroup>
+
+  <!-- Release: подпись собственным ключом, без AOT (System.Text.Json использует рефлексию). -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <RunAOTCompilation>false</RunAOTCompilation>
+    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidSigningKeyStore>keystore\netc.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>***REMOVED-SECRET***</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>netc</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>***REMOVED-SECRET***</AndroidSigningKeyPass>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\netc_shared\NetcShared.csproj" />
+  </ItemGroup>
+
+</Project>

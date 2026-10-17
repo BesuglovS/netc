@@ -1,0 +1,142 @@
+{
+  "id": "034096da-ac9d-5763-b4cb-8c6e97b9d066",
+  "title": "Урок 5. Приведение типов",
+  "questions": [
+    {
+      "text": "Как преобразовать строку \"123\" в целое число?",
+      "kind": 0,
+      "options": [
+        "int(\"123\")",
+        "str(123)",
+        "\"123\" + 0",
+        "integer(\"123\")"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "int(\"123\") преобразует строку в целое число 123."
+    },
+    {
+      "text": "Что вернёт int(True)?",
+      "kind": 0,
+      "options": [
+        "True",
+        "1",
+        "0",
+        "Ошибка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "bool — подтип int. True эквивалентен 1, поэтому int(True) = 1. Аналогично int(False) = 0."
+    },
+    {
+      "text": "Что вернёт str(None)?",
+      "kind": 0,
+      "options": [
+        "None",
+        "\"None\"",
+        "\"\"",
+        "Ошибка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "str() преобразует любое значение в строку. str(None) вернёт строку \"None\" (4 символа)."
+    },
+    {
+      "text": "Как проверить, является ли число целым?",
+      "kind": 0,
+      "options": [
+        "type(x) == int",
+        "isint(x)",
+        "x.is_integer()",
+        "x % 1 == 0"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "type(x) == int проверяет, имеет ли переменная тип int."
+    },
+    {
+      "text": "Что вернёт str(42)?",
+      "kind": 0,
+      "options": [
+        "42",
+        "\"42\"",
+        "int",
+        "Ошибка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "str() преобразует число в строку: str(42) = \"42\"."
+    },
+    {
+      "text": "Что вернёт bool(1)?",
+      "kind": 0,
+      "options": [
+        "True",
+        "False",
+        "1",
+        "Ошибка"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "bool() преобразует значение в булев тип. Любое ненулевое число преобразуется в True."
+    },
+    {
+      "text": "Что вернёт bool(0)?",
+      "kind": 0,
+      "options": [
+        "True",
+        "False",
+        "0",
+        "Ошибка"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "0 (ноль) преобразуется в False при приведении к булевому типу."
+    },
+    {
+      "text": "Какой тип данных будет у результата деления 10 / 3?",
+      "kind": 0,
+      "options": [
+        "int",
+        "float",
+        "str",
+        "bool"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "Оператор / в Python всегда возвращает float, даже если числа целые."
+    },
+    {
+      "text": "Что вернёт float(\"inf\")?",
+      "kind": 0,
+      "options": [
+        "inf (бесконечность)",
+        "0",
+        "Ошибка",
+        "None"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Строка \"inf\" преобразуется в специальное значение float — положительную бесконечность (inf)."
+    },
+    {
+      "text": "Что произойдёт при выполнении int(\"3.14\")?",
+      "kind": 0,
+      "options": [
+        "3",
+        "3.14",
+        "Вызовется ValueError",
+        "4"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "int() не может напрямую преобразовать строку с точкой. Для дробных чисел сначала нужно использовать float(): int(float(\"3.14\"))."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}

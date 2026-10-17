@@ -1,0 +1,142 @@
+{
+  "id": "7e111854-d435-5107-b13a-0b66d745c60e",
+  "title": "Урок 39. Модуль datetime",
+  "questions": [
+    {
+      "text": "Что вернёт datetime.now()?",
+      "kind": 0,
+      "options": [
+        "Только текущую дату",
+        "Только текущее время",
+        "Текущие дату и время",
+        "Строку с датой"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "datetime.now() возвращает объект datetime с текущими датой и временем."
+    },
+    {
+      "text": "Как превратить дату в строку формата «ДД.ММ.ГГГГ»?",
+      "kind": 0,
+      "options": [
+        "date.toString()",
+        "date.strftime(\"%d.%m.%Y\")",
+        "date.strptime(\"%d.%m.%Y\")",
+        "date.format()"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "strftime (string format time) форматирует дату в строку по шаблону. %d — день, %m — месяц, %Y — год."
+    },
+    {
+      "text": "Что делает timedelta(days=1)?",
+      "kind": 0,
+      "options": [
+        "Создаёт промежуток в 1 день для арифметики с датами",
+        "Создаёт дату завтрашнего дня",
+        "Изменяет текущую дату",
+        "Форматирует дату"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "timedelta представляет разницу во времени. Её можно прибавлять к датам и вычитать из них."
+    },
+    {
+      "text": "Как получить текущую дату без времени?",
+      "kind": 0,
+      "options": [
+        "datetime.now()",
+        "date.today()",
+        "time.now()",
+        "datetime.date()"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "date.today() возвращает объект date с текущей датой (без времени)."
+    },
+    {
+      "text": "Что выведет код?d = date(2024, 12, 31)print(d.weekday())",
+      "kind": 0,
+      "options": [
+        "31",
+        "5 — так как 31.12.2024 — вторник (индекс 1)",
+        "1",
+        "2024"
+      ],
+      "correctIndex": 2,
+      "points": 1,
+      "explanation": "weekday() возвращает день недели: 0 — понедельник, 1 — вторник и т.д. 31.12.2024 — вторник = 1."
+    },
+    {
+      "text": "Что такое strptime?",
+      "kind": 0,
+      "options": [
+        "Форматирование даты в строку",
+        "Парсинг строки в дату по формату",
+        "Форматирование времени",
+        "Создание даты"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "strptime (string parse time) преобразует строку в объект datetime по заданному формату."
+    },
+    {
+      "text": "Что выведет код?from datetime import timedeltad = timedelta(hours=2, minutes=30)print(d)",
+      "kind": 0,
+      "options": [
+        "2:30:00",
+        "2.5",
+        "150",
+        "Ошибка"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "timedelta выводится как \"days, HH:MM:SS\". 2 часа 30 минут = \"2:30:00\"."
+    },
+    {
+      "text": "Как получить разницу между двумя датами?",
+      "kind": 0,
+      "options": [
+        "date1 - date2",
+        "date1 + date2",
+        "difference(date1, date2)",
+        "date1.compare(date2)"
+      ],
+      "correctIndex": 0,
+      "points": 1,
+      "explanation": "Вычитание двух дат возвращает объект timedelta: delta = date1 - date2."
+    },
+    {
+      "text": "Что такое ISO формат даты?",
+      "kind": 0,
+      "options": [
+        "ДД.ММ.ГГГГ",
+        "ГГГГ-ММ-ДД",
+        "ММ/ДД/ГГГГ",
+        "ДД/ММ/ГГ"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "ISO 8601: ГГГГ-ММ-ДД (например, 2024-12-31). В Python метод .isoformat() возвращает дату в этом формате."
+    },
+    {
+      "text": "Как вывести только текущее время?",
+      "kind": 0,
+      "options": [
+        "datetime.now().date()",
+        "datetime.now().time()",
+        "time.today()",
+        "datetime.time()"
+      ],
+      "correctIndex": 1,
+      "points": 1,
+      "explanation": "datetime.now() возвращает дату и время. .time() извлекает только временную часть."
+    }
+  ],
+  "durationSeconds": 0,
+  "shuffleQuestions": true,
+  "shuffleOptions": true,
+  "showResultToStudent": true,
+  "passPercent": 70,
+  "escapePin": ""
+}
