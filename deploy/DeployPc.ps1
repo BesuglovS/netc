@@ -34,7 +34,7 @@ start "netc_setup" /min cmd /c "powershell -NoProfile -ExecutionPolicy Bypass -F
 "@
 Set-Content -Path (Join-Path $stage 'run-install.cmd') -Value $wrapper -Encoding ASCII
 $srcHash = (Get-FileHash (Join-Path $src 'NetcServer.Agent.dll')).Hash.Substring(0, 8)
-Write-Host ("staging: {0} (agent.dll {1})" -f $stage, $srcHash)
+Write-NetcLog ("staging: {0} (agent.dll {1})" -f $stage, $srcHash)
 
 function Send-RestartAgent([string]$ip) {
     $pdir = "\\$ip\C`$\ProgramData\netc\personalize"
@@ -54,14 +54,14 @@ function Send-RestartAgent([string]$ip) {
 foreach ($ip in $targetList) {
     $c = New-Object System.Net.Sockets.TcpClient; $up = $false
     try { $ar = $c.BeginConnect($ip, 445, $null, $null); if ($ar.AsyncWaitHandle.WaitOne(3000)) { $c.EndConnect($ar); $up = $true } } catch { } finally { $c.Close() }
-    if (-not $up) { Write-Host ("[{0,-15}] OFFLINE (нет 445)" -f $ip); continue }
+    if (-not $up) { Write-NetcLog ("[{0,-15}] OFFLINE (нет 445)" -f $ip); continue }
 
     try { $np = Start-Process 'net.exe' -ArgumentList @('use', "\\$ip\IPC$", "/user:$ip\$user", $pass) -NoNewWindow -PassThru; if (-not $np.WaitForExit(12000)) { try { $np.Kill() } catch { } } } catch { }
 
     $setup = "\\$ip\C`$\netc_setup"
     Remove-Item $setup -Recurse -Force -ErrorAction SilentlyContinue
     robocopy $stage $setup /E /NFL /NDL /NJH /NJS /NP /R:1 /W:1 | Out-Null
-    if ($LASTEXITCODE -ge 8) { Write-Host ("[{0,-15}] НЕТ ДОСТУПА к C$ (rc={1})" -f $ip, $LASTEXITCODE); continue }
+    if ($LASTEXITCODE -ge 8) { Write-NetcLog ("[{0,-15}] НЕТ ДОСТУПА к C$ (rc={1})" -f $ip, $LASTEXITCODE); continue }
 
     $done = $false
     for ($attempt = 1; $attempt -le 4; $attempt++) {
@@ -71,7 +71,7 @@ foreach ($ip in $targetList) {
         & sc.exe "\\$ip" start $svcName 2>&1 | Out-Null
         for ($i = 0; $i -lt 180; $i++) { if (Test-Path (Join-Path $setup 'install.done')) { $done = $true; break }; Start-Sleep -Seconds 2 }
         if ($done) { break }
-        Write-Host ("[{0}] попытка {1} установки не удалась, повтор..." -f $ip, $attempt)
+        Write-NetcLog ("[{0}] попытка {1} установки не удалась, повтор..." -f $ip, $attempt)
     }
     & sc.exe "\\$ip" delete $svcName 2>&1 | Out-Null
 
@@ -89,7 +89,7 @@ foreach ($ip in $targetList) {
 
     if ($done) { Remove-Item $setup -Recurse -Force -ErrorAction SilentlyContinue }
 
-    Write-Host ("[{0,-15}] done={1} dll={2}/{3} port7801={4} watchdog={5} restart={6}" -f $ip, $done, $hash, $srcHash, $(if ($port) { 'open' } else { 'CLOSED' }), $svc, $restart)
-    if ($tail) { Write-Host ("                 log: " + $tail) }
+    Write-NetcLog ("[{0,-15}] done={1} dll={2}/{3} port7801={4} watchdog={5} restart={6}" -f $ip, $done, $hash, $srcHash, $(if ($port) { 'open' } else { 'CLOSED' }), $svc, $restart)
+    if ($tail) { Write-NetcLog ("                 log: " + $tail) }
 }
-Write-Host "DEPLOY-DONE"
+Write-NetcLog "DEPLOY-DONE"

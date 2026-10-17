@@ -35,3 +35,9 @@ function Get-NetcDeployConfig {
 
     return $cfg
 }
+
+# Единый журнал развёртывания: каждая строка с меткой времени [HH:mm:ss].
+function Write-NetcLog {
+    param([string]$Message)
+    Write-Host ("[" + (Get-Date -Format 'HH:mm:ss') + "] " + $Message)
+}
