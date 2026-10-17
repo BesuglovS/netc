@@ -27,8 +27,18 @@ $noBom = New-Object System.Text.UTF8Encoding($false)
 $srcFiles = Get-ChildItem $src -File -Recurse
 
 function Copy-Needed([string]$full, [string]$dst) {
-    # Пропускаем, если файл уже есть и размер совпадает (для приложения этого достаточно).
-    try { if (Test-Path $dst) { if ((Get-Item $dst).Length -eq (Get-Item $full).Length) { return $true } } } catch { }
+    # Одинаковый размер не значит одинаковое содержимое (пример: NetcServer.Core.dll меняется,
+    # но размер тот же) — для файлов приложения сверяем ещё и хэш. Остальное (рантайм .NET)
+    # пропускаем по размеру, иначе каждый прогон хэширует сотни неизменных файлов.
+    $name = Split-Path $full -Leaf
+    try {
+        if (Test-Path $dst) {
+            if ((Get-Item $dst).Length -eq (Get-Item $full).Length) {
+                if ($name -notmatch '^(NetcServer\.|NetcShared\.)') { return $true }
+                if ((Get-FileHash $dst).Hash -eq (Get-FileHash $full).Hash) { return $true }
+            }
+        }
+    } catch { }
     $dir = Split-Path $dst -Parent
     if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Force -Path $dir | Out-Null }
     try { Copy-Item $full $dst -Force -ErrorAction Stop; return $true }
