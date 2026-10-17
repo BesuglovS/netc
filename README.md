@@ -22,7 +22,7 @@ netc.slnx
 ├── netc_client/                      приложение учителя (WinForms)
 ├── netc_android/                     приложение учителя на планшете Android (.NET for Android)
 ├── Directory.Build.props              единая версия комплекса (NetcVersion) для всех проектов
-├── build.ps1                         публикация (self-contained single-file)
+├── build.ps1                         публикация (агент/сторож self-contained папкой; клиент single-file)
 └── build-android.ps1                 сборка APK учителя для планшета
 ```
 
@@ -36,9 +36,8 @@ netc.slnx
 ## Требования
 
 - **Сборка:** .NET SDK 10 на машине учителя/разработчика.
-- **Ученические ПК:** **.NET 10 Desktop Runtime** (агент, сторож и служба публикуются
-  framework-dependent; рантайм ставится автоматически `install-agent.ps1`, офлайн-установщик
-  готовит `deploy\fetch-dotnet-runtime.ps1`). Клиент учителя — self-contained.
+- **Ученические ПК:** ничего ставить не нужно — сборка self-contained (рантайм .NET лежит рядом
+  с приложением). Сторож публикуется папкой (а не single-file), поэтому обновления весят сотни КБ.
 - Windows 10/11.
 
 ## Сборка
@@ -49,8 +48,8 @@ powershell -ExecutionPolicy Bypass -File .\build.ps1
 
 Результат:
 - `dist\agent` — автономный агент + сторож (`NetcServer.Agent.exe`, `NetcServer.Watchdog.exe`;
-  framework-dependent — на ПК нужен .NET 10 Desktop Runtime);
-- `dist\service` — служба `NetcServer.Service.exe` (опционально; framework-dependent);
+  self-contained, папкой — при обновлении копируются только изменённые файлы);
+- `dist\service` — служба `NetcServer.Service.exe` (опционально);
 - `dist\client` — `NetcClient.exe` (self-contained, single-file).
 
 Сборка приложения учителя для планшета Android:
@@ -71,9 +70,8 @@ powershell -ExecutionPolicy Bypass -File .\build-android.ps1
 powershell -ExecutionPolicy Bypass -File .\install-agent.ps1 -SharedKey "ваш-секрет"
 ```
 
-Скрипт: **сначала ставит .NET 10 Desktop Runtime** (если отсутствует — из локального установщика
-рядом или, если его нет, скачивает с сайта Microsoft), затем копирует файлы в `C:\Program Files\netc`,
-пишет `netc.json`, открывает порты
+Скрипт: останавливает прежние сторож и агент, копирует файлы в `C:\Program Files\netc`
+(зеркалированием), пишет `netc.json`, открывает порты
 (TCP 7801, 7803; UDP 7802), задаёт питание, добавляет автономный агент в автозапуск
 (`HKLM\...\Run\netc_agent`) и регистрирует службу-сторож **`netc_watchdog`**, которая держит
 агента запущенным в сессии ученика.

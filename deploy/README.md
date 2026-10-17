@@ -67,17 +67,9 @@ powershell -ExecutionPolicy Bypass -File C:\admin\files\deploy\DeployPc.ps1 -Tar
 
 Несколько ПК — через запятую: `-Targets "10.x.x.x,10.y.y.y"`.
 
-> Сборка **framework-dependent**: на ПК нужен **.NET 10 Desktop Runtime**. Один раз подготовьте
-> офлайн-установщик на ПК учителя:
-> ```
-> powershell -ExecutionPolicy Bypass -File C:\admin\files\deploy\fetch-dotnet-runtime.ps1
-> ```
-> Он попадёт в `dist\dotnet\` и будет разложен на ПК вместе с системой. Если установщика нет,
-> `install-agent.ps1` попробует скачать рантайм на самом ПК из интернета.
-
 Что делает `DeployPc.ps1`:
 1. проверяет доступность порта 445 и открывает SMB-сессию под `MNU`;
-2. копирует свежую сборку (`dist\agent`) и установщик рантайма (`dist\dotnet`) в `C:\netc_setup` на ПК;
+2. копирует свежую сборку (`dist\agent`, self-contained) в `C:\netc_setup` на ПК;
 3. создаёт **временную службу** `netc_setup_run`, которая запускает официальный
    `install-agent.ps1` **отсоединённым процессом** и пишет `install.done`/`install.log`
    (с повторами — на части ПК первый запуск службы «не заходит»);
@@ -90,8 +82,7 @@ powershell -ExecutionPolicy Bypass -File C:\admin\files\deploy\DeployPc.ps1 -Tar
 [10.90.5.153    ] done=True dll=97B6700E/97B6700E port7801=open watchdog=RUNNING restart=ok
 ```
 
-Что ставится: **.NET 10 Desktop Runtime** (если не установлен), файлы в `C:\Program Files\netc`,
-`netc.json` (`netc-default-key`, порты 7801/7802/7803),
+Что ставится: файлы в `C:\Program Files\netc`, `netc.json` (`netc-default-key`, порты 7801/7802/7803),
 правила брандмауэра netc, автозапуск в сессии (`HKLM\...\Run\netc_agent`), служба-сторож
 `netc_watchdog` (SYSTEM), отключение сна/гибернации.
 
@@ -145,9 +136,12 @@ powershell -ExecutionPolicy Bypass -File C:\admin\files\deploy\VerifyTestBuild.p
 
 ## Обновление уже установленных ПК (не добавление)
 
-Раскладка только DLL агента + перезапуск — `…\Temp\opencode\netc_deploy\TestFeatureRollout.ps1`
-(копирует `NetcServer.Agent.dll`/`Core.dll`/`NetcShared.dll`/`Watchdog.exe`, `sc stop/start netc_watchdog`,
-`restart-agent`). Проверка — `VerifyTestBuild.ps1`.
+Лёгкая раскатка прикладных файлов + перезапуск — `deploy\UpdateAgents.ps1`:
+```
+powershell -ExecutionPolicy Bypass -File C:\admin\files\deploy\UpdateAgents.ps1 -Targets "10.12.6.16,10.12.6.17"
+```
+Копирует агентские файлы и файлы сторожа (неизменившиеся пропускаются по хэшу), делает
+`sc stop/start netc_watchdog` и `restart-agent`. Проверка — `VerifyTestBuild.ps1`.
 
 ---
 

@@ -14,8 +14,7 @@ param(
     [string]$SharedKey = "netc-default-key",
     [int]$ControlPort = 7801,
     [int]$DiscoveryPort = 7802,
-    [int]$ScreenPort = 7803,
-    [string]$DotnetInstaller = ""
+    [int]$ScreenPort = 7803
 )
 
 $ErrorActionPreference = "Stop"
@@ -26,54 +25,32 @@ $Source = $Source.TrimEnd('\', '/')
 $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 if (-not $isAdmin) { throw "Запустите от имени администратора." }
 
-# --- .NET 10 Desktop Runtime: требуется framework-dependent сборке агента/сторожа ---
-function Test-DotnetDesktopInstalled {
-    $shared = Join-Path ${env:ProgramFiles} 'dotnet\shared\Microsoft.WindowsDesktop.App'
-    if (-not (Test-Path $shared)) { return $false }
-    return [bool](Get-ChildItem $shared -Directory -ErrorAction SilentlyContinue |
-        Where-Object { $_.Name -like '10.*' } | Select-Object -First 1)
-}
-
-function Resolve-DotnetInstaller {
-    if ($DotnetInstaller -and (Test-Path $DotnetInstaller)) { return $DotnetInstaller }
-    foreach ($d in @((Join-Path $Source 'dotnet'), $PSScriptRoot)) {
-        if (Test-Path $d) {
-            $f = Get-ChildItem $d -Filter 'windowsdesktop-runtime-*.exe' -ErrorAction SilentlyContinue |
-                Sort-Object Name -Descending | Select-Object -First 1
-            if ($f) { return $f.FullName }
-        }
-    }
-    return ''
-}
-
-function Ensure-DotnetDesktop {
-    if (Test-DotnetDesktopInstalled) { Write-Host ".NET 10 Desktop Runtime: уже установлен."; return }
-
-    $inst = Resolve-DotnetInstaller
-    if (-not $inst) {
-        $inst = Join-Path $env:TEMP 'windowsdesktop-runtime-10.0.13-win-x64.exe'
-        $url = 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/10.0.13/windowsdesktop-runtime-10.0.13-win-x64.exe'
-        Write-Host "Установщик .NET рядом не найден — скачиваю: $url"
-        Invoke-WebRequest -Uri $url -OutFile $inst -UseBasicParsing
-    }
-
-    Write-Host ("Установка .NET 10 Desktop Runtime: " + $inst)
-    $proc = Start-Process -FilePath $inst -ArgumentList '/install', '/quiet', '/norestart' -Wait -PassThru
-    Write-Host ("Код установщика .NET: " + $proc.ExitCode)
-    if (-not (Test-DotnetDesktopInstalled)) {
-        throw "Не удалось установить .NET 10 Desktop Runtime (код $($proc.ExitCode)). Установите рантайм вручную и повторите."
-    }
-}
-
-Ensure-DotnetDesktop
-
 $agentExe = Join-Path $Source "NetcServer.Agent.exe"
 if (-not (Test-Path $agentExe)) { throw "Не найден NetcServer.Agent.exe в $Source (сначала соберите build.ps1)." }
 
+# Останавливаем уже работающие сторож и агент: при переустановке поверх их файлы в InstallDir
+# заняты (NetcServer.Watchdog.exe/Agent.dll), и копирование иначе падает.
+if (Get-Service -Name "netc_watchdog" -ErrorAction SilentlyContinue) {
+    Stop-Service -Name "netc_watchdog" -Force -ErrorAction SilentlyContinue
+    # Ждём остановки и УДАЛЯЕМ службу: пока служба существует, её exe занят и копирование падает;
+    # удаление также не даёт ей перезапуститься во время копирования.
+    for ($i = 0; $i -lt 30; $i++) {
+        $s = Get-Service -Name "netc_watchdog" -ErrorAction SilentlyContinue
+        if (-not $s -or $s.Status -eq 'Stopped') { break }
+        Start-Sleep -Milliseconds 500
+    }
+    sc.exe delete netc_watchdog | Out-Null
+    Start-Sleep -Seconds 2
+}
+Get-Process -Name "NetcServer.Agent" -ErrorAction SilentlyContinue | ForEach-Object {
+    try { $_.Kill(); $_.WaitForExit(5000) } catch { }
+}
+Start-Sleep -Seconds 1
+
 New-Item -ItemType Directory -Path $InstallDir -Force | Out-Null
-# Копируем содержимое Source в InstallDir, кроме служебной папки `dotnet` (там может лежать
-# установщик рантайма — его в Program Files класть не нужно).
-robocopy $Source $InstallDir /E /XD dotnet /NFL /NDL /NJH /NJS /NP /R:1 /W:1 | Out-Null
+# Зеркалируем Source в InstallDir (/MIR): убирает файлы прошлых сборок (в т.ч. остатки другого
+# типа публикации) — иначе в папке может остаться лишнее.
+robocopy $Source $InstallDir /MIR /NFL /NDL /NJH /NJS /NP /R:1 /W:1 | Out-Null
 if ($LASTEXITCODE -ge 8) { throw "Копирование файлов в $InstallDir не удалось (robocopy rc=$LASTEXITCODE)." }
 
 $cfg = @{ sharedKey = $SharedKey; controlPort = $ControlPort; discoveryPort = $DiscoveryPort }
@@ -109,17 +86,33 @@ if (Test-Path $wdExe) {
     if (Get-Service -Name "netc_watchdog" -ErrorAction SilentlyContinue) {
         Stop-Service -Name "netc_watchdog" -Force -ErrorAction SilentlyContinue
         sc.exe delete netc_watchdog | Out-Null
-        Start-Sleep -Seconds 1
     }
-    New-Service -Name "netc_watchdog" -BinaryPathName ('"' + $wdExe + '"') `
-        -DisplayName "netc_watchdog (сторож агента)" -StartupType Automatic | Out-Null
-    try {
-        Start-Service -Name "netc_watchdog"
-        Write-Host "Сторожевая служба netc_watchdog запущена."
+    # Ждём исчезновения прежней службы: сразу после удаления она бывает «помечена на удаление»,
+    # и New-Service на то же имя падает.
+    for ($i = 0; $i -lt 30; $i++) {
+        if (-not (Get-Service -Name "netc_watchdog" -ErrorAction SilentlyContinue)) { break }
+        Start-Sleep -Milliseconds 500
     }
-    catch {
-        Write-Host ("Не удалось запустить netc_watchdog: " + $_.Exception.Message)
+    $created = $false
+    for ($i = 0; $i -lt 15 -and -not $created; $i++) {
+        try {
+            New-Service -Name "netc_watchdog" -BinaryPathName ('"' + $wdExe + '"') `
+                -DisplayName "netc_watchdog (сторож агента)" -StartupType Automatic -ErrorAction Stop | Out-Null
+            $created = $true
+        }
+        catch { Start-Sleep -Seconds 1 }
     }
+    if (-not $created) { throw "Не удалось создать службу netc_watchdog." }
+    # Дожидаемся RUNNING (Start-Service может вернуть раньше, чем служба реально поднимется).
+    try { Start-Service -Name "netc_watchdog" -ErrorAction SilentlyContinue } catch { }
+    $svcStatus = 'неизвестно'
+    for ($i = 0; $i -lt 60; $i++) {
+        $svc = Get-Service -Name "netc_watchdog" -ErrorAction SilentlyContinue
+        if ($svc) { $svcStatus = $svc.Status; if ($svc.Status -eq 'Running') { break } }
+        Start-Sleep -Milliseconds 500
+    }
+    if ($svcStatus -eq 'Running') { Write-Host "Сторожевая служба netc_watchdog запущена." }
+    else { Write-Host ("netc_watchdog: состояние " + $svcStatus) }
 }
 else {
     Write-Host "NetcServer.Watchdog.exe не найден — сторож не установлен."
