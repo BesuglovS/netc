@@ -21,6 +21,7 @@ netc.slnx
 │       └── set-power.ps1/.cmd / uninstall.ps1
 ├── netc_client/                      приложение учителя (WinForms)
 ├── netc_android/                     приложение учителя на планшете Android (.NET for Android)
+├── Directory.Build.props              единая версия комплекса (NetcVersion) для всех проектов
 ├── build.ps1                         публикация (self-contained single-file)
 └── build-android.ps1                 сборка APK учителя для планшета
 ```
