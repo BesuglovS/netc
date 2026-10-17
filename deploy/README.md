@@ -100,8 +100,9 @@ powershell -ExecutionPolicy Bypass -File C:\admin\files\deploy\DeployPc.ps1 -Tar
 ```
 powershell -ExecutionPolicy Bypass -File C:\admin\files\deploy\VerifyTestBuild.ps1 -Targets "все ip через запятую"
 ```
-Сверяет по каждому ПК: хэш `NetcServer.Agent.dll` = `dist\agent`, порт 7801, `netc_watchdog`.
-Итог `TOTAL ok: N/M`. Выключенные ПК печатаются как `OFFLINE` (это нормально).
+Сверяет по каждому ПК: хэши `NetcServer.Agent.dll`/`NetcServer.Core.dll` = `dist\agent`, порт 7801,
+состояние `netc_watchdog`. Работает **параллельно** (`-Throttle`, по умолчанию 24) — проход по классу
+занимает ~20–25 с (последовательно было ~8 мин). Итог `ok=N/M`; выключенные ПК — `OFFLINE` (норма).
 
 Дополнительно — в клиенте: `dist\client\NetcClient.exe` → «Обновить сведения» → появляются имя/пользователь/модель.
 
@@ -147,8 +148,13 @@ powershell -ExecutionPolicy Bypass -File C:\admin\files\deploy\VerifyTestBuild.p
 ```
 powershell -ExecutionPolicy Bypass -File C:\admin\files\deploy\UpdateAgents.ps1 -Targets "10.12.6.16,10.12.6.17"
 ```
-Копирует агентские файлы и файлы сторожа (неизменившиеся пропускаются по хэшу), делает
-`sc stop/start netc_watchdog` и `restart-agent`. Проверка — `VerifyTestBuild.ps1`.
+Копирует агентские файлы и файлы сторожа (изменившиеся определяются по хэшу), делает
+`sc stop/start netc_watchdog` **только если менялся код сторожа**, и `restart-agent`. Проверка — `VerifyTestBuild.ps1`.
+
+Работает **параллельно по ПК** (`-Throttle`, по умолчанию 6): медленный удалённый `sc.exe` (~21 с
+на ПК) перекрывается по нескольким машинам. Ориентиры: проход по 24 ПК «всё актуально» — ~15 с;
+полное обновление 24 ПК — ~1–2 мин (вместо ~10 мин последовательно). Журнал — с метками времени
+и фазовой разбивкой (`stop/copy/start/restart`).
 
 ---
 
