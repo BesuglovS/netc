@@ -21,6 +21,9 @@ netc.slnx
 │       └── set-power.ps1/.cmd / uninstall.ps1
 ├── netc_client/                      приложение учителя (WinForms)
 ├── netc_android/                     приложение учителя на планшете Android (.NET for Android)
+├── netc_tests/                       юнит-тесты (xUnit): подсчёт тестов, фильтр сайтов, AES-GCM, защита процессов
+├── tools/netc_lockwall/              раскладка картинок экрана блокировки по ПК
+├── deploy/                           скрипты развёртывания/проверки (секреты — deploy\secrets.psd1, не в git)
 ├── Directory.Build.props              единая версия комплекса (NetcVersion) для всех проектов
 ├── build.ps1                         публикация (агент/сторож self-contained папкой; клиент single-file)
 └── build-android.ps1                 сборка APK учителя для планшета
@@ -72,7 +75,7 @@ powershell -ExecutionPolicy Bypass -File .\install-agent.ps1 -SharedKey "ваш-
 
 Скрипт: останавливает прежние сторож и агент, копирует файлы в `C:\Program Files\netc`
 (зеркалированием), пишет `netc.json`, открывает порты
-(TCP 7801, 7803; UDP 7802), задаёт питание, добавляет автономный агент в автозапуск
+(TCP 7801; UDP 7802), задаёт питание, добавляет автономный агент в автозапуск
 (`HKLM\...\Run\netc_agent`) и регистрирует службу-сторож **`netc_watchdog`**, которая держит
 агента запущенным в сессии ученика.
 
@@ -87,7 +90,8 @@ powershell -ExecutionPolicy Bypass -File .\uninstall.ps1
 Актуально ставится **автономный агент + сторож** (`netc_watchdog`), а не служба `netc_server`.
 Полная пошаговая инструкция — **[`deploy/README.md`](deploy/README.md)**. Кратко:
 
-1. Добавить IPv4 в `ips.txt`, `dist\client\netc_pcs.txt` и `netc_client\MainForm.cs` (`DefaultAddresses`).
+1. Добавить IPv4 в `ips.txt` (формат `адрес|имя|модель`), `dist\client\netc_pcs.txt` и резервный
+   список `netc_client\MainForm.cs` (`DefaultPcs`).
 2. **Локально на новом ПК** один раз запустить `deploy\enable-remote-access.cmd` (от администратора):
    откроет SMB/ping и админ-доступ по сети, напечатает имя ПК и IPv4.
 3. **С ПК учителя**: `powershell -ExecutionPolicy Bypass -File deploy\DeployPc.ps1 -Targets "10.x.x.x"` —
@@ -150,12 +154,31 @@ powershell -ExecutionPolicy Bypass -File .\uninstall.ps1
 |---|---|---|
 | 7801 | TCP | управление (зашифровано AES-GCM) |
 | 7802 | UDP | обнаружение агентов |
-| 7803 | TCP | поток экрана (зарезервирован) |
+| 7803 | TCP | зарезервирован (не используется и не открывается) |
 | 7804 | TCP | локальный прокси-фильтр сайтов (только 127.0.0.1, слушает агент) |
 
 ## Безопасность
 
 Общий ключ (pre-shared) + AES-GCM на весь канал. Клиент без верного ключа отклоняется.
+
+- **Ключ по умолчанию `netc-default-key`** подходит только для настройки: клиент и установщик о нём
+  предупреждают. Для реальной защиты задайте свой ключ (`-SharedKey` при установке) и разложите его
+  на всех ПК класса.
+- **Секреты не хранятся в репозитории:** учётка для развёртывания — в `deploy\secrets.psd1`
+  (в `.gitignore`), пароли ключа подписи Android — в `netc_android\keystore.local.props` (в `.gitignore`),
+  сам `netc.keystore` исключён из git.
+- **Ограничение:** агент работает в сессии ученика, поэтому файл `netc.json` с общим ключом читаем
+  локальным пользователем — он может управлять своим ПК. Полная изоляция требует варианта
+  «служба + локальный канал» (`NetcServer.Service`), где ключ хранит служба.
+
+## Тесты
+
+```powershell
+dotnet test .\netc_tests\netc_tests.csproj
+```
+Покрыто: подсчёт баллов и типы вопросов (`TestScoring`), фильтр сайтов (`SiteFilterCore`),
+кадрирование/шифрование канала (`SecureChannel`), защищённые процессы (`ProcessGuard`),
+карантин общей автозагрузки.
 
 ## Текущий статус
 

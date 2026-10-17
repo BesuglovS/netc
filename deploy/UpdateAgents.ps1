@@ -1,5 +1,8 @@
 ﻿param(
-    [Parameter(Mandatory = $true)][string]$Targets
+    [Parameter(Mandatory = $true)][string]$Targets,
+    [string]$User,
+    [string]$Password,
+    [string]$SharedKey
 )
 # Лёгкое обновление УЖЕ установленных ПК: синхронизирует файлы приложения (агент + сторож).
 # Сборка self-contained, папкой — обновление весит сотни КБ (рантайм на ПК уже есть).
@@ -8,11 +11,16 @@
 # и установочные скрипты не затрагиваются). Последовательность: стоп сторожа -> копирование
 # (занятые файлы переименовываются в *.old) -> старт сторожа -> restart-agent (без перезагрузки).
 #
+# Учётка берётся из deploy\secrets.psd1 / переменных окружения / параметров (см. deploy\_common.ps1).
+#
 # Для установки на НОВЫЙ ПК (полная раскладка) используйте DeployPc.ps1.
 
 $ErrorActionPreference = "Continue"
+. (Join-Path $PSScriptRoot '_common.ps1')
+$cfg = Get-NetcDeployConfig -User $User -Password $Password -SharedKey $SharedKey
+$user = $cfg.User; $pass = $cfg.Password
+if (-not $user -or -not $pass) { throw "Не заданы учётные данные: заполните deploy\secrets.psd1 (см. secrets.example.psd1) или передайте -User/-Password." }
 $targetList = @($Targets.Split(',') | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne '' })
-$user = "MNU"; $pass = "***REMOVED-SECRET***"
 $src = 'C:\admin\files\dist\agent'
 $srcLen = $src.Length
 $noBom = New-Object System.Text.UTF8Encoding($false)

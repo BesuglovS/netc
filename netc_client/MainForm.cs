@@ -23,80 +23,47 @@ public sealed class MainForm : Form
         public string Mac = "";
     }
 
-    /// <summary>
-    /// Список ПК класса по умолчанию (порядок и адреса соответствуют файлу ips.txt;
-    /// имена R114-01…R114-24). Подставляется при первом запуске, когда список ещё не создан.
-    /// </summary>
-    private static readonly string[] DefaultAddresses =
-    {
-        "10.12.6.16",  // R114-01
-        "10.12.6.17",  // R114-02
-        "10.12.6.15",  // R114-03
-        "10.12.6.19",  // R114-04
-        "10.12.6.24",  // R114-05
-        "10.12.5.27",  // R114-06
-        "10.90.38.49", // R114-07
-        "10.90.9.49",  // R114-08
-        "10.90.3.153", // R114-09
-        "10.90.1.127", // R114-10
-        "10.90.3.38",  // R114-11
-        "10.90.1.236", // R114-12
-        "10.90.2.63",  // R114-13
-        "10.90.7.186", // R114-14
-        "10.12.6.13",  // R114-15
-        "10.12.6.14",  // R114-16
-        "10.12.6.10",  // R114-17
-        "10.90.0.85",  // R114-18
-        "10.12.6.12",  // R114-19
-        "10.90.5.108", // R114-20
-        "10.90.2.76",  // R114-21
-        "10.99.4.16",  // R114-22
-        "10.90.5.153", // R114-23
-        "10.90.3.39"   // R114-24
-    };
-
-    /// <summary>Имена ПК по умолчанию (соответствуют порядку ips.txt: R114-01…R114-24).</summary>
-    private static readonly Dictionary<string, string> DefaultNames = BuildDefaultNames();
-
-    private static Dictionary<string, string> BuildDefaultNames()
-    {
-        var map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        for (int i = 0; i < DefaultAddresses.Length; i++)
-            map[DefaultAddresses[i]] = "R114-" + (i + 1).ToString("00");
-        return map;
-    }
+    /// <summary>Резервные сведения о ПК класса (единственный источник в коде).</summary>
+    private sealed record DefaultPc(string Address, string Name, string Model);
 
     /// <summary>
-    /// Модели ПК по умолчанию — заполняют колонку «Модель» до первого «Обновить сведения»
-    /// (после подключения заменяются реальными данными агента). Инвентаризация — см. netc_PROGRESS.md §9.1.
+    /// Резервный список ПК (адрес, имя R114-NN, модель). Используется, только если рядом с exe нет
+    /// ни `netc_pcs.txt`, ни `ips.txt`. Раньше адреса/имена/модели дублировались в трёх массивах
+    /// и могли разойтись — теперь это одна таблица.
     /// </summary>
-    private static readonly Dictionary<string, string> DefaultModels = new(StringComparer.OrdinalIgnoreCase)
+    private static readonly DefaultPc[] DefaultPcs =
     {
-        ["10.12.6.16"]  = "Acer TravelMate P215-53", // R114-01
-        ["10.12.6.17"]  = "Acer TravelMate P215-53", // R114-02
-        ["10.12.6.15"]  = "Acer TravelMate P215-53", // R114-03
-        ["10.12.6.19"]  = "Acer TravelMate P215-53", // R114-04
-        ["10.12.6.24"]  = "Acer TravelMate P215-53", // R114-05
-        ["10.12.5.27"]  = "Acer TravelMate P215-53", // R114-06
-        ["10.90.38.49"] = "ICL RAYbook Bi1504",      // R114-07
-        ["10.90.9.49"]  = "ICL RAYbook Bi1504",      // R114-08
-        ["10.90.3.153"] = "ICL RAYbook Bi1504",      // R114-09
-        ["10.90.1.127"] = "ICL RAYbook Bi1504",      // R114-10
-        ["10.90.3.38"]  = "ICL RAYbook Bi1504",      // R114-11
-        ["10.90.1.236"] = "ICL RAYbook Bi1504",      // R114-12
-        ["10.90.2.63"]  = "ICL RAYbook Bi1504",      // R114-13
-        ["10.90.7.186"] = "ICL RAYbook Bi1504",      // R114-14
-        ["10.12.6.13"]  = "Acer TravelMate P215-53", // R114-15
-        ["10.12.6.14"]  = "Acer TravelMate P215-53", // R114-16
-        ["10.12.6.10"]  = "Acer TravelMate P215-53", // R114-17
-        ["10.90.0.85"]  = "Acer TravelMate P215-53", // R114-18
-        ["10.12.6.12"]  = "Acer TravelMate P215-53", // R114-19
-        ["10.90.5.108"] = "ICL RAYbook Si1507",      // R114-20
-        ["10.90.2.76"]  = "ICL RAYbook Bi1504",      // R114-21
-        ["10.99.4.16"]  = "ICL RAYbook Bi1504",      // R114-22
-        ["10.90.5.153"] = "ICL RAYbook Si159",       // R114-23
-        ["10.90.3.39"]  = "ICL RAYbook Bi1504"       // R114-24
+        new("10.12.6.16",  "R114-01", "Acer TravelMate P215-53"),
+        new("10.12.6.17",  "R114-02", "Acer TravelMate P215-53"),
+        new("10.12.6.15",  "R114-03", "Acer TravelMate P215-53"),
+        new("10.12.6.19",  "R114-04", "Acer TravelMate P215-53"),
+        new("10.12.6.24",  "R114-05", "Acer TravelMate P215-53"),
+        new("10.12.5.27",  "R114-06", "Acer TravelMate P215-53"),
+        new("10.90.38.49", "R114-07", "ICL RAYbook Bi1504"),
+        new("10.90.9.49",  "R114-08", "ICL RAYbook Bi1504"),
+        new("10.90.3.153", "R114-09", "ICL RAYbook Bi1504"),
+        new("10.90.1.127", "R114-10", "ICL RAYbook Bi1504"),
+        new("10.90.3.38",  "R114-11", "ICL RAYbook Bi1504"),
+        new("10.90.1.236", "R114-12", "ICL RAYbook Bi1504"),
+        new("10.90.2.63",  "R114-13", "ICL RAYbook Bi1504"),
+        new("10.90.7.186", "R114-14", "ICL RAYbook Bi1504"),
+        new("10.12.6.13",  "R114-15", "Acer TravelMate P215-53"),
+        new("10.12.6.14",  "R114-16", "Acer TravelMate P215-53"),
+        new("10.12.6.10",  "R114-17", "Acer TravelMate P215-53"),
+        new("10.90.0.85",  "R114-18", "Acer TravelMate P215-53"),
+        new("10.12.6.12",  "R114-19", "Acer TravelMate P215-53"),
+        new("10.90.5.108", "R114-20", "ICL RAYbook Si1507"),
+        new("10.90.2.76",  "R114-21", "ICL RAYbook Bi1504"),
+        new("10.99.4.16",  "R114-22", "ICL RAYbook Bi1504"),
+        new("10.90.5.153", "R114-23", "ICL RAYbook Si159"),
+        new("10.90.3.39",  "R114-24", "ICL RAYbook Bi1504")
     };
+
+    private static readonly string[] DefaultAddresses = DefaultPcs.Select(p => p.Address).ToArray();
+    private static readonly Dictionary<string, string> DefaultNames =
+        DefaultPcs.ToDictionary(p => p.Address, p => p.Name, StringComparer.OrdinalIgnoreCase);
+    private static readonly Dictionary<string, string> DefaultModels =
+        DefaultPcs.ToDictionary(p => p.Address, p => p.Model, StringComparer.OrdinalIgnoreCase);
 
     public MainForm()
     {
@@ -252,7 +219,7 @@ public sealed class MainForm : Form
 
     private void Log(string message)
     {
-        _log.AppendText(DateTime.Now.ToString("HH:mm:ss") + "  " + message + Environment.NewLine);
+        UiSafe.AppendBounded(_log, DateTime.Now.ToString("HH:mm:ss") + "  " + message + Environment.NewLine);
     }
 
     private void LoadAddresses()
@@ -291,20 +258,33 @@ public sealed class MainForm : Form
         catch { }
 
         // Первый запуск (список ещё не создан или пуст) — берём известные ПК класса:
-        // сначала ips.txt рядом с exe (единый источник с развёртыванием), иначе встроенный список.
+        // сначала ips.txt рядом с exe (единый источник с развёртыванием, допускает «адрес|имя|модель»),
+        // иначе встроенный список.
         if (!loaded)
         {
             var fromIps = TryReadIpsFile();
-            _addresses.AddRange(fromIps.Count > 0 ? fromIps : (IEnumerable<string>)DefaultAddresses);
+            if (fromIps.Count > 0)
+            {
+                foreach (var pc in fromIps)
+                {
+                    _addresses.Add(pc.Address);
+                    if (!string.IsNullOrWhiteSpace(pc.Name) || !string.IsNullOrWhiteSpace(pc.Model))
+                        _saved[pc.Address] = new SavedPc { Name = pc.Name, Model = pc.Model };
+                }
+            }
+            else
+            {
+                _addresses.AddRange(DefaultAddresses);
+            }
             SaveAddresses();
         }
     }
 
-    /// <summary>Читает адреса из ips.txt рядом с exe/в рабочем каталоге (по одному в строке;
-    /// строка формата «адрес|имя|модель|mac» — берётся только адрес).</summary>
-    private static List<string> TryReadIpsFile()
+    /// <summary>Читает ПК из ips.txt рядом с exe/в рабочем каталоге. Формат строки: «адрес»
+    /// либо «адрес|имя|модель|mac» (лишние поля игнорируются; строки с # или // пропускаются).</summary>
+    private static List<DefaultPc> TryReadIpsFile()
     {
-        var result = new List<string>();
+        var result = new List<DefaultPc>();
         try
         {
             foreach (var dir in new[] { AppContext.BaseDirectory, Directory.GetCurrentDirectory() })
@@ -315,9 +295,13 @@ public sealed class MainForm : Form
                 {
                     var t = line.Trim();
                     if (t.Length == 0 || t.StartsWith("#") || t.StartsWith("//")) continue;
-                    var addr = t.Split('|')[0].Trim();
-                    if (addr.Length > 0 && !result.Contains(addr, StringComparer.OrdinalIgnoreCase))
-                        result.Add(addr);
+                    var parts = t.Split('|');
+                    var addr = parts[0].Trim();
+                    if (addr.Length == 0) continue;
+                    if (result.Any(p => string.Equals(p.Address, addr, StringComparison.OrdinalIgnoreCase))) continue;
+                    result.Add(new DefaultPc(addr,
+                        parts.Length > 1 ? parts[1].Trim() : "",
+                        parts.Length > 2 ? parts[2].Trim() : ""));
                 }
                 if (result.Count > 0) break;
             }
@@ -334,9 +318,12 @@ public sealed class MainForm : Form
             foreach (var addr in _addresses)
             {
                 var row = FindRow(addr);
-                string name = row is null ? "" : (Convert.ToString(row.Cells[1].Value) ?? "");
-                string model = row is null ? "" : (Convert.ToString(row.Cells[3].Value) ?? "");
-                string mac = _macs.TryGetValue(addr, out var m) ? m : "";
+                _saved.TryGetValue(addr, out var sp);
+                string name = Convert.ToString(row?.Cells[1].Value) ?? "";
+                string model = Convert.ToString(row?.Cells[3].Value) ?? "";
+                if (name.Length == 0) name = sp?.Name ?? "";
+                if (model.Length == 0) model = sp?.Model ?? "";
+                string mac = _macs.TryGetValue(addr, out var m) ? m : (sp?.Mac ?? "");
                 // Если известны только адрес — пишем как раньше, иначе расширенную строку.
                 if (name.Length == 0 && model.Length == 0 && mac.Length == 0) lines.Add(addr);
                 else lines.Add(string.Join("|", addr, San(name), San(model), San(mac)));

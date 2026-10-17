@@ -1,12 +1,12 @@
-# --- Сборочные артефакты (.NET) ---
+# --- Сборка .NET ---
 [Bb]in/
 [Oo]bj/
 dist/
 
-# --- Артефакты установки/обновления «на живую» ---
+# --- Диагностика/резервные копии при обновлении ---
 *.old
 
-# --- IDE / пользовательские настройки ---
+# --- IDE ---
 .vs/
 *.user
 *.suo
@@ -16,9 +16,22 @@ dist/
 __pycache__/
 *.pyc
 
-# --- Собранные работы учеников (runtime-данные, не исходники) ---
+# --- Собранные работы (runtime-данные, не код) ---
 Сборы/
 
 # --- Windows ---
 Thumbs.db
 Desktop.ini
+
+# --- Секреты (НЕ коммитить) ---
+deploy/secrets.psd1
+netc_android/keystore/
+netc_android/keystore.local.props
+*.keystore
+*.apk
+*.pfx
+*.p12
+
+# --- Локальные runtime-данные ---
+netc_client/netc_pcs.txt
+*.log

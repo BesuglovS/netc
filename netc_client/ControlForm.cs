@@ -58,13 +58,7 @@ public sealed class ControlForm : Form
         };
         _client.ConnectionChanged += ok =>
         {
-            try
-            {
-                _status.BeginInvoke((Action)(() => _status.Text = ok
-                    ? "Подключено — можно управлять мышью и клавиатурой"
-                    : "Связь потеряна"));
-            }
-            catch { }
+            if (!ok) SetStatus("Связь потеряна — переподключение…");
         };
 
         _pic.MouseMove += (_, e) => SendMouse("move", e);
@@ -74,16 +68,51 @@ public sealed class ControlForm : Form
         KeyDown += (_, e) => SendKey(e, true);
         KeyUp += (_, e) => SendKey(e, false);
 
-        Shown += async (_, _) =>
-        {
-            try { await _client.StartScreenAsync(1280, 55, 5); }
-            catch (Exception ex) { _status.Text = "Ошибка подключения: " + ex.Message; }
-        };
+        Shown += (_, _) => _ = StreamLoopAsync();
         FormClosed += (_, _) => _client.Dispose();
 
         // Задаём после добавления контролов, иначе масштабируется только форма (наезды при высоком DPI).
         AutoScaleDimensions = new SizeF(96F, 96F);
         AutoScaleMode = AutoScaleMode.Dpi;
+    }
+
+    /// <summary>Поток экрана с авто-переподключением при обрыве.</summary>
+    private async Task StreamLoopAsync()
+    {
+        while (!IsDisposed)
+        {
+            var closed = new TaskCompletionSource();
+            void Handler(bool ok) { if (!ok) closed.TrySetResult(); }
+            _client.ConnectionChanged += Handler;
+            try
+            {
+                await _client.StartScreenAsync(1280, 55, 5);
+                SetStatus("Подключено — можно управлять мышью и клавиатурой");
+                if (!_client.IsConnected) closed.TrySetResult();
+                await closed.Task;
+            }
+            catch (Exception ex)
+            {
+                SetStatus("Нет связи: " + ex.Message + " — переподключение…");
+            }
+            finally { _client.ConnectionChanged -= Handler; }
+
+            if (IsDisposed) break;
+            try { await Task.Delay(3000); } catch { break; }
+        }
+    }
+
+    private void SetStatus(string text)
+    {
+        try
+        {
+            if (_status.IsDisposed) return;
+            if (_status.IsHandleCreated && _status.InvokeRequired)
+                _status.BeginInvoke((Action)(() => _status.Text = text));
+            else
+                _status.Text = text;
+        }
+        catch { }
     }
 
     private (int nx, int ny) Normalize(Point p)

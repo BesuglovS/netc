@@ -1,11 +1,20 @@
 ﻿param(
-    [Parameter(Mandatory = $true)][string]$Targets
+    [Parameter(Mandatory = $true)][string]$Targets,
+    [string]$User,
+    [string]$Password,
+    [string]$SharedKey
 )
 # Развёртывание netc на ПК: копирование сборки + установка официальным install-agent.ps1
 # через временную службу, запускающую установщик отсоединённым процессом (RPC не нужен).
+#
+# Учётка/ключ берутся из deploy\secrets.psd1, переменных окружения или параметров
+# (см. deploy\_common.ps1). В репозитории секретов нет.
 $ErrorActionPreference = "Continue"
+. (Join-Path $PSScriptRoot '_common.ps1')
+$cfg = Get-NetcDeployConfig -User $User -Password $Password -SharedKey $SharedKey
+$user = $cfg.User; $pass = $cfg.Password; $sharedKey = $cfg.SharedKey
+if (-not $user -or -not $pass) { throw "Не заданы учётные данные: заполните deploy\secrets.psd1 (см. secrets.example.psd1) или передайте -User/-Password." }
 $targetList = @($Targets.Split(',') | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne '' })
-$user = "MNU"; $pass = "***REMOVED-SECRET***"
 $src = 'C:\admin\files\dist\agent'
 $noBom = New-Object System.Text.UTF8Encoding($false)
 $svcName = 'netc_setup_run'
@@ -21,7 +30,7 @@ if (-not (Test-Path (Join-Path $stage 'NetcServer.Agent.exe'))) {
 $wrapper = @"
 @echo off
 echo wrapper-start > C:\netc_setup\wrapper.txt
-start "netc_setup" /min cmd /c "powershell -NoProfile -ExecutionPolicy Bypass -File C:\netc_setup\install-agent.ps1 -Source C:\netc_setup -SharedKey netc-default-key > C:\netc_setup\install.log 2>&1 & echo %ERRORLEVEL% > C:\netc_setup\install.done"
+start "netc_setup" /min cmd /c "powershell -NoProfile -ExecutionPolicy Bypass -File C:\netc_setup\install-agent.ps1 -Source C:\netc_setup -SharedKey "$sharedKey" > C:\netc_setup\install.log 2>&1 & echo %ERRORLEVEL% > C:\netc_setup\install.done"
 "@
 Set-Content -Path (Join-Path $stage 'run-install.cmd') -Value $wrapper -Encoding ASCII
 $srcHash = (Get-FileHash (Join-Path $src 'NetcServer.Agent.dll')).Hash.Substring(0, 8)

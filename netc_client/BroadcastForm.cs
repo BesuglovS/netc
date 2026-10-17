@@ -67,9 +67,14 @@ public sealed class BroadcastForm : Form
 
         _targets = TargetsHelper.AddTargetsBar(this, targets);
 
-        FormClosing += async (_, _) =>
+        // Синхронное закрытие: async-обработчик FormClosing не ожидается WinForms, поэтому форма
+        // успевала закрыться до отправки BroadcastStop. Достаточно отменить цикл и закрыть
+        // соединения — агент снимает оверлеи сам, когда отключается владелец (TcpControlServer).
+        FormClosing += (_, _) =>
         {
-            await StopBroadcastAsync();
+            try { _cts?.Cancel(); } catch { }
+            try { _cts?.Dispose(); } catch { }
+            _cts = null;
             DisposeConnections();
         };
 

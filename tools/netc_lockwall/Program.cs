@@ -14,7 +14,12 @@ string dir = args.Length > 0 && !args[0].StartsWith("--") ? args[0] : @"C:\admin
 string ipsFile = args.Length > 1 && !args[1].StartsWith("--") ? args[1] : @"C:\admin\files\ips.txt";
 bool dry = args.Contains("--dry");
 
-var ips = File.ReadAllLines(ipsFile).Select(s => s.Trim()).Where(s => s.Length > 0).ToArray();
+var ips = File.ReadAllLines(ipsFile)
+    .Select(s => s.Trim())
+    .Where(s => s.Length > 0 && !s.StartsWith('#') && !s.StartsWith("//"))
+    .Select(s => s.Split('|')[0].Trim())   // допускаем формат «адрес|имя|модель»
+    .Where(s => s.Length > 0)
+    .ToArray();
 string[] exts = { ".jpg", ".jpeg", ".png", ".bmp" };
 var imgs = Directory.GetFiles(dir)
     .Where(f => exts.Contains(Path.GetExtension(f).ToLowerInvariant()))

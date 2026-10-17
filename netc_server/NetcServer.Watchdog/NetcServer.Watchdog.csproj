@@ -17,4 +17,8 @@
     <ProjectReference Include="..\..\netc_shared\NetcShared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="netc_tests" />
+  </ItemGroup>
+
 </Project>

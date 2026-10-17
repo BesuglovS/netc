@@ -9,10 +9,17 @@
 
 ## 0. Предпосылки
 
-- На новом ПК есть **локальный администратор**; в этом классе это учётка **`MNU` / `***REMOVED-SECRET***`**
-  (используется для установки/обновления; локальная, не доменная).
+- На новом ПК есть **локальный администратор** (используется для установки/обновления; локальная, не доменная).
+  Учётки и общий ключ задаются в `deploy\secrets.psd1` (шаблон — `secrets.example.psd1`); секреты в
+  репозиторий не коммитятся.
 - Новый ПК в сети класса (`10.12.6.x`, `10.90.x`, `10.99.x`), Wi-Fi или Ethernet.
 - С ПК учителя доступны нужные подсети (для 10.90.x/10.99.x маршрут через `10.12.1.1`).
+
+### Настройка доступа к ПК (один раз)
+
+Скопируйте `secrets.example.psd1` в `deploy\secrets.psd1` и заполните `User`/`Password`/`SharedKey`.
+Либо передавайте их параметрами (`-User`, `-Password`, `-SharedKey`) или переменными окружения
+(`NETC_DEPLOY_USER`, `NETC_DEPLOY_PASSWORD`, `NETC_SHARED_KEY`).
 
 ---
 
@@ -20,9 +27,9 @@
 
 | Файл | Что добавить |
 |---|---|
-| `C:\admin\files\ips.txt` | строку с IPv4 нового ПК |
+| `C:\admin\files\ips.txt` | строку `адрес\|R114-NN\|модель` нового ПК (обратно совместимо: только адрес тоже читается) |
 | `C:\admin\files\dist\client\netc_pcs.txt` | то же (список клиента; читается при запуске) |
-| `C:\admin\files\netc_client\MainForm.cs` → `DefaultAddresses` | адрес + комментарий `// R114-NN` (для чистой установки клиента) |
+| `C:\admin\files\netc_client\MainForm.cs` → `DefaultPcs` | адрес + имя + модель (резервный список для чистой установки клиента) |
 
 Нумерация — по порядку строк в `ips.txt` (R114-01…). Если имя ПК не `R114-NN`, ориентируйтесь на
 реальный IPv4 и `hostname` (их печатает скрипт из шага 2).
@@ -82,9 +89,9 @@ powershell -ExecutionPolicy Bypass -File C:\admin\files\deploy\DeployPc.ps1 -Tar
 [10.90.5.153    ] done=True dll=97B6700E/97B6700E port7801=open watchdog=RUNNING restart=ok
 ```
 
-Что ставится: файлы в `C:\Program Files\netc`, `netc.json` (`netc-default-key`, порты 7801/7802/7803),
-правила брандмауэра netc, автозапуск в сессии (`HKLM\...\Run\netc_agent`), служба-сторож
-`netc_watchdog` (SYSTEM), отключение сна/гибернации.
+Что ставится: файлы в `C:\Program Files\netc`, `netc.json` (общий ключ, порты 7801/7802 —
+порт 7803 не используется и не открывается), правила брандмауэра netc, автозапуск в сессии
+(`HKLM\...\Run\netc_agent`), служба-сторож `netc_watchdog` (SYSTEM), отключение сна/гибернации.
 
 ---
 
@@ -151,10 +158,14 @@ powershell -ExecutionPolicy Bypass -File C:\admin\files\deploy\UpdateAgents.ps1 
 |---|---|
 | `deploy\enable-remote-access.cmd` / `.ps1` | ЛОКАЛЬНО на новом ПК: открыть SMB/ping + админ-доступ, напечатать имя+IP |
 | `deploy\fix-remote-admin.cmd` | ЛОКАЛЬНО: только политики доступа (`ForceGuest`, `LocalAccountTokenFilterPolicy`) |
+| `deploy\_common.ps1` | общий разбор учётки/ключа для скриптов развёртывания |
+| `deploy\secrets.psd1` | ЛОКАЛЬНО (не коммитится): учётка и общий ключ; шаблон — `secrets.example.psd1` |
 | `deploy\DeployPc.ps1` | с ПК учителя: разложить и установить агент + сторож |
+| `deploy\UpdateAgents.ps1` | с ПК учителя: лёгкое обновление уже установленных ПК |
 | `deploy\VerifyTestBuild.ps1` | с ПК учителя: сверить хэш/порт/службу по списку ПК |
 | `dist\agent` | сборка агента (источник для развёртывания) |
-| `dist\agent_setup` | тот же набор + `install.cmd` (локальная установка) |
+| `dist\agent_setup` | тот же набор + `install.cmd` (локальная установка); создаётся `build.ps1` |
 | `dist\client\NetcClient.exe`, `netc_pcs.txt` | клиент учителя и его список ПК |
-| `ips.txt` | общий список адресов класса |
+| `ips.txt` | общий список ПК класса (`адрес\|имя\|модель`) |
+| `netc_tests\` | юнит-тесты (`dotnet test netc_tests`) |
 | `netc_PROGRESS.md` | журнал работ по проекту |

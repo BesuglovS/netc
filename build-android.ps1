@@ -7,7 +7,7 @@
 
 [CmdletBinding()]
 param(
-    [string]$Dotnet = "C:\Users\NexTouch\.dotnet\dotnet.exe",
+    [string]$Dotnet,
     [ValidateSet("Debug", "Release")][string]$Configuration = "Release",
 
     # Серийный номер планшета (adb devices). Пусто — единственное подключённое устройство.
@@ -19,7 +19,20 @@ param(
 
 $ErrorActionPreference = "Stop"
 $root = $PSScriptRoot
-if (-not (Test-Path $Dotnet)) { throw "Не найден dotnet: $Dotnet" }
+
+# Поиск dotnet: параметр -> %USERPROFILE%\.dotnet -> %DOTNET_ROOT% -> Program Files -> PATH.
+if (-not $Dotnet) {
+    $try = @()
+    if ($env:USERPROFILE) { $try += (Join-Path $env:USERPROFILE '.dotnet\dotnet.exe') }
+    if ($env:DOTNET_ROOT) { $try += (Join-Path $env:DOTNET_ROOT 'dotnet.exe') }
+    if ($env:ProgramFiles) { $try += (Join-Path $env:ProgramFiles 'dotnet\dotnet.exe') }
+    $Dotnet = $try | Where-Object { Test-Path $_ } | Select-Object -First 1
+    if (-not $Dotnet) {
+        $cmd = Get-Command dotnet -ErrorAction SilentlyContinue
+        if ($cmd) { $Dotnet = $cmd.Source }
+    }
+}
+if (-not $Dotnet -or -not (Test-Path $Dotnet)) { throw "Не найден dotnet. Укажите -Dotnet <путь к dotnet.exe>." }
 
 Write-Host "Сборка netc_android ($Configuration)…"
 & $Dotnet build (Join-Path $root "netc_android\NetcAndroid.csproj") -c $Configuration

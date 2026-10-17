@@ -110,21 +110,29 @@ public sealed class ScreenWallForm : Form
     {
         while (!IsDisposed)
         {
+            // Подписываемся на обрыв ДО подключения: иначе быстрый разрыв сразу после хендшейка
+            // останется незамеченным и плитка «застынет» навсегда.
+            var closed = new TaskCompletionSource();
+            void Handler(bool ok) { if (!ok) closed.TrySetResult(); }
+            client.ConnectionChanged += Handler;
             try
             {
                 await client.StartScreenAsync(320, 40, 1);
                 SetCaption(lbl, Caption(addr));
 
-                // Ждём обрыва соединения, затем переподключаемся.
-                var closed = new TaskCompletionSource();
-                void Handler(bool ok) { if (!ok) closed.TrySetResult(); }
-                client.ConnectionChanged += Handler;
-                try { await closed.Task; } finally { client.ConnectionChanged -= Handler; }
+                // Подключение могло упасть между StartScreen и проверкой — не ждём событие вечно.
+                if (!client.IsConnected) closed.TrySetResult();
+                await closed.Task;
             }
             catch
             {
                 SetCaption(lbl, Caption(addr) + " — нет связи");
             }
+            finally
+            {
+                client.ConnectionChanged -= Handler;
+            }
+
             if (IsDisposed) break;
             try { await Task.Delay(3000); } catch { break; }
         }

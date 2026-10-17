@@ -31,6 +31,28 @@ public static class UiSafe
         catch { /* форма закрыта во время операции */ }
     }
 
+    /// <summary>Добавляет текст в лог и обрезает его, чтобы длительная работа не «съедала» память.</summary>
+    public static void AppendBounded(TextBox? box, string text, int maxChars = 200_000)
+    {
+        if (box is null || box.IsDisposed || box.Disposing) return;
+        try
+        {
+            if (box.IsHandleCreated && box.InvokeRequired)
+            {
+                box.BeginInvoke((Action)(() => AppendBounded(box, text, maxChars)));
+                return;
+            }
+            box.AppendText(text);
+            if (box.TextLength > maxChars)
+            {
+                box.Text = box.Text[(box.TextLength - maxChars / 2)..];
+                box.SelectionStart = box.TextLength;
+                box.ScrollToCaret();
+            }
+        }
+        catch { /* форма закрыта во время операции */ }
+    }
+
     /// <summary>Выполняет действие над контролом, если он ещё существует и не уничтожен.</summary>
     public static void IfAlive(Control? control, Action action)
     {

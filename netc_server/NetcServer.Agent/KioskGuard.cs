@@ -25,6 +25,7 @@ public static class KioskGuard
     private static List<string> _prevNames = new();
     private static bool _hadTaskMgr;
     private static object? _prevTaskMgr;
+    private static bool _taskMgrApplied;
 
     /// <summary>Включить киоск для указанного окна (вызывать из UI-потока).</summary>
     public static void Enable(Form target)
@@ -36,7 +37,6 @@ public static class KioskGuard
             _target = target;
             return;
         }
-        Enabled = true;
 
         // Предохранитель для локальной отладки: не захватывать машину разработчика.
         if (Environment.GetEnvironmentVariable("NETC_TEST_NOKIOSK") == "1")
@@ -45,6 +45,7 @@ public static class KioskGuard
             return;
         }
 
+        Enabled = true;
         _target = target;
 
         try { CatchKeys(); } catch { }
@@ -59,7 +60,7 @@ public static class KioskGuard
     /// <summary>Выключить киоск и вернуть прежние настройки (вызывать из UI-потока).</summary>
     public static void Disable()
     {
-        if (!Enabled && _hook == IntPtr.Zero) { return; }
+        if (!Enabled) return;
         Enabled = false;
         _target = null;
 
@@ -84,15 +85,28 @@ public static class KioskGuard
 
         try
         {
-            using var k = Registry.CurrentUser.OpenSubKey(PolicyPath, writable: true);
-            if (k is not null && k.GetValue("DisableTaskMgr") is not null)
+            // Снимаем DisableTaskMgr, ТОЛЬКО если его ставили мы (маркер сохраняется при включении
+            // киоска). Иначе можно было бы удалить политику, заданную администратором ПК.
+            string? prev = ReadTaskMgrMarker();
+            if (prev is not null)
             {
-                try { k.DeleteValue("DisableTaskMgr", throwOnMissingValue: false); } catch { }
+                try
+                {
+                    using var k = Registry.CurrentUser.OpenSubKey(PolicyPath, writable: true);
+                    if (k is not null)
+                    {
+                        if (prev.Length == 0) k.DeleteValue("DisableTaskMgr", throwOnMissingValue: false);
+                        else if (int.TryParse(prev, out int v)) k.SetValue("DisableTaskMgr", v, RegistryValueKind.DWord);
+                    }
+                }
+                catch { }
+                ClearTaskMgrMarker();
                 AgentJournal.Add("test", "Киоск: восстановлен доступ к диспетчеру задач после перезапуска агента");
             }
         }
         catch { }
 
+        _taskMgrApplied = false;
         Enabled = false;
         _target = null;
     }
@@ -268,6 +282,30 @@ public static class KioskGuard
 
     private const string PolicyPath = @"Software\Microsoft\Windows\CurrentVersion\Policies\System";
 
+    /// <summary>Служебный маркер: помним, что DisableTaskMgr поставили именно мы (для корректного отката).</summary>
+    private const string StatePath = @"Software\netc";
+    private const string TaskMgrMarker = "KioskTaskMgrPrev";
+
+    private static string? ReadTaskMgrMarker()
+    {
+        try
+        {
+            using var st = Registry.CurrentUser.OpenSubKey(StatePath);
+            return st?.GetValue(TaskMgrMarker) as string;
+        }
+        catch { return null; }
+    }
+
+    private static void ClearTaskMgrMarker()
+    {
+        try
+        {
+            using var st = Registry.CurrentUser.OpenSubKey(StatePath, writable: true);
+            st?.DeleteValue(TaskMgrMarker, throwOnMissingValue: false);
+        }
+        catch { }
+    }
+
     private static void BlockTaskManager(bool block)
     {
         if (block)
@@ -277,13 +315,25 @@ public static class KioskGuard
             _prevTaskMgr = k.GetValue("DisableTaskMgr");
             _hadTaskMgr = _prevTaskMgr is not null;
             k.SetValue("DisableTaskMgr", 1, RegistryValueKind.DWord);
+
+            using var st = Registry.CurrentUser.CreateSubKey(StatePath);
+            st?.SetValue(TaskMgrMarker, _hadTaskMgr ? (Convert.ToString(_prevTaskMgr) ?? "") : "",
+                RegistryValueKind.String);
+            _taskMgrApplied = true;
         }
         else
         {
+            // Снимаем только то, что поставили сами (если Enable не выполнялся — не трогаем политику).
+            if (!_taskMgrApplied) return;
+            _taskMgrApplied = false;
+
             using var k = Registry.CurrentUser.OpenSubKey(PolicyPath, writable: true);
-            if (k is null) return;
-            if (_hadTaskMgr) k.SetValue("DisableTaskMgr", _prevTaskMgr!, RegistryValueKind.DWord);
-            else { try { k.DeleteValue("DisableTaskMgr", throwOnMissingValue: false); } catch { } }
+            if (k is not null)
+            {
+                if (_hadTaskMgr) k.SetValue("DisableTaskMgr", _prevTaskMgr!, RegistryValueKind.DWord);
+                else { try { k.DeleteValue("DisableTaskMgr", throwOnMissingValue: false); } catch { } }
+            }
+            ClearTaskMgrMarker();
         }
     }
 

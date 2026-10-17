@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>NetcTests</RootNamespace>
+    <AssemblyName>netc_tests</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\netc_shared\NetcShared.csproj" />
+    <ProjectReference Include="..\netc_server\NetcServer.Core\NetcServer.Core.csproj" />
+    <ProjectReference Include="..\netc_server\NetcServer.Watchdog\NetcServer.Watchdog.csproj" />
+  </ItemGroup>
+
+</Project>

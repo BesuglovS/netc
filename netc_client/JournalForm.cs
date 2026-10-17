@@ -95,7 +95,7 @@ public sealed class JournalForm : Form
         {
             foreach (var r in results)
             {
-                if (!string.IsNullOrEmpty(r)) _text.AppendText(r);
+                if (!string.IsNullOrEmpty(r)) UiSafe.AppendBounded(_text, r);
             }
             _text.SelectionStart = _text.TextLength;
             _text.ScrollToCaret();

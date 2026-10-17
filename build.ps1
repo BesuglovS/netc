@@ -9,13 +9,26 @@
 
 [CmdletBinding()]
 param(
-    [string]$Dotnet = "C:\Users\NexTouch\.dotnet\dotnet.exe",
+    [string]$Dotnet,
     [string]$Runtime = "win-x64"
 )
 
 $ErrorActionPreference = "Stop"
 $root = $PSScriptRoot
-if (-not (Test-Path $Dotnet)) { throw "Не найден dotnet: $Dotnet" }
+
+# Поиск dotnet: параметр -> %USERPROFILE%\.dotnet -> %DOTNET_ROOT% -> Program Files -> PATH.
+if (-not $Dotnet) {
+    $try = @()
+    if ($env:USERPROFILE) { $try += (Join-Path $env:USERPROFILE '.dotnet\dotnet.exe') }
+    if ($env:DOTNET_ROOT) { $try += (Join-Path $env:DOTNET_ROOT 'dotnet.exe') }
+    if ($env:ProgramFiles) { $try += (Join-Path $env:ProgramFiles 'dotnet\dotnet.exe') }
+    $Dotnet = $try | Where-Object { Test-Path $_ } | Select-Object -First 1
+    if (-not $Dotnet) {
+        $cmd = Get-Command dotnet -ErrorAction SilentlyContinue
+        if ($cmd) { $Dotnet = $cmd.Source }
+    }
+}
+if (-not $Dotnet -or -not (Test-Path $Dotnet)) { throw "Не найден dotnet. Укажите -Dotnet <путь к dotnet.exe>." }
 
 $base = @("-c", "Release", "-r", $Runtime, "--self-contained", "true")
 
@@ -37,6 +50,21 @@ Write-Host "Публикация сторожевой службы (self-contain
 
 Write-Host "Публикация клиента учителя (self-contained, single-file)…"
 & $Dotnet publish (Join-Path $root "netc_client\NetcClient.csproj") @base -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o (Join-Path $root "dist\client")
+
+# Пакет локальной установки (для ПК без сети/удалённого доступа): свежая сборка + install-скрипты.
+Write-Host "Сборка пакета локальной установки (dist\agent_setup)…"
+$setup = Join-Path $root "dist\agent_setup"
+Remove-Item $setup -Recurse -Force -ErrorAction SilentlyContinue
+New-Item -ItemType Directory -Force -Path $setup | Out-Null
+& robocopy (Join-Path $root "dist\agent") $setup /E /NFL /NDL /NJH /NJS /NP /R:1 /W:1 | Out-Null
+$install = Join-Path $root "netc_server\install"
+foreach ($f in @("install-agent.ps1", "install.cmd", "set-power.ps1", "set-power.cmd", "uninstall.ps1")) {
+    $p = Join-Path $install $f
+    if (Test-Path $p) { Copy-Item $p $setup -Force }
+}
+# К списку ПК (если он есть рядом с клиентом) — кладём и в пакет установки, чтобы он был единым источником.
+$ipsSrc = Join-Path $root "ips.txt"
+if (Test-Path $ipsSrc) { Copy-Item $ipsSrc $setup -Force }
 
 Write-Host ""
 Write-Host "Готово: $root\dist" -ForegroundColor Green

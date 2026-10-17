@@ -167,7 +167,8 @@ namespace ControlWorksCollector.Services
             File.WriteAllText(ConfigFile, json);
         }
 
-        /// <summary>Читает список адресов из текстового файла (по одному в строке; # и // — комментарии).</summary>
+        /// <summary>Читает список адресов из текстового файла (по одному в строке; # и // — комментарии).
+        /// Поддерживается и расширенный формат «адрес|имя|модель|mac» — берётся только адрес.</summary>
         public static List<string> LoadComputerList(string path)
         {
             List<string> list = new List<string>();
@@ -182,7 +183,11 @@ namespace ControlWorksCollector.Services
                 {
                     continue;
                 }
-                list.Add(line);
+                string addr = line.Split('|')[0].Trim();
+                if (addr.Length > 0)
+                {
+                    list.Add(addr);
+                }
             }
             return list;
         }

@@ -124,10 +124,17 @@ public sealed class MachinePersonalizationWorker : BackgroundService
         if (string.Equals(req.Action, "restart-agent", StringComparison.OrdinalIgnoreCase))
         {
             // Активация новой сборки без перезагрузки: убить агента — WatchdogWorker поднимет свежий.
+            // Завершаем только агента активной (ученической) сессии, чтобы не трогать другие сеансы.
+            uint active = SessionLauncher.GetActiveSessionId();
             int n = 0;
             foreach (var p in Process.GetProcessesByName("NetcServer.Agent"))
             {
-                try { p.Kill(); n++; }
+                try
+                {
+                    if (active != 0xFFFFFFFF && active != 0 && (uint)p.SessionId != active) continue;
+                    p.Kill();
+                    n++;
+                }
                 catch { }
                 finally { p.Dispose(); }
             }

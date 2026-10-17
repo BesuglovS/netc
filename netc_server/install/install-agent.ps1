@@ -56,11 +56,14 @@ if ($LASTEXITCODE -ge 8) { throw "Копирование файлов в $Instal
 $cfg = @{ sharedKey = $SharedKey; controlPort = $ControlPort; discoveryPort = $DiscoveryPort }
 ($cfg | ConvertTo-Json) | Set-Content -Path (Join-Path $InstallDir "netc.json") -Encoding UTF8
 Write-Host "Конфигурация записана: netc.json"
+if ($SharedKey -eq "netc-default-key") {
+    Write-Warning "Используется ключ по умолчанию «netc-default-key». Для реальной защиты задайте свой ключ (-SharedKey) и разложите его на всех ПК класса."
+}
 
-# Брандмауэр (отдельное правило на каждый порт — -LocalPort принимает массив)
+# Брандмауэр (отдельное правило на каждый порт — -LocalPort принимает массив).
+# Порт 7803 (ScreenPort) не открываем: поток экрана идёт по 7801, слушателя на 7803 нет.
 $rules = @(
     @{ n = "netc_server TCP 7801"; proto = "TCP"; ports = @($ControlPort) },
-    @{ n = "netc_server TCP 7803"; proto = "TCP"; ports = @($ScreenPort) },
     @{ n = "netc_server UDP 7802"; proto = "UDP"; ports = @($DiscoveryPort) }
 )
 foreach ($r in $rules) {
@@ -68,6 +71,13 @@ foreach ($r in $rules) {
         New-NetFirewallRule -DisplayName $r.n -Direction Inbound -Action Allow -Protocol $r.proto -LocalPort $r.ports -Profile Any | Out-Null
         Write-Host ("Правило брандмауэра: " + $r.n)
     }
+}
+# Убираем устаревшее правило 7803 и конфликтующую старую службу netc_server (если остались от прежних сборок).
+Get-NetFirewallRule -DisplayName "netc_server TCP 7803" -ErrorAction SilentlyContinue | Remove-NetFirewallRule -ErrorAction SilentlyContinue
+if (Get-Service -Name "netc_server" -ErrorAction SilentlyContinue) {
+    Stop-Service -Name "netc_server" -Force -ErrorAction SilentlyContinue
+    sc.exe delete netc_server | Out-Null
+    Write-Host "Удалена старая служба netc_server."
 }
 
 # Питание: не отключать дисплей и не уходить в сон (от сети)

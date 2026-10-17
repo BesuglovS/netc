@@ -708,7 +708,7 @@ arm64-v8a, 2136×3200, плотность 440). APK собирается под 
   регрессий нет (единый код сети для ПК и Android).
 - **`build-android.ps1`** — сборка/установка APK (в UTF-8 с BOM); `dist\android\NetcAndroid.apk`.
 - **`netc_android/README.md`**, **`README.md`** — инструкции/структура.
-- Ключ подписи: `netc_android\keystore\netc.keystore` (alias `netc`, пароль `***REMOVED-SECRET***`).
+- Ключ подписи: `netc_android\keystore\netc.keystore` (alias `netc`; пароли — в `keystore.local.props`, он в `.gitignore`).
 
 ### Среда (уже настроена, переустанавливать не нужно)
 - workload `android` **36.1.118** установлен (`dotnet workload install android`);
@@ -926,6 +926,50 @@ R114-01 возвращён на self-contained (после эксперимен�
 
 ---
 
+## 0.16 Сессия 17.10.2026 — аудит: исправление ошибок, безопасность, тесты, документация
+
+Сборка `dotnet build netc.slnx -c Release` — 0 ошибок/предупреждений; `dotnet test netc_tests` — 38/38.
+
+**Безопасность:**
+- Секреты вынесены из репозитория: учётка развёртывания — `deploy\secrets.psd1` (в `.gitignore`,
+  шаблон `secrets.example.psd1`, разбор в `deploy\_common.ps1`); пароли ключа подписи Android —
+  `netc_android\keystore.local.props` (в `.gitignore`, шаблон `.example`); `netc.keystore` убран из git
+  (`git rm --cached`). Из `deploy\README.md`, `netc_PROGRESS.md` и `install.cmd` пароль/ключ удалены.
+- `install-agent.ps1` предупреждает о ключе по умолчанию; `DeployPc.ps1` больше не форсит
+  `netc-default-key` (ключ из secrets/параметра). Порт 7803 (без слушателя) больше не открывается,
+  старое правило удаляется; при установке снимается прежняя служба `netc_server`, при удалении —
+  `netc_setup_run` и временные каталоги.
+
+**Ошибки (код):**
+1. `ScreenClient`: `ConnectAsync` не «текает» при сбое (Stop в catch); добавлен `EnsureConnectedAsync`
+   (не рвёт живое соединение) — им пользуются журнал/тест/файлы/персонализация/автозагрузка/закрытие окон.
+2. `ScreenWallForm`: подписка на обрыв **до** подключения + проверка `IsConnected` — плитка больше
+   не «застывает». `ControlForm`: авто-переподключение и безопасное обновление статуса.
+3. `BroadcastForm`: синхронное закрытие (не `async void` FormClosing).
+4. `KioskGuard`: `Disable` не трогает чужую политику `DisableTaskMgr`; маркер в `HKCU\Software\netc`
+   позволяет корректно восстановиться после падения; `NETC_TEST_NOKIOSK` больше не снимает киоск «мимо».
+5. `AppControl.Sweep`: только процессы **сессии ученика** (не трогаем других пользователей/систему);
+   из «браузеров» убран `launcher`.
+6. `DiscoveryResponder`: занятый UDP-порт логируется, а не роняет задачу молча.
+7. `Personalization.Store`: не теряет источник (в т.ч. если он уже в нашем каталоге).
+8. `MachinePersonalizationWorker.restart-agent`: завершает агента только активной сессии; ядро карантина
+   доступно тестам (`InternalsVisibleTo`).
+9. Клиент: логи ограничены по размеру (`UiSafe.AppendBounded`); резервный список ПК — единая таблица
+   `DefaultPcs`; `ips.txt` поддерживает `адрес|имя|модель` (и клиент, и `netc_lockwall`, и
+   `ControlWorksCollector` — обратно совместимо).
+
+**DX/артефакты:** `build.ps1`/`build-android.ps1` сами находят `dotnet`; `build.ps1` собирает
+`dist\agent_setup` (сборка + install-скрипты + `ips.txt`); добавлен юнит-тест-проект `netc_tests`
+(xUnit: `TestScoring`, `SiteFilterCore`, `SecureChannel`, `ProcessGuard`, карантин); версия `NetcVersion`
+поднята до 1.1.0.
+
+**Осознанно не менялось:** `NetcCrypto.DeriveKey` (смена KDF ломает совместимость с уже установленными
+агентами — требует плановой раскатки); подпись запросов «агент→сторож» (локальный пользователь всё равно
+читает общий ключ из `netc.json` — реальная защита только в варианте «служба+канал»). Крупные фичи
+(ручная проверка эссе, обновление агентов из клиента, группы, расписание) остаются в плане «Далее».
+
+---
+
 ## 1. Что это и структура
 
 - **`netc_server`** — устанавливается на ученические ПК.
@@ -1137,7 +1181,7 @@ dotnet run --project <test> -- <ip1> <ip2> ...
 
 ## 8. Реквизиты и адресация
 
-- Админ-учётка учеников: **MNU / ***REMOVED-SECRET*****
+- Админ-учётка учеников: см. `deploy\secrets.psd1` (в репозитории не хранится)
 - Общий ключ протокола: **netc-default-key** (`netc.json`)
 - Локальная учётка ученика: **student / student** (автовход включён)
 - Имена ПК: **R114-01…R114-24** (по порядку файла `C:\admin\files\ips.txt`)
@@ -1276,6 +1320,6 @@ powershell -ExecutionPolicy Bypass -File C:\admin\files\build.ps1
 C:\Users\NexTouch\.dotnet\dotnet.exe C:\admin\files\netc_server\NetcServer.Agent\bin\Debug\net10.0-windows\NetcServer.Agent.dll
 
 # копирование агента на ПК (пример)
-net use \\10.12.6.16\IPC$ /user:10.12.6.16\MNU "***REMOVED-SECRET***"
+net use \\10.12.6.16\IPC$ /user:10.12.6.16\MNU "<пароль из deploy\secrets.psd1>"
 robocopy C:\agent \\10.12.6.16\C$\agent /MIR /R:1 /W:1 /NFL /NDL /NJH /NJS /NP
 ```

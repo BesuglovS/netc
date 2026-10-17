@@ -21,8 +21,7 @@ public static class AppControl
     /// <summary>Процессы, которые завершаем при включении блокировки интернета.</summary>
     public static readonly string[] BrowserNames =
     {
-        "chrome", "msedge", "firefox", "opera", "brave", "yandex", "browser", "iexplore",
-        "launcher", "vivaldi"
+        "chrome", "msedge", "firefox", "opera", "brave", "yandex", "browser", "iexplore", "vivaldi"
     };
 
     public static void SetPolicy(AppControlMode mode, IEnumerable<string> names)
@@ -65,10 +64,22 @@ public static class AppControl
         lock (Gate) { mode = _mode; names = _names; }
         if (mode == AppControlMode.Off) return;
 
+        int selfPid = Environment.ProcessId;
+        int selfSession;
+        try { selfSession = Process.GetCurrentProcess().SessionId; } catch { return; }
+
         foreach (var p in Process.GetProcesses())
         {
             try
             {
+                if (p.Id == selfPid) continue;
+
+                // Только процессы сессии ученика: иначе в белом списке можно случайно закрыть
+                // приложения другого пользователя или системные процессы из других сессий.
+                int session;
+                try { session = p.SessionId; } catch { continue; }
+                if (session != selfSession) continue;
+
                 string name = Normalize(p.ProcessName);
                 if (name.Length == 0 || name == "idle" || name == "system") continue;
 

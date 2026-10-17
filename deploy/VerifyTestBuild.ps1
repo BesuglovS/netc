@@ -1,9 +1,14 @@
 ﻿param(
-    [Parameter(Mandatory = $true)][string]$Targets
+    [Parameter(Mandatory = $true)][string]$Targets,
+    [string]$User,
+    [string]$Password
 )
 $ErrorActionPreference = "Continue"
+. (Join-Path $PSScriptRoot '_common.ps1')
+$cfg = Get-NetcDeployConfig -User $User -Password $Password
+$user = $cfg.User; $pass = $cfg.Password
+if (-not $user -or -not $pass) { throw "Не заданы учётные данные: заполните deploy\secrets.psd1 (см. secrets.example.psd1) или передайте -User/-Password." }
 $targetList = @($Targets.Split(',') | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne '' })
-$user = "MNU"; $pass = "***REMOVED-SECRET***"
 $srcHash = (Get-FileHash 'C:\admin\files\dist\agent\NetcServer.Agent.dll').Hash.Substring(0, 8)
 
 Write-Host ("dist reference hash: " + $srcHash)

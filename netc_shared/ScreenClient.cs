@@ -72,25 +72,42 @@ public sealed class ScreenClient : IDisposable
         _cts = new CancellationTokenSource();
         CancellationToken ct = _cts.Token;
 
-        _tcp = new TcpClient();
-        await _tcp.ConnectAsync(_host, _port, ct);
-        _tcp.NoDelay = true;
-        _channel = new SecureChannel(_tcp.GetStream(), _key);
-
-        await _channel.SendAsync(MsgType.Hello, Json.ToBytes(new HelloMessage
+        try
         {
-            Version = NetcProtocol.Version,
-            ClientName = Environment.MachineName
-        }), ct);
+            _tcp = new TcpClient();
+            await _tcp.ConnectAsync(_host, _port, ct);
+            _tcp.NoDelay = true;
+            _channel = new SecureChannel(_tcp.GetStream(), _key);
 
-        var ack = await _channel.ReceiveAsync(ct);
-        if (ack is null || ack.Value.Type != MsgType.HelloAck)
+            await _channel.SendAsync(MsgType.Hello, Json.ToBytes(new HelloMessage
+            {
+                Version = NetcProtocol.Version,
+                ClientName = Environment.MachineName
+            }), ct);
+
+            var ack = await _channel.ReceiveAsync(ct);
+            if (ack is null || ack.Value.Type != MsgType.HelloAck)
+            {
+                throw new InvalidOperationException("агент не ответил (неверный ключ?)");
+            }
+        }
+        catch
         {
-            throw new InvalidOperationException("агент не ответил (неверный ключ?)");
+            // Не оставляем «повисшие» сокет/CTS при неудачном подключении (ретраи к выключенным ПК).
+            Stop();
+            throw;
         }
 
         _receiveLoop = ReceiveLoopAsync(ct);
         ConnectionChanged?.Invoke(true);
+    }
+
+    /// <summary>Гарантирует живое соединение, НЕ разрывая уже установленное
+    /// (в отличие от <see cref="ConnectAsync"/>, который всегда пересоздаёт канал).</summary>
+    public async Task EnsureConnectedAsync()
+    {
+        if (IsConnected) return;
+        await ConnectAsync();
     }
 
     public async Task StartScreenAsync(int maxWidth, int quality, int fps)
@@ -129,7 +146,7 @@ public sealed class ScreenClient : IDisposable
     /// <summary>Запросить журнал агента.</summary>
     public async Task<List<JournalEntry>?> RequestJournalAsync(int timeoutMs, CancellationToken ct)
     {
-        await ConnectAsync();
+        await EnsureConnectedAsync();
         var tcs = new TaskCompletionSource<List<JournalEntry>>(TaskCreationOptions.RunContinuationsAsynchronously);
         lock (_fileGate) _journalTcs = tcs;
 
@@ -144,7 +161,7 @@ public sealed class ScreenClient : IDisposable
     /// <summary>Отправить тест и дождаться результата (timeoutMs = 0 — без ограничения времени).</summary>
     public async Task<TestResult?> SendTestAsync(TestDefinition test, int timeoutMs, CancellationToken ct)
     {
-        await ConnectAsync();
+        await EnsureConnectedAsync();
         var tcs = new TaskCompletionSource<TestResult>(TaskCreationOptions.RunContinuationsAsynchronously);
         lock (_fileGate) _testTcs = tcs;
 
@@ -165,7 +182,7 @@ public sealed class ScreenClient : IDisposable
     /// <summary>Применить персонализацию (картинки уже должны быть переданы на ПК).</summary>
     public async Task<PersonalizationResult?> ApplyPersonalizationAsync(PersonalizationMessage msg, int timeoutMs, CancellationToken ct)
     {
-        if (!IsConnected) await ConnectAsync();
+        await EnsureConnectedAsync();
 
         var tcs = new TaskCompletionSource<PersonalizationResult>(TaskCreationOptions.RunContinuationsAsynchronously);
         lock (_fileGate) _persTcs = tcs;
@@ -181,7 +198,7 @@ public sealed class ScreenClient : IDisposable
     /// <summary>Проверить/вычистить автозагрузку ученика.</summary>
     public async Task<AutostartReport?> ScanAutostartAsync(bool quarantine, int timeoutMs, CancellationToken ct)
     {
-        if (!IsConnected) await ConnectAsync();
+        await EnsureConnectedAsync();
 
         var tcs = new TaskCompletionSource<AutostartReport>(TaskCreationOptions.RunContinuationsAsynchronously);
         lock (_fileGate) _autoTcs = tcs;
@@ -197,7 +214,7 @@ public sealed class ScreenClient : IDisposable
     /// <summary>Закрыть все окна и приложения на ПК и дождаться результата.</summary>
     public async Task<CloseAppsResult?> CloseAppsAsync(CloseAppsMessage req, int timeoutMs, CancellationToken ct)
     {
-        await ConnectAsync();
+        await EnsureConnectedAsync();
 
         var tcs = new TaskCompletionSource<CloseAppsResult>(TaskCreationOptions.RunContinuationsAsynchronously);
         lock (_fileGate) _closeTcs = tcs;
@@ -213,7 +230,7 @@ public sealed class ScreenClient : IDisposable
     /// <summary>Отправить файл на ученический ПК и дождаться подтверждения.</summary>
     public async Task<FileResult> SendFileAsync(string localPath, int timeoutMs, CancellationToken ct)
     {
-        await ConnectAsync();
+        await EnsureConnectedAsync();
         var fi = new FileInfo(localPath);
         var tcs = new TaskCompletionSource<FileResult>(TaskCreationOptions.RunContinuationsAsynchronously);
         lock (_fileGate) _outTcs = tcs;
@@ -241,7 +258,7 @@ public sealed class ScreenClient : IDisposable
     /// <summary>Запросить файл с ученического ПК и сохранить его в <paramref name="localDir"/>.</summary>
     public async Task<FileResult> RequestFileAsync(string remotePath, string localDir, int timeoutMs, CancellationToken ct)
     {
-        await ConnectAsync();
+        await EnsureConnectedAsync();
         var tcs = new TaskCompletionSource<FileResult>(TaskCreationOptions.RunContinuationsAsynchronously);
         lock (_fileGate) { _inTcs = tcs; _inDir = localDir; }
 

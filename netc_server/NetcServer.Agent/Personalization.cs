@@ -150,11 +150,35 @@ public static class Personalization
     private static string? Store(string source, string baseName)
     {
         if (!File.Exists(source)) return null;
+        string dir = Path.GetFullPath(StoreDir);
         string ext = Path.GetExtension(source);
-        string dir = StoreDir;
-        foreach (var old in Directory.GetFiles(dir, baseName + ".*")) { try { File.Delete(old); } catch { } }
         string dst = Path.Combine(dir, baseName + ext);
-        File.Copy(source, dst, overwrite: true);
+        string srcFull = Path.GetFullPath(source);
+        string dstFull = Path.GetFullPath(dst);
+
+        // Повторное применение того же файла (источник уже наш сохранённый) — оставляем как есть.
+        if (string.Equals(srcFull, dstFull, StringComparison.OrdinalIgnoreCase)) return dst;
+
+        // Копируем во временный файл и подменяем — источник не теряется, даже если он в нашем каталоге.
+        string tmp = dst + ".tmp";
+        File.Copy(source, tmp, overwrite: true);
+        foreach (var old in Directory.GetFiles(dir, baseName + ".*"))
+        {
+            // Маска «baseName.*» в Windows матчит лишнее — фильтруем по реальному префиксу.
+            if (!Path.GetFileName(old).StartsWith(baseName + ".", StringComparison.OrdinalIgnoreCase)) continue;
+            string of = Path.GetFullPath(old);
+            if (string.Equals(of, dstFull, StringComparison.OrdinalIgnoreCase)) continue;
+            if (string.Equals(of, srcFull, StringComparison.OrdinalIgnoreCase)) continue;
+            try { File.Delete(old); } catch { }
+        }
+        File.Move(tmp, dst, overwrite: true);
+
+        // Если источник был нашим прежним файлом (другое расширение) — убираем его.
+        if (!string.Equals(srcFull, dstFull, StringComparison.OrdinalIgnoreCase)
+            && string.Equals(Path.GetDirectoryName(srcFull), dir, StringComparison.OrdinalIgnoreCase))
+        {
+            try { File.Delete(srcFull); } catch { }
+        }
         return dst;
     }
 

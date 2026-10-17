@@ -16,15 +16,16 @@
     <NoWarn>$(NoWarn);CA1416;CA1422</NoWarn>
   </PropertyGroup>
 
-  <!-- Release: подпись собственным ключом, без AOT (System.Text.Json использует рефлексию). -->
+  <!-- Release: подпись собственным ключом, без AOT (System.Text.Json использует рефлексию).
+       Пароли хранилища/ключа — НЕ в репозитории: файл keystore.local.props (см. .example), в .gitignore. -->
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <RunAOTCompilation>false</RunAOTCompilation>
     <AndroidKeyStore>true</AndroidKeyStore>
     <AndroidSigningKeyStore>keystore\netc.keystore</AndroidSigningKeyStore>
-    <AndroidSigningStorePass>***REMOVED-SECRET***</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>netc</AndroidSigningKeyAlias>
-    <AndroidSigningKeyPass>***REMOVED-SECRET***</AndroidSigningKeyPass>
   </PropertyGroup>
+
+  <Import Project="keystore.local.props" Condition="Exists('keystore.local.props')" />
 
   <ItemGroup>
     <ProjectReference Include="..\netc_shared\NetcShared.csproj" />
