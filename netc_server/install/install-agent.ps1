@@ -14,7 +14,8 @@ param(
     [string]$SharedKey = "netc-default-key",
     [int]$ControlPort = 7801,
     [int]$DiscoveryPort = 7802,
-    [int]$ScreenPort = 7803
+    [int]$ScreenPort = 7803,
+    [string]$DotnetInstaller = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -25,11 +26,55 @@ $Source = $Source.TrimEnd('\', '/')
 $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 if (-not $isAdmin) { throw "Запустите от имени администратора." }
 
+# --- .NET 10 Desktop Runtime: требуется framework-dependent сборке агента/сторожа ---
+function Test-DotnetDesktopInstalled {
+    $shared = Join-Path ${env:ProgramFiles} 'dotnet\shared\Microsoft.WindowsDesktop.App'
+    if (-not (Test-Path $shared)) { return $false }
+    return [bool](Get-ChildItem $shared -Directory -ErrorAction SilentlyContinue |
+        Where-Object { $_.Name -like '10.*' } | Select-Object -First 1)
+}
+
+function Resolve-DotnetInstaller {
+    if ($DotnetInstaller -and (Test-Path $DotnetInstaller)) { return $DotnetInstaller }
+    foreach ($d in @((Join-Path $Source 'dotnet'), $PSScriptRoot)) {
+        if (Test-Path $d) {
+            $f = Get-ChildItem $d -Filter 'windowsdesktop-runtime-*.exe' -ErrorAction SilentlyContinue |
+                Sort-Object Name -Descending | Select-Object -First 1
+            if ($f) { return $f.FullName }
+        }
+    }
+    return ''
+}
+
+function Ensure-DotnetDesktop {
+    if (Test-DotnetDesktopInstalled) { Write-Host ".NET 10 Desktop Runtime: уже установлен."; return }
+
+    $inst = Resolve-DotnetInstaller
+    if (-not $inst) {
+        $inst = Join-Path $env:TEMP 'windowsdesktop-runtime-10.0.13-win-x64.exe'
+        $url = 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/10.0.13/windowsdesktop-runtime-10.0.13-win-x64.exe'
+        Write-Host "Установщик .NET рядом не найден — скачиваю: $url"
+        Invoke-WebRequest -Uri $url -OutFile $inst -UseBasicParsing
+    }
+
+    Write-Host ("Установка .NET 10 Desktop Runtime: " + $inst)
+    $proc = Start-Process -FilePath $inst -ArgumentList '/install', '/quiet', '/norestart' -Wait -PassThru
+    Write-Host ("Код установщика .NET: " + $proc.ExitCode)
+    if (-not (Test-DotnetDesktopInstalled)) {
+        throw "Не удалось установить .NET 10 Desktop Runtime (код $($proc.ExitCode)). Установите рантайм вручную и повторите."
+    }
+}
+
+Ensure-DotnetDesktop
+
 $agentExe = Join-Path $Source "NetcServer.Agent.exe"
 if (-not (Test-Path $agentExe)) { throw "Не найден NetcServer.Agent.exe в $Source (сначала соберите build.ps1)." }
 
 New-Item -ItemType Directory -Path $InstallDir -Force | Out-Null
-Copy-Item (Join-Path $Source "*") $InstallDir -Recurse -Force
+# Копируем содержимое Source в InstallDir, кроме служебной папки `dotnet` (там может лежать
+# установщик рантайма — его в Program Files класть не нужно).
+robocopy $Source $InstallDir /E /XD dotnet /NFL /NDL /NJH /NJS /NP /R:1 /W:1 | Out-Null
+if ($LASTEXITCODE -ge 8) { throw "Копирование файлов в $InstallDir не удалось (robocopy rc=$LASTEXITCODE)." }
 
 $cfg = @{ sharedKey = $SharedKey; controlPort = $ControlPort; discoveryPort = $DiscoveryPort }
 ($cfg | ConvertTo-Json) | Set-Content -Path (Join-Path $InstallDir "netc.json") -Encoding UTF8

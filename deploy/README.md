@@ -67,9 +67,17 @@ powershell -ExecutionPolicy Bypass -File C:\admin\files\deploy\DeployPc.ps1 -Tar
 
 Несколько ПК — через запятую: `-Targets "10.x.x.x,10.y.y.y"`.
 
+> Сборка **framework-dependent**: на ПК нужен **.NET 10 Desktop Runtime**. Один раз подготовьте
+> офлайн-установщик на ПК учителя:
+> ```
+> powershell -ExecutionPolicy Bypass -File C:\admin\files\deploy\fetch-dotnet-runtime.ps1
+> ```
+> Он попадёт в `dist\dotnet\` и будет разложен на ПК вместе с системой. Если установщика нет,
+> `install-agent.ps1` попробует скачать рантайм на самом ПК из интернета.
+
 Что делает `DeployPc.ps1`:
 1. проверяет доступность порта 445 и открывает SMB-сессию под `MNU`;
-2. копирует свежую сборку (`dist\agent`, весь self-contained набор) в `C:\netc_setup` на ПК;
+2. копирует свежую сборку (`dist\agent`) и установщик рантайма (`dist\dotnet`) в `C:\netc_setup` на ПК;
 3. создаёт **временную службу** `netc_setup_run`, которая запускает официальный
    `install-agent.ps1` **отсоединённым процессом** и пишет `install.done`/`install.log`
    (с повторами — на части ПК первый запуск службы «не заходит»);
@@ -82,7 +90,8 @@ powershell -ExecutionPolicy Bypass -File C:\admin\files\deploy\DeployPc.ps1 -Tar
 [10.90.5.153    ] done=True dll=97B6700E/97B6700E port7801=open watchdog=RUNNING restart=ok
 ```
 
-Что ставится: файлы в `C:\Program Files\netc`, `netc.json` (`netc-default-key`, порты 7801/7802/7803),
+Что ставится: **.NET 10 Desktop Runtime** (если не установлен), файлы в `C:\Program Files\netc`,
+`netc.json` (`netc-default-key`, порты 7801/7802/7803),
 правила брандмауэра netc, автозапуск в сессии (`HKLM\...\Run\netc_agent`), служба-сторож
 `netc_watchdog` (SYSTEM), отключение сна/гибернации.
 

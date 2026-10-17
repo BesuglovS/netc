@@ -852,6 +852,53 @@ i-й ПК из `ips.txt` получает i-й файл из папки; есл�
 
 ---
 
+## 0.15 Сессия 17.10.2026 — правки аудита, git, единая версия, framework-dependent
+
+### Правки кода (`dotnet build netc.slnx -c Release` — 0 ошибок/предупреждений)
+1. `EncoderParameters` освобождается (`using`) — `NetcServer.Agent\ScreenCapture.cs`,
+   `netc_client\ClientScreenCapture.cs`.
+2. **Чистка общей «Автозагрузки» через сторожа.** Раньше общая папка «Автозагрузка» только
+   проверялась (ученик не может в неё писать). Новое действие сторожа **`quarantine-file`**
+   (`MachinePersonalization.Request.Action`): агент (`AutostartGuard`) для скриптов из общей
+   «Автозагрузки» просит сторожа перенести файл в карантин (`C:\ProgramData\netc\quarantine`).
+   Путь ограничен папкой общей автозагрузки и списком расширений скриптов (защита от подмены
+   запроса через общую папку обмена). Проверено мини-тестом — **9/9**.
+3. **Единая версия** — `Directory.Build.props` в корне: `NetcVersion` → `Version` для всех
+   проектов; Android `ApplicationDisplayVersion = $(NetcVersion)`; `PcInfoProvider` отдаёт
+   `AgentVersion = Assembly.GetName().Version.ToString(3)` → `"1.0.0"` (было `"1.0.0.0"`).
+   Отключено встраивание хэша git-коммита (`IncludeSourceRevisionInInformationalVersion=false`) —
+   иначе бинарники менялись бы при каждом коммите и рушилась сверка хэшей в `VerifyTestBuild.ps1`.
+
+### Git
+Репозиторий инициализирован (`C:\admin\files`). `.gitignore`: `bin/`, `obj/`, `dist/`, `*.old`,
+`__pycache__/`, `Сборы/` (собранные работы — runtime-данные). Сборка детерминирована (повторный
+publish даёт те же хэши).
+
+### Framework-dependent (агент, сторож, служба)
+`build.ps1` публикует **framework-dependent** (клиент учителя оставлен self-contained):
+- `dist\agent` — **2,95 МиБ** вместо 181 МиБ;
+- обновляемые 4 файла — **~2,7 МиБ** вместо 72,7 МиБ (сторож single-file: 72,4 → 2,5 МиБ).
+На ученических ПК требуется **.NET 10 Desktop Runtime**: `install-agent.ps1` ставит его
+автоматически (локальный установщик рядом `-DotnetInstaller`/папка `dotnet`, иначе скачивание);
+офлайн-установщик готовит `deploy\fetch-dotnet-runtime.ps1` (10.0.13, SHA-512 проверяется);
+`DeployPc.ps1` раскладывает его в `C:\netc_setup\dotnet`. **Внимание:** пока на ПК нет рантайма,
+framework-dependent сторож/агент не запустятся — нужна миграция (`DeployPc.ps1` по всем ПК).
+
+### Тесты
+- Ручной карантин общей «Автозагрузки» — мини-тест **9/9** (отказ: путь вне корня, `..`,
+  недопустимое расширение, пустой путь; перенос `.py`/`.bat`; неуникальные имена не перезаписываются).
+- Сборка решения и publish — 0 предупреждений; publish проверен в отдельной папке (не затрагивая `dist`).
+
+### Раскладка (текущий парк — self-contained сборка)
+- **Лок-скрины — 24/24** (донакатаны R114-10, 20, 21, 22, 24; инструмент `tools\netc_lockwall`).
+- **Обои по номеру 1–24 — 24/24** (инструмент `netc_wall`, temp).
+- **Self-contained сборка раскатана — 24/24** (`TestFeatureRollout.ps1` + `VerifyTestBuild.ps1`).
+
+### Word-документ
+`R114-computers.docx` (корень) — таблица 2 столбца (R114-01…24 ↔ IP-адрес), A4, 1 страница.
+
+---
+
 ## 1. Что это и структура
 
 - **`netc_server`** — устанавливается на ученические ПК.

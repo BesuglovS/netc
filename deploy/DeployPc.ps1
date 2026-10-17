@@ -17,10 +17,24 @@ if (-not (Test-Path (Join-Path $stage 'NetcServer.Agent.exe'))) {
     robocopy $src $stage /E /NFL /NDL /NJH /NJS /NP /R:1 /W:1 | Out-Null
     Copy-Item 'C:\admin\files\netc_server\install\install-agent.ps1' (Join-Path $stage 'install-agent.ps1') -Force
 }
+
+# Установщик .NET 10 Desktop Runtime (нужен framework-dependent сборке) — для офлайн-раскладки.
+$dotnetExe = Get-ChildItem 'C:\admin\files\dist\dotnet' -Filter 'windowsdesktop-runtime-*.exe' -ErrorAction SilentlyContinue |
+    Sort-Object Name -Descending | Select-Object -First 1
+if ($dotnetExe) {
+    New-Item -ItemType Directory -Force -Path (Join-Path $stage 'dotnet') | Out-Null
+    Copy-Item $dotnetExe.FullName (Join-Path $stage 'dotnet') -Force
+    Write-Host ("рантайм .NET для раскладки: " + $dotnetExe.Name)
+}
+else {
+    Write-Host "установщик .NET не найден в dist\dotnet — рантайм будет доустановлен на ПК из интернета"
+}
+
+$dnArg = if ($dotnetExe) { " -DotnetInstaller C:\netc_setup\dotnet\$($dotnetExe.Name)" } else { "" }
 $wrapper = @"
 @echo off
 echo wrapper-start > C:\netc_setup\wrapper.txt
-start "netc_setup" /min cmd /c "powershell -NoProfile -ExecutionPolicy Bypass -File C:\netc_setup\install-agent.ps1 -Source C:\netc_setup -SharedKey netc-default-key > C:\netc_setup\install.log 2>&1 & echo %ERRORLEVEL% > C:\netc_setup\install.done"
+start "netc_setup" /min cmd /c "powershell -NoProfile -ExecutionPolicy Bypass -File C:\netc_setup\install-agent.ps1 -Source C:\netc_setup -SharedKey netc-default-key$dnArg > C:\netc_setup\install.log 2>&1 & echo %ERRORLEVEL% > C:\netc_setup\install.done"
 "@
 Set-Content -Path (Join-Path $stage 'run-install.cmd') -Value $wrapper -Encoding ASCII
 $srcHash = (Get-FileHash (Join-Path $src 'NetcServer.Agent.dll')).Hash.Substring(0, 8)
@@ -59,7 +73,7 @@ foreach ($ip in $targetList) {
         Start-Sleep -Seconds 1
         & sc.exe "\\$ip" create $svcName binPath= "cmd.exe /c C:\netc_setup\run-install.cmd" start= demand type= own 2>&1 | Out-Null
         & sc.exe "\\$ip" start $svcName 2>&1 | Out-Null
-        for ($i = 0; $i -lt 60; $i++) { if (Test-Path (Join-Path $setup 'install.done')) { $done = $true; break }; Start-Sleep -Seconds 2 }
+        for ($i = 0; $i -lt 180; $i++) { if (Test-Path (Join-Path $setup 'install.done')) { $done = $true; break }; Start-Sleep -Seconds 2 }
         if ($done) { break }
         Write-Host ("[{0}] попытка {1} установки не удалась, повтор..." -f $ip, $attempt)
     }
