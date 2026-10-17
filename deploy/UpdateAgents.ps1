@@ -154,7 +154,12 @@ foreach ($ip in $targetList) {
         $need = $false
         if ($dl -lt 0) { $need = $true }
         elseif ($dl -ne $f.Length) { $need = $true }
-        elseif (Test-AppFile $f.Name -and (Get-FileHash $dst).Hash -ne (Get-FileHash $f.FullName).Hash) { $need = $true }
+        elseif (Test-AppFile $f.Name) {
+            # ВАЖНО: явный вложенный if. В комбинированном «Test-AppFile $f.Name -and (Get-FileHash ...)»
+            # PowerShell вычисляет Get-FileHash для КАЖДОГО файла и даёт ложные срабатывания
+            # (проверено: 80 с и 14 «изменений» вместо 2 с и 0).
+            if ((Get-FileHash $dst).Hash -ne (Get-FileHash $f.FullName).Hash) { $need = $true }
+        }
         if ($need) { if (Copy-One $f.FullName $dst) { $copied += $rel } else { $bad += $rel } }
     }
     $tCopy.Stop()
