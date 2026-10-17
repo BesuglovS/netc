@@ -6,7 +6,7 @@
     Агент отдаёт эту версию в PcInfo.AgentVersion — см. NetcServer.Core\PcInfoProvider.cs.
   -->
   <PropertyGroup>
-    <NetcVersion>1.2.0</NetcVersion>
+    <NetcVersion>1.1.0</NetcVersion>
     <Version>$(NetcVersion)</Version>
     <!-- Не встраивать хэш git-коммита в InformationalVersion: сборка должна быть
          воспроизводимой и не зависеть от состояния репозитория (важно для сверки хэшей в deploy). -->

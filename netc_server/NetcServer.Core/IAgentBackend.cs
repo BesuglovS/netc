@@ -70,7 +70,4 @@ public interface IAgentBackend
 
     /// <summary>Закрыть все пользовательские окна и приложения (при необходимости — принудительно).</summary>
     Task<CloseAppsResult> CloseAppsAsync(CloseAppsMessage req, CancellationToken ct);
-
-    /// <summary>Выключить/включить мониторы ученика (энергосбережение, без выключения ПК).</summary>
-    Task SetMonitorAsync(bool off, CancellationToken ct);
 }

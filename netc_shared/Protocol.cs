@@ -84,7 +84,6 @@ public enum MsgType : byte
     AutostartReport = 108,
     CloseApps = 109,
     CloseAppsAck = 110,
-    MonitorPower = 111,
     Error = 255
 }
 
@@ -455,13 +454,6 @@ public sealed class CloseAppsResult
     public int Forced { get; set; }
 
     public string Message { get; set; } = "";
-}
-
-/// <summary>Команда управления мониторами ученика: погасить/включить подсветку (без выключения ПК).</summary>
-public sealed class MonitorPowerMessage
-{
-    /// <summary>true — выключить мониторы (энергосбережение), false — включить.</summary>
-    public bool Off { get; set; } = true;
 }
 
 /// <summary>Сведения об ученическом ПК.</summary>

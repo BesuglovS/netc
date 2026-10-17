@@ -80,7 +80,4 @@ public sealed class PipeAgentBackend : IAgentBackend
 
     public Task<CloseAppsResult> CloseAppsAsync(CloseAppsMessage req, CancellationToken ct)
         => throw new NotSupportedException("Закрытие окон доступно только в автономном агенте.");
-
-    public Task SetMonitorAsync(bool off, CancellationToken ct)
-        => throw new NotSupportedException("Управление мониторами доступно только в автономном агенте.");
 }

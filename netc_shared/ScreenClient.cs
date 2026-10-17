@@ -126,7 +126,6 @@ public sealed class ScreenClient : IDisposable
     public Task SendBroadcastStopAsync() => SendAsync(MsgType.BroadcastStop, Array.Empty<byte>());
     public Task SendLockAsync(bool blank, string text) => SendAsync(MsgType.LockScreen, Json.ToBytes(new LockMessage { Blank = blank, Text = text }));
     public Task SendUnlockAsync() => SendAsync(MsgType.UnlockScreen, Array.Empty<byte>());
-    public Task SendMonitorAsync(bool off) => SendAsync(MsgType.MonitorPower, Json.ToBytes(new MonitorPowerMessage { Off = off }));
     public Task SendInputAsync(InputEvent ev) => SendAsync(MsgType.InputEvent, Json.ToBytes(ev));
 
     public Task SendPowerAsync(PowerAction action, int delaySeconds)
