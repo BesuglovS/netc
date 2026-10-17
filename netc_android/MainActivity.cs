@@ -69,6 +69,7 @@ public sealed class MainActivity : Activity
             ["screens"] = typeof(ScreensActivity),
             ["control"] = typeof(ControlActivity),
             ["power"] = typeof(PowerActivity),
+            ["monitor"] = typeof(MonitorActivity),
             ["message"] = typeof(MessageActivity),
             ["files"] = typeof(FilesActivity),
             ["restrictions"] = typeof(RestrictionsActivity),
@@ -123,6 +124,7 @@ public sealed class MainActivity : Activity
         bar.AddView(MakeButton("Экраны", OpenScreens));
         bar.AddView(MakeButton("Блокировка", () => StartActivity(typeof(LockActivity))));
         bar.AddView(MakeButton("Питание", () => StartActivity(typeof(PowerActivity))));
+        bar.AddView(MakeButton("Мониторы", () => StartActivity(typeof(MonitorActivity))));
         bar.AddView(MakeButton("Сообщение", () => StartActivity(typeof(MessageActivity))));
         bar.AddView(MakeButton("Файлы", () => StartActivity(typeof(FilesActivity))));
         bar.AddView(MakeButton("Ограничения", () => StartActivity(typeof(RestrictionsActivity))));

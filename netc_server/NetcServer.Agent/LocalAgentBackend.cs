@@ -269,6 +269,12 @@ public sealed class LocalAgentBackend : IAgentBackend
     public Task<CloseAppsResult> CloseAppsAsync(CloseAppsMessage req, CancellationToken ct)
         => WindowCloser.CloseAsync(req, ct);
 
+    public Task SetMonitorAsync(bool off, CancellationToken ct)
+    {
+        MonitorControl.Set(off);
+        return Task.CompletedTask;
+    }
+
     private static string Truncate(string? s, int max)
     {
         s ??= "";

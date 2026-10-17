@@ -298,6 +298,13 @@ public sealed class TcpControlServer
                             await SendAsync(channel, writeLock, MsgType.CloseAppsAck, Json.ToBytes(res), ct).ConfigureAwait(false);
                             break;
                         }
+
+                        case MsgType.MonitorPower:
+                        {
+                            var m = Json.FromBytes<MonitorPowerMessage>(msg.Value.Payload) ?? new MonitorPowerMessage();
+                            await _agent.SetMonitorAsync(m.Off, ct).ConfigureAwait(false);
+                            break;
+                        }
                     }
                 }
             }

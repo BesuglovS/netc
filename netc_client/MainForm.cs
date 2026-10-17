@@ -117,6 +117,8 @@ public sealed class MainForm : Form
         btnWake.Click += (_, _) => WakePcs();
         var btnCloseWin = MakeButton("Закрыть окна");
         btnCloseWin.Click += (_, _) => OpenCloseWindows();
+        var btnMonitor = MakeButton("Мониторы");
+        btnMonitor.Click += (_, _) => OpenMonitor();
 
         top.Controls.Add(btnDiscover);
         top.Controls.Add(btnRefresh);
@@ -133,6 +135,7 @@ public sealed class MainForm : Form
         top.Controls.Add(btnPers);
         top.Controls.Add(btnWake);
         top.Controls.Add(btnCloseWin);
+        top.Controls.Add(btnMonitor);
         top.Controls.Add(btnSettings);
 
         _grid = new DataGridView
@@ -585,6 +588,12 @@ public sealed class MainForm : Form
     {
         if (_addresses.Count == 0) { Log("Список ПК пуст — сначала добавьте или обнаружьте компьютеры."); return; }
         new CloseWindowsForm(BuildTargetSet(), _settings, _key).Show(this);
+    }
+
+    private void OpenMonitor()
+    {
+        if (_addresses.Count == 0) { Log("Список ПК пуст — сначала добавьте или обнаружьте компьютеры."); return; }
+        new MonitorForm(BuildTargetSet(), _settings, _key).Show(this);
     }
 
     /// <summary>Дистанционное включение (Wake-on-LAN) выбранных ПК.</summary>
