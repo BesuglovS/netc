@@ -8,6 +8,9 @@
   <PropertyGroup>
     <NetcVersion>1.0.0</NetcVersion>
     <Version>$(NetcVersion)</Version>
+    <!-- Не встраивать хэш git-коммита в InformationalVersion: сборка должна быть
+         воспроизводимой и не зависеть от состояния репозитория (важно для сверки хэшей в deploy). -->
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
   </PropertyGroup>
 
 </Project>
